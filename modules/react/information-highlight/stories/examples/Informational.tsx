@@ -1,7 +1,12 @@
 import {InformationHighlight} from '@workday/canvas-kit-react/information-highlight';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const containerStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: system.gap.sm,
+});
 
 const contentTextStyles = createStyles({
   margin: 0,
@@ -17,7 +22,7 @@ const contentListStyles = createStyles({
 
 export const Informational = () => {
   return (
-    <Flex cs={{gap: system.gap.sm, flexDirection: 'column'}}>
+    <div className={containerStyles}>
       <InformationHighlight variant={'informational'}>
         <InformationHighlight.Icon />
         <InformationHighlight.Heading> Informational Highlight </InformationHighlight.Heading>
@@ -50,6 +55,6 @@ export const Informational = () => {
         </InformationHighlight.Body>
         <InformationHighlight.Link href="#hyperlink">Learn More</InformationHighlight.Link>
       </InformationHighlight>
-    </Flex>
+    </div>
   );
 };
