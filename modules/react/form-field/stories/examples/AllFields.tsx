@@ -1,7 +1,6 @@
 import {RadioGroup} from '@workday/canvas-kit-preview-react/radio';
 import {Checkbox} from '@workday/canvas-kit-react/checkbox';
 import {FormField, FormFieldGroup} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Select} from '@workday/canvas-kit-react/select';
 import {Switch} from '@workday/canvas-kit-react/switch';
 import {TextArea} from '@workday/canvas-kit-react/text-area';
@@ -10,6 +9,7 @@ import {calc, createStyles} from '@workday/canvas-kit-styling';
 import {base, system} from '@workday/canvas-tokens-web';
 
 const parentContainerStyles = createStyles({
+  display: 'flex',
   flexDirection: 'column',
   gap: calc.subtract(system.gap.lg, system.gap.xs),
   padding: calc.subtract(base.size500, system.padding.xxs),
@@ -18,7 +18,7 @@ const parentContainerStyles = createStyles({
 
 export const AllFields = () => {
   return (
-    <Flex cs={parentContainerStyles}>
+    <div className={parentContainerStyles}>
       <FormField grow>
         <FormField.Label>First Name</FormField.Label>
         <FormField.Field>
@@ -107,6 +107,6 @@ export const AllFields = () => {
           <FormField.Input as={Switch} />
         </FormField.Field>
       </FormField>
-    </Flex>
+    </div>
   );
 };

@@ -1,8 +1,12 @@
 import React from 'react';
 
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {TextInput} from '@workday/canvas-kit-react/text-input';
+import {createStyles} from '@workday/canvas-kit-styling';
+
+const containerStyles = createStyles({
+  display: 'flex',
+});
 
 export const Grow = () => {
   const [value, setValue] = React.useState('');
@@ -12,11 +16,11 @@ export const Grow = () => {
   };
 
   return (
-    <Flex>
+    <div className={containerStyles}>
       <FormField grow>
         <FormField.Label>First Name</FormField.Label>
         <FormField.Input as={TextInput} value={value} onChange={handleChange} />
       </FormField>
-    </Flex>
+    </div>
   );
 };
