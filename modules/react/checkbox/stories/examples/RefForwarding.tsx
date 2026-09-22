@@ -3,11 +3,11 @@ import React from 'react';
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
 import {Checkbox} from '@workday/canvas-kit-react/checkbox';
 import {changeFocus} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 const containerStyles = createStyles({
+  display: 'flex',
   gap: system.gap.md,
   alignItems: 'flex-start',
   flexDirection: 'column',
@@ -26,9 +26,9 @@ export const RefForwarding = () => {
   };
 
   return (
-    <Flex cs={containerStyles}>
+    <div className={containerStyles}>
       <Checkbox checked={checked} label="I agree to the terms" onChange={handleChange} ref={ref} />
       <PrimaryButton onClick={handleClick}>Focus Checkbox</PrimaryButton>
-    </Flex>
+    </div>
   );
 };
