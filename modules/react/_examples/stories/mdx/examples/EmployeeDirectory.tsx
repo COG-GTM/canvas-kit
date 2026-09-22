@@ -8,6 +8,7 @@ import {
   getLastPage,
   getVisibleResultsMax,
   getVisibleResultsMin,
+  usePaginationModel,
 } from '@workday/canvas-kit-react/pagination';
 import {Select} from '@workday/canvas-kit-react/select';
 import {Table} from '@workday/canvas-kit-react/table';
@@ -148,9 +149,12 @@ const detailDescriptionStyles = createStyles({
   margin: system.space.zero,
 });
 
+const dialogHeadingStyles = createStyles({
+  paddingBlockStart: system.padding.md,
+});
+
 export const EmployeeDirectory = () => {
   const [department, setDepartment] = React.useState(departments[0]);
-  const [currentPage, setCurrentPage] = React.useState(1);
 
   const filtered =
     department === departments[0]
@@ -159,12 +163,14 @@ export const EmployeeDirectory = () => {
 
   const totalCount = filtered.length;
   const lastPage = getLastPage(resultsPerPage, totalCount);
-  const page = Math.min(currentPage, lastPage);
+
+  const model = usePaginationModel({lastPage});
+  const page = model.state.currentPage;
   const visible = filtered.slice((page - 1) * resultsPerPage, page * resultsPerPage);
 
   const handleDepartmentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDepartment(event.target.value);
-    setCurrentPage(1);
+    model.events.goTo(1);
   };
 
   return (
@@ -215,9 +221,7 @@ export const EmployeeDirectory = () => {
                   <Dialog.Popper>
                     <Dialog.Card>
                       <Dialog.CloseIcon aria-label="Close" />
-                      <Dialog.Heading cs={{paddingBlockStart: system.padding.md}}>
-                        {employee.name}
-                      </Dialog.Heading>
+                      <Dialog.Heading cs={dialogHeadingStyles}>{employee.name}</Dialog.Heading>
                       <Dialog.Body>
                         <dl className={detailListStyles}>
                           <Text as="dt" cs={detailTermStyles}>
@@ -265,12 +269,7 @@ export const EmployeeDirectory = () => {
       </Table>
 
       <div className={footerStyles}>
-        <Pagination
-          aria-label="Employee directory pagination"
-          lastPage={lastPage}
-          initialCurrentPage={page}
-          onPageChange={setCurrentPage}
-        >
+        <Pagination aria-label="Employee directory pagination" model={model}>
           <Pagination.Controls>
             <Pagination.StepToPreviousButton aria-label="Previous" />
             <Pagination.PageList>
