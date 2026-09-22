@@ -3,7 +3,6 @@ import React from 'react';
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
 import {useUniqueId} from '@workday/canvas-kit-react/common';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   Popup,
   useCloseOnEscape,
@@ -27,6 +26,7 @@ const bodyStyles = createStyles({
 });
 
 const columnStyles = createStyles({
+  display: 'flex',
   gap: system.gap.md,
   alignItems: 'flex-start',
 });
@@ -135,10 +135,10 @@ const InitialFocusOnHeading = () => {
 
 export const InitialFocus = () => {
   return (
-    <Flex cs={columnStyles}>
+    <div className={columnStyles}>
       <InitialFocusOnButton />
       <InitialFocusOnTextInput />
       <InitialFocusOnHeading />
-    </Flex>
+    </div>
   );
 };

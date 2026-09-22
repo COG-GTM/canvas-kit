@@ -1,5 +1,4 @@
 import {DeleteButton} from '@workday/canvas-kit-react/button';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {
   Popup,
   useCloseOnEscape,
@@ -40,9 +39,9 @@ export const Basic = () => {
           <Popup.CloseIcon aria-label="Close" />
           <Popup.Heading>Delete Item</Popup.Heading>
           <Popup.Body>
-            <Box as="p" cs={bodyStyles}>
+            <p className={bodyStyles}>
               Are you sure you'd like to delete the item titled 'My Item'?
-            </Box>
+            </p>
           </Popup.Body>
           <Popup.ButtonGroup>
             <Popup.CloseButton>Cancel</Popup.CloseButton>

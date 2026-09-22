@@ -1,6 +1,5 @@
 import {SecondaryButton, TertiaryButton} from '@workday/canvas-kit-react/button';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   Popup,
   useCloseOnEscape,
@@ -26,6 +25,16 @@ const containerStyles = createStyles({
   },
 });
 
+const formFieldStyles = createStyles({
+  marginInlineStart: px2rem(400),
+});
+
+const buttonContainerStyles = createStyles({
+  display: 'flex',
+  marginBlockEnd: px2rem(400),
+  marginInlineStart: px2rem(410),
+});
+
 export const ReturnFocusTest = () => {
   const model = usePopupModel();
 
@@ -40,16 +49,16 @@ export const ReturnFocusTest = () => {
         <p>Scroll down</p>
         <p>Scroll right and click on the button</p>
         <Popup model={model}>
-          <FormField id="return-focus-text-input" cs={{marginInlineStart: px2rem(400)}}>
+          <FormField id="return-focus-text-input" cs={formFieldStyles}>
             <FormField.Label>Name</FormField.Label>
             <FormField.Input as={TextInput} />
           </FormField>
-          <Flex cs={{marginBlockEnd: px2rem(400), marginInlineStart: px2rem(410)}}>
+          <div className={buttonContainerStyles}>
             <SecondaryButton id="return-focus-button-tabindex" tabIndex={-1}>
               Button with TabIndex=-1
             </SecondaryButton>
             <Popup.Target data-testid="target">Open Popup</Popup.Target>
-          </Flex>
+          </div>
           <Popup.Popper>
             <Popup.Card>
               <Popup.CloseIcon aria-label="Close" />
