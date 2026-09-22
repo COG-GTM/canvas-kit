@@ -1,5 +1,4 @@
 import {SecondaryButton} from '@workday/canvas-kit-react/button';
-import {Grid} from '@workday/canvas-kit-react/layout';
 import {Tooltip} from '@workday/canvas-kit-react/tooltip';
 import {calc, createStyles} from '@workday/canvas-kit-styling';
 import {base, system} from '@workday/canvas-tokens-web';
@@ -10,6 +9,7 @@ export default {
 };
 
 const grid = createStyles({
+  display: 'grid',
   gridTemplateAreas: "'topButton topButton''leftButton rightButton''bottomButton bottomButton'",
   height: calc.subtract('100vh', system.size.xxl),
   width: calc.subtract('100vw', base.size1000),
@@ -39,7 +39,7 @@ const leftButton = createStyles({
 export const TooltipWithFallbackPlacements = () => {
   return (
     <div data-testid="scroll-area-fallback-placement">
-      <Grid cs={grid}>
+      <div className={grid}>
         <Tooltip
           type="describe"
           title={
@@ -83,7 +83,7 @@ export const TooltipWithFallbackPlacements = () => {
         >
           <SecondaryButton cs={bottomButton}>Placement Bottom</SecondaryButton>
         </Tooltip>
-      </Grid>
+      </div>
     </div>
   );
 };

@@ -1,12 +1,17 @@
 import {DeleteButton, SecondaryButton, TertiaryButton} from '@workday/canvas-kit-react/button';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Tooltip} from '@workday/canvas-kit-react/tooltip';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {configureIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
+const containerStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.sm,
+});
+
 export const DescriptionType = () => {
   return (
-    <Flex cs={{gap: system.gap.sm}}>
+    <div className={containerStyles}>
       <Tooltip type="description" title="Search using additional criteria">
         <TertiaryButton icon={configureIcon}>Advanced Search</TertiaryButton>
       </Tooltip>
@@ -16,6 +21,6 @@ export const DescriptionType = () => {
       <Tooltip type="description" title="The service will restart after this action">
         <DeleteButton>Delete</DeleteButton>
       </Tooltip>
-    </Flex>
+    </div>
   );
 };
