@@ -1,9 +1,8 @@
-import {Flex} from '@workday/canvas-kit-react/layout';
 // unreleased path
 import {Table} from '@workday/canvas-kit-react/table';
 import {StaticStates} from '@workday/canvas-kit-react/testing';
 import {Heading} from '@workday/canvas-kit-react/text';
-import {createStencil, px2rem} from '@workday/canvas-kit-styling';
+import {createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 export default {
@@ -83,6 +82,12 @@ const tableHeaderStencil = createStencil({
   },
 });
 
+const containerStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.xs,
+  flexDirection: 'column',
+});
+
 const FixedColumn = () => (
   <>
     <Heading size="small">Table Heading</Heading>
@@ -121,7 +126,7 @@ export const TableStates = {
   render: () => {
     return (
       <StaticStates>
-        <Flex cs={{gap: system.gap.xs, flexDirection: 'column'}}>
+        <div className={containerStyles}>
           <div>
             <h3>Standard</h3>
             <Standard />
@@ -130,7 +135,7 @@ export const TableStates = {
             <h3>Fixed Column with Heading</h3>
             <FixedColumn />
           </div>
-        </Flex>
+        </div>
       </StaticStates>
     );
   },
