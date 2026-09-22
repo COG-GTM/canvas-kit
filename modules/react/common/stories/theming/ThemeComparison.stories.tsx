@@ -1,7 +1,6 @@
 import {Meta} from '@storybook/react';
 
 import {sanaCanvasProviderTheme} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
@@ -9,6 +8,7 @@ import {brandScopePrimaryOnly, primaryWithFocus} from '../../../../../utils/stor
 import {BrandingFixture} from './examples/BrandingFixture';
 
 const rowStyles = createStyles({
+  display: 'flex',
   gap: system.gap.xl,
   flexWrap: 'wrap',
 });
@@ -18,7 +18,7 @@ export default {
 } as Meta;
 
 const comparisonRender = () => (
-  <Flex cs={rowStyles}>
+  <div className={rowStyles}>
     <BrandingFixture label="Global (no scoped override)" />
     <BrandingFixture
       label="Scoped: sanaCanvasProviderTheme"
@@ -26,7 +26,7 @@ const comparisonRender = () => (
     />
     <BrandingFixture label="Scoped: primary only" scopedTheme={brandScopePrimaryOnly} />
     <BrandingFixture label="Scoped: primary + focusOutline" scopedTheme={primaryWithFocus} />
-  </Flex>
+  </div>
 );
 
 export const SanaCanvas = {

@@ -296,15 +296,19 @@ component or `createSubcomponent` by adding it to the `elemPropsHook` property.
 
 ```tsx
 import {createSubcomponent, createElemPropsHook} from '@workday/canvas-kit-react/common';
-import {Box} from '@workday/canvas-kit-react/layout';
+import {CSProps, createStyles, handleCsProp} from '@workday/canvas-kit-styling';
 
-export interface DisclosureContentProps extends BoxProps {
+export interface DisclosureContentProps extends CSProps {
   /**
    * The children of the `Expandable.Content` whose visibility is controlled by the associated
    * `Expandable.Target`
    */
   children?: React.ReactNode;
 }
+
+const disclosureContentStyles = createStyles({
+  boxSizing: 'border-box',
+});
 
 //...useDisclosureModel defined
 
@@ -322,11 +326,7 @@ export const DisclosureContent = createSubcomponent('div')({
   // attached our elemPropsHook to the component
   elemPropsHook: useDisclosureContent,
 })<DisclosureContentProps>(({children, ...elementProps}, Element) => {
-  return (
-    <Box as={Element} {...elementProps}>
-      {children}
-    </Box>
-  );
+  return <Element {...handleCsProp(elementProps, disclosureContentStyles)}>{children}</Element>;
 });
 ```
 
