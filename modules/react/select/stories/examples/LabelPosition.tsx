@@ -1,8 +1,12 @@
 import React from 'react';
 
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Select, useSelectModel} from '@workday/canvas-kit-react/select';
+import {createStyles} from '@workday/canvas-kit-styling';
+
+const parentContainerStyles = createStyles({
+  display: 'flex',
+});
 
 const options = [
   'E-mail',
@@ -19,7 +23,7 @@ export const LabelPosition = () => {
   });
 
   return (
-    <Flex>
+    <div className={parentContainerStyles}>
       <FormField orientation="horizontalStart">
         <FormField.Label>Contact</FormField.Label>
         <FormField.Field>
@@ -34,6 +38,6 @@ export const LabelPosition = () => {
           </Select>
         </FormField.Field>
       </FormField>
-    </Flex>
+    </div>
   );
 };

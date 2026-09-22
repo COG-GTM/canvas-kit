@@ -3,11 +3,11 @@ import React from 'react';
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
 import {useMount} from '@workday/canvas-kit-react/common';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Select, useSelectModel} from '@workday/canvas-kit-react/select';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 
 const parentContainerStyles = createStyles({
+  display: 'flex',
   flexDirection: 'column',
   maxWidth: px2rem(300),
 });
@@ -75,7 +75,7 @@ export const FetchingDynamicItems = () => {
   });
 
   return (
-    <Flex cs={parentContainerStyles}>
+    <div className={parentContainerStyles}>
       <FormField>
         <FormField.Label>Choose a Film</FormField.Label>
         <FormField.Field>
@@ -108,6 +108,6 @@ export const FetchingDynamicItems = () => {
       >
         Get Items
       </PrimaryButton>
-    </Flex>
+    </div>
   );
 };

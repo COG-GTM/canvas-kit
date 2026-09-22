@@ -1,11 +1,11 @@
 import React from 'react';
 
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Select} from '@workday/canvas-kit-react/select';
 import {createStyles} from '@workday/canvas-kit-styling';
 
 const parentContainerStyles = createStyles({
+  display: 'flex',
   flexDirection: 'column',
 });
 
@@ -25,7 +25,7 @@ export const Caution = () => {
     setValue(event.target.value);
   };
   return (
-    <Flex cs={parentContainerStyles}>
+    <div className={parentContainerStyles}>
       <FormField error="caution">
         <FormField.Label>Contact</FormField.Label>
         <FormField.Field>
@@ -41,6 +41,6 @@ export const Caution = () => {
         </FormField.Field>
       </FormField>
       Selected value: {value}
-    </Flex>
+    </div>
   );
 };
