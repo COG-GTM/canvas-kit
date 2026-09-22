@@ -5,17 +5,26 @@ import {SchemaOf, object, string} from 'yup';
 import {PrimaryButton, TertiaryButton} from '@workday/canvas-kit-react/button';
 import {useUniqueId} from '@workday/canvas-kit-react/common';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Select} from '@workday/canvas-kit-react/select';
 import {TextInput} from '@workday/canvas-kit-react/text-input';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {visibleIcon, visibleStrikethroughIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
-const styles = createStyles({
+const formContainerStyles = createStyles({
+  display: 'flex',
   gap: system.gap.md,
   flexDirection: 'column',
   alignItems: 'flex-start',
+});
+
+const passwordRowStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+});
+
+const selectInputStyles = createStyles({
+  width: px2rem(280),
 });
 
 type YupValidationResolver = <T extends {}>(
@@ -106,7 +115,7 @@ export const TextInputWithReactHookForm = () => {
   };
   return (
     <form onSubmit={onSubmit} action="." noValidate={true}>
-      <Flex cs={styles}>
+      <div className={formContainerStyles}>
         <FormField
           orientation="vertical"
           isRequired={true}
@@ -114,7 +123,7 @@ export const TextInputWithReactHookForm = () => {
         >
           <Select items={options} getTextValue={item => item.label}>
             <FormField.Label>What is your role?</FormField.Label>
-            <FormField.Input as={Select.Input} {...register('role')} cs={{width: px2rem(280)}} />
+            <FormField.Input as={Select.Input} {...register('role')} cs={selectInputStyles} />
             <Select.Popper>
               <Select.Card>
                 <Select.List maxHeight={200}>
@@ -150,7 +159,7 @@ export const TextInputWithReactHookForm = () => {
           error={!!errors.password ? 'error' : undefined}
         >
           <FormField.Label>Password</FormField.Label>
-          <Flex cs={{gap: system.gap.md}}>
+          <div className={passwordRowStyles}>
             <FormField.Field>
               <FormField.Input
                 as={TextInput}
@@ -171,12 +180,12 @@ export const TextInputWithReactHookForm = () => {
                 passwordRef.current?.focus();
               }}
             />
-          </Flex>
+          </div>
           <FormField.Hint>{errors.password?.message || passwordHint}</FormField.Hint>
         </FormField>
 
         <PrimaryButton type="submit">Submit</PrimaryButton>
-      </Flex>
+      </div>
     </form>
   );
 };
