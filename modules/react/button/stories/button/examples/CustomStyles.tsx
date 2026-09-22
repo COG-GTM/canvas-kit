@@ -1,12 +1,12 @@
 import {PrimaryButton, PrimaryButtonProps, buttonStencil} from '@workday/canvas-kit-react/button';
 import {createComponent} from '@workday/canvas-kit-react/common';
 import {systemIconStencil} from '@workday/canvas-kit-react/icon';
-import {Grid} from '@workday/canvas-kit-react/layout';
 import {createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {plusIcon} from '@workday/canvas-system-icons-web';
 import {base, system} from '@workday/canvas-tokens-web';
 
 const customContainer = createStyles({
+  display: 'grid',
   gap: system.gap.md,
   maxWidth: 'max-content',
 });
@@ -96,7 +96,7 @@ const customColors = {
 };
 
 export const CustomStyles = () => (
-  <Grid cs={customContainer}>
+  <div className={customContainer}>
     <MyCustomButton icon={plusIcon}>Styling Override Via Stencil Variables</MyCustomButton>
     <MyCustomButton icon={plusIcon} cs={myCustomStyles}>
       Style Override Via Create Styles
@@ -104,5 +104,5 @@ export const CustomStyles = () => (
     <PrimaryButton icon={plusIcon} colors={customColors}>
       Styling Override Via Colors Prop
     </PrimaryButton>
-  </Grid>
+  </div>
 );

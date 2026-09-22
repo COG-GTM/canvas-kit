@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Tooltip} from '@workday/canvas-kit-react/tooltip';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {
@@ -12,13 +11,14 @@ import {
 import {system} from '@workday/canvas-tokens-web';
 
 const parentContainerStyles = createStyles({
+  display: 'flex',
   gap: system.gap.md,
   backgroundColor: system.color.surface.contrast.default,
   padding: system.padding.md,
 });
 
 export const PrimaryInverse = () => (
-  <Flex cs={parentContainerStyles}>
+  <div className={parentContainerStyles}>
     <PrimaryButton variant="inverse">Primary</PrimaryButton>
     <PrimaryButton icon={plusIcon} iconPosition="start" variant="inverse">
       Primary
@@ -29,5 +29,5 @@ export const PrimaryInverse = () => (
     <Tooltip title="Related Actions">
       <PrimaryButton icon={relatedActionsVerticalIcon} variant="inverse" />
     </Tooltip>
-  </Flex>
+  </div>
 );
