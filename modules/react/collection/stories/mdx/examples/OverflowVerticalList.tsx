@@ -2,8 +2,7 @@ import React from 'react';
 
 import {ActionBar, useActionBarModel} from '@workday/canvas-kit-react/action-bar';
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
-import {Box} from '@workday/canvas-kit-react/layout';
-import {createStencil, px2rem} from '@workday/canvas-kit-styling';
+import {createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 type MyActionItem = {
@@ -11,14 +10,30 @@ type MyActionItem = {
   text: React.ReactNode;
 };
 
+const containerStyles = createStyles({
+  marginBlockEnd: system.gap.xxl,
+  height: '50vh',
+});
+
 const actionBarStencil = createStencil({
   base: {
+    position: 'relative',
     flexDirection: 'column',
     height: '100%',
     '> *': {
       flex: '0 0 auto',
     },
   },
+});
+
+const overflowButtonStyles = createStyles({
+  overflow: 'visible',
+  flex: 0,
+});
+
+const menuCardStyles = createStyles({
+  maxWidth: px2rem(300),
+  maxHeight: px2rem(200),
 });
 
 export const OverflowVerticalList = () => {
@@ -35,43 +50,37 @@ export const OverflowVerticalList = () => {
   const model = useActionBarModel({items, orientation: 'vertical', maximumVisible: 4});
 
   return (
-    <>
-      <Box cs={{marginBlockEnd: system.gap.xxl, height: '50vh'}}>
-        <ActionBar model={model}>
-          <ActionBar.List
-            position="relative"
-            as="section"
-            aria-label="Overflow example actions"
-            cs={actionBarStencil()}
-            overflowButton={
-              <ActionBar.OverflowButton
-                cs={{overflow: 'visible', flex: 0}}
-                aria-label="More actions"
-              />
-            }
-          >
-            {(item: MyActionItem, index) => (
-              <ActionBar.Item
-                as={index === 0 ? PrimaryButton : undefined}
-                onClick={() => console.log(item.id)}
-              >
-                {item.text}
-              </ActionBar.Item>
-            )}
-          </ActionBar.List>
-          <ActionBar.Menu.Popper>
-            <ActionBar.Menu.Card cs={{maxWidth: px2rem(300), maxHeight: px2rem(200)}}>
-              <ActionBar.Menu.List>
-                {(item: MyActionItem) => (
-                  <ActionBar.Menu.Item onClick={() => console.log(item.id)}>
-                    {item.text}
-                  </ActionBar.Menu.Item>
-                )}
-              </ActionBar.Menu.List>
-            </ActionBar.Menu.Card>
-          </ActionBar.Menu.Popper>
-        </ActionBar>
-      </Box>
-    </>
+    <div className={containerStyles}>
+      <ActionBar model={model}>
+        <ActionBar.List
+          as="section"
+          aria-label="Overflow example actions"
+          cs={actionBarStencil()}
+          overflowButton={
+            <ActionBar.OverflowButton cs={overflowButtonStyles} aria-label="More actions" />
+          }
+        >
+          {(item: MyActionItem, index) => (
+            <ActionBar.Item
+              as={index === 0 ? PrimaryButton : undefined}
+              onClick={() => console.log(item.id)}
+            >
+              {item.text}
+            </ActionBar.Item>
+          )}
+        </ActionBar.List>
+        <ActionBar.Menu.Popper>
+          <ActionBar.Menu.Card cs={menuCardStyles}>
+            <ActionBar.Menu.List>
+              {(item: MyActionItem) => (
+                <ActionBar.Menu.Item onClick={() => console.log(item.id)}>
+                  {item.text}
+                </ActionBar.Menu.Item>
+              )}
+            </ActionBar.Menu.List>
+          </ActionBar.Menu.Card>
+        </ActionBar.Menu.Popper>
+      </ActionBar>
+    </div>
   );
 };
