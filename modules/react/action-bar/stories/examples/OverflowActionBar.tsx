@@ -3,15 +3,29 @@ import React from 'react';
 import {ActionBar, useActionBarModel} from '@workday/canvas-kit-react/action-bar';
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
 import {breakpoints} from '@workday/canvas-kit-react/common';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {SegmentedControl} from '@workday/canvas-kit-react/segmented-control';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 type MyActionItem = {
   id: string;
   text: React.ReactNode;
 };
+
+const containerStencil = createStencil({
+  vars: {
+    maxWidth: '',
+  },
+  base: ({maxWidth}) => ({
+    maxWidth: maxWidth,
+    marginBlockEnd: system.gap.xxl,
+  }),
+});
+
+const menuCardStyles = createStyles({
+  maxWidth: px2rem(300),
+  maxHeight: px2rem(200),
+});
 
 export const OverflowActionBar = () => {
   const [items] = React.useState<MyActionItem[]>([
@@ -27,7 +41,7 @@ export const OverflowActionBar = () => {
 
   return (
     <div>
-      <Box cs={{maxWidth: containerWidth, marginBlockEnd: system.gap.xxl}}>
+      <div {...containerStencil({maxWidth: `${containerWidth}`})}>
         <ActionBar model={model}>
           <ActionBar.List
             position="relative"
@@ -45,7 +59,7 @@ export const OverflowActionBar = () => {
             )}
           </ActionBar.List>
           <ActionBar.Menu.Popper>
-            <ActionBar.Menu.Card cs={{maxWidth: px2rem(300), maxHeight: px2rem(200)}}>
+            <ActionBar.Menu.Card cs={menuCardStyles}>
               <ActionBar.Menu.List>
                 {(item: MyActionItem) => (
                   <ActionBar.Menu.Item onClick={() => console.log(item.id)}>
@@ -56,7 +70,7 @@ export const OverflowActionBar = () => {
             </ActionBar.Menu.Card>
           </ActionBar.Menu.Popper>
         </ActionBar>
-      </Box>
+      </div>
       <footer>
         <h4>Change Action Bar container size</h4>
         <SegmentedControl onSelect={data => setContainerWidth(data.id)}>
