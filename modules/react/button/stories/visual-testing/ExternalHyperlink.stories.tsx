@@ -2,16 +2,22 @@ import React from 'react';
 
 import {ExternalHyperlink} from '@workday/canvas-kit-react/button';
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   ComponentStatesTable,
   StaticStates,
   permutateProps,
 } from '@workday/canvas-kit-react/testing';
 import {BodyText, Subtext} from '@workday/canvas-kit-react/text';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 import {Container} from './utils';
+
+const typographyContainerStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: system.gap.sm,
+});
 
 export default {
   title: 'Testing/Buttons/Button/ExternalHyperlink',
@@ -60,7 +66,7 @@ export const ExternalHyperlinkStates = {
           )}
         </ComponentStatesTable>
       </StaticStates>
-      <Flex cs={{flexDirection: 'column', gap: system.gap.sm}}>
+      <div className={typographyContainerStyles}>
         <h3>Typography</h3>
         <Subtext size="large">
           The quick{' '}
@@ -82,9 +88,9 @@ export const ExternalHyperlinkStates = {
           <ExternalHyperlink iconLabel="Opens link in new window">brown fox</ExternalHyperlink>{' '}
           jumps over the lazy dog
         </BodyText>
-      </Flex>
+      </div>
       <CanvasProvider dir="rtl">
-        <Flex cs={{flexDirection: 'column', gap: system.gap.sm}}>
+        <div className={typographyContainerStyles}>
           <Subtext size="large">
             השועל החום{' '}
             <ExternalHyperlink iconLabel="Opens link in new window">המהיר</ExternalHyperlink> קופץ
@@ -105,7 +111,7 @@ export const ExternalHyperlinkStates = {
             <ExternalHyperlink iconLabel="Opens link in new window">המהיר</ExternalHyperlink> קופץ
             מעל הכלב העצל
           </BodyText>
-        </Flex>
+        </div>
       </CanvasProvider>
     </React.Fragment>
   ),

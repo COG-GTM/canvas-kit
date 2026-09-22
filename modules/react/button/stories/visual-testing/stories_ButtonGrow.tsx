@@ -4,8 +4,8 @@ import {
   SecondaryButton,
   TertiaryButton,
 } from '@workday/canvas-kit-react/button';
-import {Flex} from '@workday/canvas-kit-react/layout';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStyles} from '@workday/canvas-kit-styling';
+import {system} from '@workday/canvas-tokens-web';
 
 import {withSnapshotsEnabled} from '../../../../../utils/storybook';
 
@@ -13,8 +13,14 @@ export default withSnapshotsEnabled({
   title: 'Testing/Buttons/Button/Grow',
 });
 
+const containerStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: system.space.x3,
+});
+
 export const ButtonGrow = () => (
-  <Flex cs={{flexDirection: 'column', gap: px2rem(12)}}>
+  <div className={containerStyles}>
     <PrimaryButton size="small" grow={true}>
       Primary
     </PrimaryButton>
@@ -27,5 +33,5 @@ export const ButtonGrow = () => (
     <DeleteButton size="small" grow={true}>
       Delete
     </DeleteButton>
-  </Flex>
+  </div>
 );

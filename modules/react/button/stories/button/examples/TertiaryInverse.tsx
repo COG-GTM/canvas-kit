@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {TertiaryButton} from '@workday/canvas-kit-react/button';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Tooltip} from '@workday/canvas-kit-react/tooltip';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {
@@ -12,13 +11,14 @@ import {
 import {system} from '@workday/canvas-tokens-web';
 
 const parentContainerStyles = createStyles({
+  display: 'flex',
   gap: system.gap.md,
   padding: system.padding.md,
   backgroundColor: system.color.surface.contrast.default,
 });
 
 export const TertiaryInverse = () => (
-  <Flex cs={parentContainerStyles}>
+  <div className={parentContainerStyles}>
     <TertiaryButton variant="inverse">Tertiary</TertiaryButton>
     <TertiaryButton icon={plusIcon} iconPosition="start" variant="inverse">
       Tertiary
@@ -29,5 +29,5 @@ export const TertiaryInverse = () => (
     <Tooltip title="Related Actions">
       <TertiaryButton icon={relatedActionsVerticalIcon} variant="inverse" />
     </Tooltip>
-  </Flex>
+  </div>
 );

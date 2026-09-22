@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {ExternalHyperlink} from '@workday/canvas-kit-react/button';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
@@ -13,7 +12,7 @@ const parentContainerStyles = createStyles({
 });
 
 export const ExternalLinkInverse = () => (
-  <Box cs={parentContainerStyles}>
+  <div className={parentContainerStyles}>
     <ExternalHyperlink
       href="https://workday.com"
       variant="inverse"
@@ -29,5 +28,5 @@ export const ExternalLinkInverse = () => (
     >
       Hyperlink
     </ExternalHyperlink>
-  </Box>
+  </div>
 );

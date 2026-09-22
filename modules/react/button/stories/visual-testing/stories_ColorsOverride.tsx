@@ -7,12 +7,12 @@ import {
   ToolbarIconButton,
 } from '@workday/canvas-kit-react/button';
 import {PartialEmotionCanvasTheme} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   ComponentStatesTable,
   StaticStates,
   permutateProps,
 } from '@workday/canvas-kit-react/testing';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {playCircleIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
@@ -23,12 +23,15 @@ export default withSnapshotsEnabled({
   title: 'Testing/Buttons/Button/Color Overrides',
 });
 
+const colorOverrideContainerStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: system.gap.md,
+  alignItems: 'center',
+});
+
 const ColorOverrideContainer = props => {
-  return (
-    <Flex cs={{flexDirection: 'column', gap: system.gap.md, alignItems: 'center'}}>
-      {props.children}
-    </Flex>
-  );
+  return <div className={colorOverrideContainerStyles}>{props.children}</div>;
 };
 
 const ColorOverrideStates = (props: {theme?: PartialEmotionCanvasTheme}) => (

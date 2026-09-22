@@ -1,5 +1,4 @@
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Tooltip} from '@workday/canvas-kit-react/tooltip';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {
@@ -10,12 +9,13 @@ import {
 import {system} from '@workday/canvas-tokens-web';
 
 const parentContainerStyles = createStyles({
+  display: 'flex',
   gap: system.gap.md,
   padding: system.padding.md,
 });
 
 export const Primary = () => (
-  <Flex cs={parentContainerStyles}>
+  <div className={parentContainerStyles}>
     <PrimaryButton>Primary</PrimaryButton>
     <PrimaryButton icon={plusIcon} iconPosition="start">
       Primary
@@ -26,5 +26,5 @@ export const Primary = () => (
     <Tooltip title="Related Actions">
       <PrimaryButton icon={relatedActionsVerticalIcon} />
     </Tooltip>
-  </Flex>
+  </div>
 );
