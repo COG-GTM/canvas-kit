@@ -1,6 +1,5 @@
 import {rocketIcon} from '@workday/canvas-expressive-icons-web';
 import {ExpressiveIcon} from '@workday/canvas-kit-react/icon';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {SidePanel} from '@workday/canvas-kit-react/side-panel';
 import {Text} from '@workday/canvas-kit-react/text';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
@@ -11,10 +10,12 @@ const stylesOverride = {
     marginInlineEnd: system.gap.md,
   }),
   pageContainer: createStyles({
+    display: 'flex',
     gap: system.gap.md,
     height: px2rem(320),
   }),
   panelContainer: createStyles({
+    display: 'flex',
     alignItems: 'center',
     padding: system.padding.md,
   }),
@@ -22,6 +23,7 @@ const stylesOverride = {
     color: system.color.fg.default,
   }),
   mainContent: createStyles({
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexBasis: 'auto',
@@ -31,20 +33,20 @@ const stylesOverride = {
 
 export const AlwaysOpen = () => {
   return (
-    <Flex cs={stylesOverride.pageContainer}>
+    <div className={stylesOverride.pageContainer}>
       <SidePanel initialTransitionState="expanded">
-        <Flex cs={stylesOverride.panelContainer}>
+        <div className={stylesOverride.panelContainer}>
           <ExpressiveIcon icon={rocketIcon} cs={stylesOverride.accentIcon} />
           <SidePanel.Heading size="small" cs={stylesOverride.panelHeading}>
             Tasks Panel
           </SidePanel.Heading>
-        </Flex>
+        </div>
       </SidePanel>
-      <Flex as="main" cs={stylesOverride.mainContent}>
+      <main className={stylesOverride.mainContent}>
         <Text as="p" typeLevel="body.large">
           This is the main content section.
         </Text>
-      </Flex>
-    </Flex>
+      </main>
+    </div>
   );
 };

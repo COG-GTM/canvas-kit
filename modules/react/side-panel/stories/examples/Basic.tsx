@@ -1,31 +1,32 @@
 import {rocketIcon} from '@workday/canvas-expressive-icons-web';
 import {ExpressiveIcon} from '@workday/canvas-kit-react/icon';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {SidePanel} from '@workday/canvas-kit-react/side-panel';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 const flexHeadingStyles = createStyles({
+  display: 'flex',
   alignItems: 'center',
   gap: system.gap.sm,
 });
 
 const viewPortStyles = createStyles({
+  display: 'flex',
   height: px2rem(320),
 });
 
 export const Basic = () => {
   return (
-    <Flex cs={viewPortStyles}>
+    <div className={viewPortStyles}>
       <SidePanel>
         <SidePanel.Heading>
-          <Flex cs={flexHeadingStyles}>
+          <div className={flexHeadingStyles}>
             <ExpressiveIcon icon={rocketIcon} size="xs" />
             Tasks Panel
-          </Flex>
+          </div>
         </SidePanel.Heading>
         <SidePanel.ToggleButton aria-label="Collapse View" />
       </SidePanel>
-    </Flex>
+    </div>
   );
 };
