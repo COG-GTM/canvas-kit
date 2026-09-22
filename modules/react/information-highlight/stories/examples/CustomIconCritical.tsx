@@ -1,11 +1,17 @@
 import {InformationHighlight} from '@workday/canvas-kit-react/information-highlight';
-import {Flex} from '@workday/canvas-kit-react/layout';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {barChartIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
+const containerStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: system.gap.sm,
+});
+
 export const IconCritical = () => {
   return (
-    <Flex cs={{gap: system.gap.sm, flexDirection: 'column'}}>
+    <div className={containerStyles}>
       <InformationHighlight variant={'critical'} emphasis={'low'}>
         <InformationHighlight.Icon icon={barChartIcon} />
         <InformationHighlight.Heading> Attention! Custom Highlight </InformationHighlight.Heading>
@@ -22,6 +28,6 @@ export const IconCritical = () => {
         </InformationHighlight.Body>
         <InformationHighlight.Link href="#hyperlink">View the Docs</InformationHighlight.Link>
       </InformationHighlight>
-    </Flex>
+    </div>
   );
 };

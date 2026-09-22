@@ -1,11 +1,17 @@
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
 import {InformationHighlight} from '@workday/canvas-kit-react/information-highlight';
-import {Flex} from '@workday/canvas-kit-react/layout';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const containerStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: system.gap.sm,
+});
 
 export const RTL = () => {
   return (
-    <Flex cs={{gap: system.gap.sm, flexDirection: 'column'}}>
+    <div className={containerStyles}>
       <CanvasProvider dir="rtl">
         <InformationHighlight variant={'caution'} emphasis={'low'}>
           <InformationHighlight.Icon />
@@ -52,6 +58,6 @@ export const RTL = () => {
           <InformationHighlight.Link href="#hyperlink">وثائق</InformationHighlight.Link>
         </InformationHighlight>
       </CanvasProvider>
-    </Flex>
+    </div>
   );
 };
