@@ -2,13 +2,18 @@ import React from 'react';
 
 import {SecondaryButton} from '@workday/canvas-kit-react/button';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Select} from '@workday/canvas-kit-react/select';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 const parentContainerStyles = createStyles({
+  display: 'flex',
   flexDirection: 'column',
+});
+
+const buttonContainerStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
 });
 
 const options = [
@@ -33,7 +38,7 @@ export const Controlled = () => {
   };
 
   return (
-    <Flex cs={parentContainerStyles}>
+    <div className={parentContainerStyles}>
       <FormField>
         <FormField.Label>Contact</FormField.Label>
         <FormField.Field>
@@ -54,7 +59,7 @@ export const Controlled = () => {
       </FormField>
       <p>Id: {value}</p>
       <p>Label: {label}</p>
-      <Flex cs={{gap: system.gap.md}}>
+      <div className={buttonContainerStyles}>
         <SecondaryButton
           onClick={e => {
             setValue('fax');
@@ -69,7 +74,7 @@ export const Controlled = () => {
         >
           Clear
         </SecondaryButton>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };

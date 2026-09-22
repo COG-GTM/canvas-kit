@@ -1,11 +1,11 @@
 import React from 'react';
 
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Select} from '@workday/canvas-kit-react/select';
 import {createStyles} from '@workday/canvas-kit-styling';
 
 const parentContainerStyles = createStyles({
+  display: 'flex',
   flexDirection: 'column',
 });
 
@@ -26,7 +26,7 @@ export const Required = () => {
   };
 
   return (
-    <Flex cs={parentContainerStyles}>
+    <div className={parentContainerStyles}>
       <FormField isRequired>
         <FormField.Label>Contact</FormField.Label>
         <FormField.Field>
@@ -41,6 +41,6 @@ export const Required = () => {
         </FormField.Field>
       </FormField>
       Selected Value: {value}
-    </Flex>
+    </div>
   );
 };
