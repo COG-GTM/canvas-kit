@@ -6,7 +6,6 @@ import {
   useListItemSelect,
 } from '@workday/canvas-kit-react/collection';
 import {composeHooks, createSubcomponent} from '@workday/canvas-kit-react/common';
-import {Box, Flex} from '@workday/canvas-kit-react/layout';
 import {createStencil, createStyles, handleCsProp, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
@@ -31,12 +30,11 @@ const Item = createSubcomponent('button')({
     ? system.color.surface.alt.default
     : system.color.surface.default;
 
-  return (
-    <Box as={Element} {...handleCsProp(elemProps, itemStencil({background: backgroundColor}))} />
-  );
+  return <Element {...handleCsProp(elemProps, itemStencil({background: backgroundColor}))} />;
 });
 
-const listBoxStencil = createStyles({
+const listBoxStyles = createStyles({
+  display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
   width: px2rem(200),
@@ -52,7 +50,7 @@ export const BasicGrid = () => {
   });
 
   return (
-    <ListBox model={model} as={Flex} cs={listBoxStencil}>
+    <ListBox model={model} as="div" cs={listBoxStyles}>
       {item => <Item>{item.id}</Item>}
     </ListBox>
   );
