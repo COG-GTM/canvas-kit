@@ -1,11 +1,27 @@
 import {SecondaryButton} from '@workday/canvas-kit-react/button';
 import {useUniqueId} from '@workday/canvas-kit-react/common';
 import {Expandable, useExpandableModel} from '@workday/canvas-kit-react/expandable';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
+const containerStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: system.gap.lg,
+});
+
+const buttonGroupStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+});
+
+const expandableGroupStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
 const listStyles = createStyles({
+  display: 'flex',
   flexDirection: 'column',
   gap: system.gap.sm,
   padding: '0',
@@ -35,12 +51,12 @@ export const HoistedModel = () => {
   };
 
   return (
-    <Flex cs={{gap: system.gap.lg, flexDirection: 'column'}}>
-      <Flex cs={{gap: system.gap.md}}>
+    <div className={containerStyles}>
+      <div className={buttonGroupStyles}>
         <SecondaryButton onClick={handleExpandAll}>Expand All</SecondaryButton>
         <SecondaryButton onClick={handleCollapseAll}>Collapse All</SecondaryButton>
-      </Flex>
-      <Flex cs={{flexDirection: 'column'}}>
+      </div>
+      <div className={expandableGroupStyles}>
         <Expandable model={modelOne}>
           <Expandable.Target headingLevel="h4">
             <Expandable.Title id={idOne}>Usage Guidance</Expandable.Title>
@@ -62,7 +78,7 @@ export const HoistedModel = () => {
           </Expandable.Target>
 
           <Expandable.Content as="section" aria-labelledby={idTwo}>
-            <Flex as="ul" cs={listStyles}>
+            <ul className={listStyles}>
               <li>
                 The state of a component being open or closed must be conveyed to assistive
                 technologies.
@@ -92,7 +108,7 @@ export const HoistedModel = () => {
                 non-changing, persistent label and the state (pressed or unpressed) is conveyed
                 visually as well as to assistive technology once the state is changed.
               </li>
-            </Flex>
+            </ul>
           </Expandable.Content>
         </Expandable>
         <Expandable model={modelThree}>
@@ -106,7 +122,7 @@ export const HoistedModel = () => {
             wrap more than two lines.
           </Expandable.Content>
         </Expandable>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
