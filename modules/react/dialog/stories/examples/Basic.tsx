@@ -3,9 +3,13 @@ import React from 'react';
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
 import {Dialog} from '@workday/canvas-kit-react/dialog';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {TextInput} from '@workday/canvas-kit-react/text-input';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const headingStyles = createStyles({
+  paddingBlockStart: system.padding.md,
+});
 
 export const Basic = () => {
   const [value, setValue] = React.useState('');
@@ -24,9 +28,7 @@ export const Basic = () => {
       <Dialog.Popper>
         <Dialog.Card>
           <Dialog.CloseIcon aria-label="Close" />
-          <Dialog.Heading cs={{paddingBlockStart: system.padding.md}}>
-            Sign Up for 15% Off Your Next Order
-          </Dialog.Heading>
+          <Dialog.Heading cs={headingStyles}>Sign Up for 15% Off Your Next Order</Dialog.Heading>
           <Dialog.Body>
             <FormField>
               <FormField.Label>Email</FormField.Label>
