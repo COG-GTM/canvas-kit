@@ -88,6 +88,12 @@ export const parameters = {
     container: DocsContainer,
     page: DocsPage,
     theme,
+    // Skip Storybook's dynamic JSX source generation. Examples hoist models and pass them down
+    // (`<Breadcrumbs model={model}>`), and `react-element-to-jsx-string` walks those props on every
+    // render. Once a popup is open the model holds Popper and DOM references, so the walk becomes
+    // effectively unbounded and hangs the browser. Documented examples render their source through
+    // `ExampleCodeBlock`, which reads the example file directly and is unaffected.
+    source: {type: 'code'},
   },
   chromatic: {
     disable: true,
