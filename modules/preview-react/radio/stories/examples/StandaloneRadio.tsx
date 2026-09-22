@@ -2,9 +2,23 @@ import React from 'react';
 
 import {StyledRadioButton} from '@workday/canvas-kit-preview-react/radio';
 import {FormFieldGroup} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const containerStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+const radioRowStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.xl,
+});
+
+const radioLabelStyles = createStyles({
+  display: 'flex',
+  gap: px2rem(12),
+});
 
 export const StandaloneRadio = () => {
   const [value, setValue] = React.useState<string | number>('deep-dish');
@@ -17,11 +31,11 @@ export const StandaloneRadio = () => {
   };
 
   return (
-    <Flex cs={{flexDirection: 'column'}}>
+    <div className={containerStyles}>
       <FormFieldGroup as="fieldset">
         <FormFieldGroup.Label as="legend">Choose Your Pizza Crust</FormFieldGroup.Label>
-        <Flex cs={{gap: system.gap.xl}}>
-          <Flex as="label" cs={{gap: px2rem(12)}}>
+        <div className={radioRowStyles}>
+          <label className={radioLabelStyles}>
             <FormFieldGroup.Input
               as={StyledRadioButton}
               onChange={handleChange}
@@ -30,8 +44,8 @@ export const StandaloneRadio = () => {
               checked={value === 'deep-dish'}
             />
             Deep dish
-          </Flex>
-          <Flex as="label" cs={{gap: px2rem(12)}}>
+          </label>
+          <label className={radioLabelStyles}>
             <FormFieldGroup.Input
               as={StyledRadioButton}
               onChange={handleChange}
@@ -40,10 +54,10 @@ export const StandaloneRadio = () => {
               name="pizza-crust-standalone"
             />
             Gluten free
-          </Flex>
-        </Flex>
+          </label>
+        </div>
       </FormFieldGroup>
       Value selected: {value}
-    </Flex>
+    </div>
   );
 };
