@@ -1,11 +1,20 @@
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 // unreleased path
 import {Menu} from '@workday/canvas-kit-react/menu';
 import {StaticStates} from '@workday/canvas-kit-react/testing';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {saveAsIcon} from '@workday/canvas-system-icons-web';
 import {base, system} from '@workday/canvas-tokens-web';
+
+const rowStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+});
+
+const rowLargeGapStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.lg,
+});
 
 const fontDelay = 150; // best guess for the font delay to prevent incorrect Chromatic regressions
 
@@ -82,7 +91,7 @@ export const MenuItemStates = {
   render: () => {
     return (
       <StaticStates>
-        <Flex cs={{gap: system.gap.md}}>
+        <div className={rowStyles}>
           <div>
             <h3>Normal</h3>
             <AllStatesMenuItem />
@@ -99,7 +108,7 @@ export const MenuItemStates = {
               <AllStatesMenuItem />
             </CanvasProvider>
           </div>
-        </Flex>
+        </div>
       </StaticStates>
     );
   },
@@ -109,7 +118,7 @@ export const MenuItemStatesCustomTheme = {
   render: () => {
     return (
       <StaticStates>
-        <Flex cs={{gap: system.gap.md}}>
+        <div className={rowStyles}>
           <div>
             <h3>Custom Themed</h3>
             <CanvasProvider
@@ -124,7 +133,7 @@ export const MenuItemStatesCustomTheme = {
               <AllStatesMenuItem />
             </CanvasProvider>
           </div>
-        </Flex>
+        </div>
       </StaticStates>
     );
   },
@@ -223,7 +232,7 @@ export const MenuOptionStates = {
   render: () => {
     return (
       <StaticStates>
-        <Flex cs={{gap: system.gap.md}}>
+        <div className={rowStyles}>
           <div>
             <h3>Normal</h3>
             <AllStatesMenuOption />
@@ -240,7 +249,7 @@ export const MenuOptionStates = {
               <AllStatesMenuOption />
             </CanvasProvider>
           </div>
-        </Flex>
+        </div>
       </StaticStates>
     );
   },
@@ -250,7 +259,7 @@ export const MenuGroups = {
   render: () => {
     return (
       <StaticStates>
-        <Flex cs={{gap: system.gap.lg}}>
+        <div className={rowLargeGapStyles}>
           <div>
             <h3>LTR</h3>
             <MenuWithGroups />
@@ -261,7 +270,7 @@ export const MenuGroups = {
               <MenuWithGroups />
             </CanvasProvider>
           </div>
-        </Flex>
+        </div>
       </StaticStates>
     );
   },
