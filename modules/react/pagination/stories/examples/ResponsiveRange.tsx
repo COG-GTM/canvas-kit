@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import {useResizeObserver, useTheme} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   Pagination,
   getLastPage,
@@ -10,7 +9,20 @@ import {
   usePaginationModel,
 } from '@workday/canvas-kit-react/pagination';
 import {BodyText} from '@workday/canvas-kit-react/text';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const containerStyles = createStyles({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  border: `${px2rem(1)} solid`,
+  padding: system.padding.md,
+});
+
+const widthTextStyles = createStyles({
+  fontWeight: system.fontWeight.bold,
+});
 
 export const ResponsiveRange = () => {
   const resultCount = 10;
@@ -64,16 +76,8 @@ export const ResponsiveRange = () => {
   });
 
   return (
-    <Flex
-      ref={containerRef}
-      cs={{
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        border: '1px solid',
-        padding: system.padding.md,
-      }}
-    >
-      <BodyText as="span" size="small" cs={{fontWeight: system.fontWeight.bold}}>
+    <div ref={containerRef} className={containerStyles}>
+      <BodyText as="span" size="small" cs={widthTextStyles}>
         Width: {containerWidth}px
       </BodyText>
       <Pagination model={model} aria-label="Pagination">
@@ -103,6 +107,6 @@ export const ResponsiveRange = () => {
           }
         </Pagination.AdditionalDetails>
       </Pagination>
-    </Flex>
+    </div>
   );
 };
