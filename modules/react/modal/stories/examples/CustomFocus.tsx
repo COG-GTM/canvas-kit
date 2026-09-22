@@ -3,10 +3,15 @@ import React from 'react';
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
 import {useUniqueId} from '@workday/canvas-kit-react/common';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {Modal, useModalModel} from '@workday/canvas-kit-react/modal';
 import {TextInput} from '@workday/canvas-kit-react/text-input';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const descriptionStyles = createStyles({
+  marginBlockStart: system.space.zero,
+  marginBlockEnd: system.gap.md,
+});
 
 export const CustomFocus = () => {
   const longDescID = useUniqueId();
@@ -28,9 +33,9 @@ export const CustomFocus = () => {
           <Modal.CloseIcon aria-label="Close" />
           <Modal.Heading>Acknowledge License</Modal.Heading>
           <Modal.Body>
-            <Box as="p" id={longDescID} cs={{marginBlockStart: 0, marginBlockEnd: system.gap.md}}>
+            <p id={longDescID} className={descriptionStyles}>
               Enter your initials to acknowledge the license.
-            </Box>
+            </p>
             <FormField>
               <FormField.Label>Initials</FormField.Label>
               <FormField.Input

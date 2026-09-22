@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom';
 
 import {DeleteButton, PrimaryButton} from '@workday/canvas-kit-react/button';
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
-import {Box, Flex} from '@workday/canvas-kit-react/layout';
 import {Modal, useModalModel} from '@workday/canvas-kit-react/modal';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {brand, system} from '@workday/canvas-tokens-web';
@@ -14,6 +13,21 @@ import {NoTargetRTL as NoTargetRTLExample} from './examples/NoTargetRTL';
 import {StackedModals as StackedModalsExample} from './examples/StackedModals';
 import {WithRadioButtons as WithRadioButtonsExample} from './examples/WithRadioButtons';
 import {WithTooltips as WithTooltipsExample} from './examples/WithTooltips';
+
+const buttonRowStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+});
+
+const paddedButtonRowStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+  padding: system.padding.xs,
+});
+
+const bodyTextStyles = createStyles({
+  marginBlock: system.space.zero,
+});
 
 export default {
   title: 'Testing/Popups/Modal',
@@ -37,10 +51,10 @@ export const AccessibilityTest = {
               <Modal.Heading>Delete Item</Modal.Heading>
               <Modal.Body>
                 <p>Are you sure you want to delete the item?</p>
-                <Flex cs={{gap: system.gap.md}}>
+                <div className={buttonRowStyles}>
                   <Modal.CloseButton as={DeleteButton}>Delete</Modal.CloseButton>
                   <Modal.CloseButton>Cancel</Modal.CloseButton>
-                </Flex>
+                </div>
               </Modal.Body>
             </Modal.Card>
           </Modal.Overlay>
@@ -152,15 +166,15 @@ const TestModal = () => {
             <Modal.CloseIcon aria-label="Close" />
             <Modal.Heading>Small Width Modal</Modal.Heading>
             <Modal.Body>
-              <Box as="p" cs={{marginBlock: '0'}}>
+              <p className={bodyTextStyles}>
                 This modal should appear on the bottom of the screen for mobile devices. Chromatic
                 uses a version of Chrome that makes it appear on the top and is a known issue.
-              </Box>
+              </p>
             </Modal.Body>
-            <Flex cs={{gap: system.gap.md, padding: system.padding.xs}}>
+            <div className={paddedButtonRowStyles}>
               <Modal.CloseButton as={PrimaryButton}>Delete</Modal.CloseButton>
               <Modal.CloseButton>Cancel</Modal.CloseButton>
-            </Flex>
+            </div>
           </Modal.Card>
         </Modal.Overlay>
       </Modal>
@@ -234,15 +248,15 @@ export const CustomThemeModal = {
               <Modal.CloseIcon aria-label="Close" />
               <Modal.Heading>MIT License</Modal.Heading>
               <Modal.Body>
-                <Box as="p" cs={{marginBlock: '0'}}>
+                <p className={bodyTextStyles}>
                   Permission is hereby granted, free of charge, to any person obtaining a copy of
                   this software and associated documentation files (the "Software").
-                </Box>
+                </p>
               </Modal.Body>
-              <Flex cs={{gap: system.gap.md, padding: system.padding.xs}}>
+              <div className={paddedButtonRowStyles}>
                 <Modal.CloseButton as={PrimaryButton}>Acknowledge</Modal.CloseButton>
                 <Modal.CloseButton>Cancel</Modal.CloseButton>
-              </Flex>
+              </div>
             </Modal.Card>
           </Modal.Overlay>
         </Modal>

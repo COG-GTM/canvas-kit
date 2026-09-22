@@ -1,7 +1,15 @@
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Modal} from '@workday/canvas-kit-react/modal';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const firstParagraphStyles = createStyles({
+  marginBlockStart: system.space.zero,
+});
+
+const lastParagraphStyles = createStyles({
+  marginBlockEnd: system.space.zero,
+});
 
 export const BodyOverflow = () => {
   const handleAcknowledge = () => {
@@ -20,7 +28,7 @@ export const BodyOverflow = () => {
           <Modal.CloseIcon aria-label="Close" />
           <Modal.Heading>MIT License</Modal.Heading>
           <Modal.Body tabIndex={0}>
-            <p style={{marginBlockStart: 0}}>
+            <p className={firstParagraphStyles}>
               Permission is hereby granted, free of charge, to any person obtaining a copy of this
               software and associated documentation files (the "Software"), to deal in the Software
               without restriction, including without limitation the rights to use, copy, modify,
@@ -66,7 +74,7 @@ export const BodyOverflow = () => {
               suspendisse interdum consectetur libero id faucibus. Morbi tincidunt augue interdum
               velit. Nullam non nisi est sit amet.
             </p>
-            <p style={{marginBlockEnd: 0}}>
+            <p className={lastParagraphStyles}>
               Aliquet enim tortor at auctor urna nunc id cursus metus. Leo urna molestie at
               elementum eu facilisis. Consectetur purus ut faucibus pulvinar elementum integer.
               Volutpat est velit egestas dui id ornare arcu odio. At consectetur lorem donec massa
