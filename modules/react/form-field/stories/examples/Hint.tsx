@@ -1,8 +1,12 @@
 import React from 'react';
 
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {TextInput} from '@workday/canvas-kit-react/text-input';
+import {createStyles} from '@workday/canvas-kit-styling';
+
+const containerStyles = createStyles({
+  display: 'flex',
+});
 
 export const Hint = () => {
   const [value, setValue] = React.useState('');
@@ -12,7 +16,7 @@ export const Hint = () => {
   };
 
   return (
-    <Flex>
+    <div className={containerStyles}>
       <FormField orientation="horizontalStart">
         <FormField.Label>First Name</FormField.Label>
         <FormField.Field>
@@ -20,6 +24,6 @@ export const Hint = () => {
           <FormField.Hint>Cannot contain numbers</FormField.Hint>
         </FormField.Field>
       </FormField>
-    </Flex>
+    </div>
   );
 };

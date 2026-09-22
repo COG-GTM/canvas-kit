@@ -6,8 +6,8 @@ import {
   useFormFieldModel,
 } from '@workday/canvas-kit-react/form-field';
 import {SystemIcon} from '@workday/canvas-kit-react/icon';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {InputGroup, TextInput} from '@workday/canvas-kit-react/text-input';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {searchIcon} from '@workday/canvas-system-icons-web';
 
 /**
@@ -15,6 +15,10 @@ import {searchIcon} from '@workday/canvas-system-icons-web';
  * In this example, we've rendered `FormField.Field` as `InputGroup` and then hoisted the `id` of the input from the FormField model.
  * This allows us to set the `id` of the `InputGroup.Input` correctly for proper label association.
  */
+
+const containerStyles = createStyles({
+  display: 'flex',
+});
 
 export const HiddenLabel = () => {
   const [value, setValue] = React.useState('');
@@ -26,7 +30,7 @@ export const HiddenLabel = () => {
   };
 
   return (
-    <Flex>
+    <div className={containerStyles}>
       <FormField model={model}>
         <FormField.Label isHidden>Search</FormField.Label>
         <FormField.Field as={InputGroup}>
@@ -41,6 +45,6 @@ export const HiddenLabel = () => {
           />
         </FormField.Field>
       </FormField>
-    </Flex>
+    </div>
   );
 };

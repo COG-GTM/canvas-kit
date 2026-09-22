@@ -1,8 +1,12 @@
 import React from 'react';
 
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {TextInput} from '@workday/canvas-kit-react/text-input';
+import {createStyles} from '@workday/canvas-kit-styling';
+
+const containerStyles = createStyles({
+  display: 'flex',
+});
 
 export const Caution = () => {
   const [value, setValue] = React.useState('hi');
@@ -12,7 +16,7 @@ export const Caution = () => {
   };
 
   return (
-    <Flex>
+    <div className={containerStyles}>
       <FormField error="caution">
         <FormField.Label>Create Password</FormField.Label>
         <FormField.Field>
@@ -22,6 +26,6 @@ export const Caution = () => {
           </FormField.Hint>
         </FormField.Field>
       </FormField>
-    </Flex>
+    </div>
   );
 };

@@ -8,7 +8,6 @@ import {
   useFormFieldLabel,
   useFormFieldModel,
 } from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 
 const Label = ({model, children}) => {
   const localModel = useModelContext(useFormFieldModel.Context, model);
@@ -46,10 +45,10 @@ export const Custom = () => {
   const model = useFormFieldModel({isRequired: true});
 
   return (
-    <Flex cs={formFieldStencil({orientation: 'horizontalStart'})}>
+    <div {...formFieldStencil({orientation: 'horizontalStart'})}>
       <Label model={model}>My Custom Field</Label>
       <Input model={model} value={value} onChange={handleChange} />
       <Hint model={model}>You can be anything</Hint>
-    </Flex>
+    </div>
   );
 };

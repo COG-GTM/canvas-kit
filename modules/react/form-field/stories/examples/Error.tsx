@@ -1,8 +1,12 @@
 import React from 'react';
 
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {TextInput} from '@workday/canvas-kit-react/text-input';
+import {createStyles} from '@workday/canvas-kit-styling';
+
+const containerStyles = createStyles({
+  display: 'flex',
+});
 
 export const Error = () => {
   const [value, setValue] = React.useState('');
@@ -12,7 +16,7 @@ export const Error = () => {
   };
 
   return (
-    <Flex>
+    <div className={containerStyles}>
       <FormField error="error">
         <FormField.Label>Password</FormField.Label>
         <FormField.Field>
@@ -20,6 +24,6 @@ export const Error = () => {
           <FormField.Hint>Error: Must Contain a number and a capital letter</FormField.Hint>
         </FormField.Field>
       </FormField>
-    </Flex>
+    </div>
   );
 };
