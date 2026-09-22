@@ -1,9 +1,8 @@
 import * as React from 'react';
 
 import {Breadcrumbs, useBreadcrumbsModel} from '@workday/canvas-kit-react/breadcrumbs';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {SegmentedControl} from '@workday/canvas-kit-react/segmented-control';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStencil, createStyles, cssVar, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 export interface Breadcrumb {
@@ -11,6 +10,30 @@ export interface Breadcrumb {
   link?: string;
   text: string;
 }
+
+const containerStencil = createStencil({
+  vars: {
+    width: '',
+  },
+  base: ({width}) => ({
+    width: cssVar(width, '100%'),
+    marginBlockEnd: system.gap.lg,
+  }),
+});
+
+const statusStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+const menuCardStyles = createStyles({
+  maxWidth: px2rem(300),
+  maxHeight: px2rem(200),
+});
+
+const controlListStyles = createStyles({
+  marginBlockEnd: system.gap.lg,
+});
 
 export const OverflowBreadcrumbs = ({width = '100%'}) => {
   const [items] = React.useState<Breadcrumb[]>([
@@ -27,8 +50,8 @@ export const OverflowBreadcrumbs = ({width = '100%'}) => {
   const [containerWidth, setContainerWidth] = React.useState(width);
   return (
     <div>
-      <Box cs={{width: containerWidth, marginBlockEnd: system.gap.lg}}>
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+      <div {...containerStencil({width: containerWidth})}>
+        <div className={statusStyles}>
           <span>Current Container Width: {containerWidth}</span>
           <span>Overflow visibility: {model.menu.state.visibility}</span>
         </div>
@@ -46,7 +69,7 @@ export const OverflowBreadcrumbs = ({width = '100%'}) => {
             }
           </Breadcrumbs.List>
           <Breadcrumbs.Menu.Popper>
-            <Breadcrumbs.Menu.Card cs={{maxWidth: px2rem(300), maxHeight: px2rem(200)}}>
+            <Breadcrumbs.Menu.Card cs={menuCardStyles}>
               <Breadcrumbs.Menu.List>
                 {(item: Breadcrumb) => (
                   <Breadcrumbs.Menu.Item href={item.link}>{item.text}</Breadcrumbs.Menu.Item>
@@ -55,7 +78,7 @@ export const OverflowBreadcrumbs = ({width = '100%'}) => {
             </Breadcrumbs.Menu.Card>
           </Breadcrumbs.Menu.Popper>
         </Breadcrumbs>
-      </Box>
+      </div>
       <hr />
       <h4>Change Breadcrumbs container size</h4>
       <SegmentedControl
@@ -64,10 +87,7 @@ export const OverflowBreadcrumbs = ({width = '100%'}) => {
           setContainerWidth(data.id);
         }}
       >
-        <SegmentedControl.List
-          aria-label="container width control"
-          cs={{marginBlockEnd: system.gap.lg}}
-        >
+        <SegmentedControl.List aria-label="container width control" cs={controlListStyles}>
           <SegmentedControl.Item data-id="100%">100%</SegmentedControl.Item>
           <SegmentedControl.Item data-id="480px">480px</SegmentedControl.Item>
           <SegmentedControl.Item data-id="250px">250px</SegmentedControl.Item>
