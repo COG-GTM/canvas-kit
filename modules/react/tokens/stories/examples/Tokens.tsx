@@ -15,7 +15,7 @@ const depthCardStencil = createStencil({
     width: px2rem(200),
     height: px2rem(200),
     borderRadius: px2rem(2),
-    backgroundColor: system.color.bg.default,
+    backgroundColor: colors.frenchVanilla100,
   },
   modifiers: {
     depth: {
