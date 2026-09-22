@@ -2,35 +2,36 @@ import React from 'react';
 
 import {DeleteButton} from '@workday/canvas-kit-react/button';
 import {useUniqueId} from '@workday/canvas-kit-react/common';
-import {Box, Flex} from '@workday/canvas-kit-react/layout';
 import {Modal, useModalModel} from '@workday/canvas-kit-react/modal';
 import {Heading, Text} from '@workday/canvas-kit-react/text';
 import {Tooltip} from '@workday/canvas-kit-react/tooltip';
-import {createStyles} from '@workday/canvas-kit-styling';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {trashIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
 const INITIAL_FILES = ['Resume.docx', 'Cover_Letter.docx', 'References.docx'];
 
 const headingStyles = createStyles({
-  marginBlock: '0',
+  marginBlock: system.space.zero,
 });
 
 const emptyStateStyles = createStyles({
-  maxWidth: '28rem',
+  maxWidth: px2rem(448),
   outline: 'none',
 });
 
 const listStyles = createStyles({
+  display: 'flex',
   flexDirection: 'column',
   gap: system.gap.md,
-  marginBlock: '0',
-  padding: '0',
+  marginBlock: system.space.zero,
+  padding: system.space.zero,
   listStyle: 'none',
-  maxWidth: '28rem',
+  maxWidth: px2rem(448),
 });
 
 const rowStyles = createStyles({
+  display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: system.gap.md,
@@ -107,11 +108,11 @@ export const ReturnFocus = () => {
       <Heading as="h4" size="small" cs={headingStyles}>
         Uploaded Files
       </Heading>
-      <Box>
+      <div>
         {items.length > 0 ? (
-          <Flex as="ul" cs={listStyles}>
+          <ul className={listStyles}>
             {items.map((name, index) => (
-              <Flex as="li" key={name} cs={rowStyles}>
+              <li key={name} className={rowStyles}>
                 <Text as="span" id={fileNameId(name)}>
                   {name}
                 </Text>
@@ -125,15 +126,15 @@ export const ReturnFocus = () => {
                     onClick={() => openDeleteModal(index)}
                   />
                 </Tooltip>
-              </Flex>
+              </li>
             ))}
-          </Flex>
+          </ul>
         ) : (
-          <Box ref={emptyStateRef} tabIndex={-1} cs={emptyStateStyles}>
+          <div ref={emptyStateRef} tabIndex={-1} className={emptyStateStyles}>
             <Text>No files remaining.</Text>
-          </Box>
+          </div>
         )}
-      </Box>
+      </div>
       <Modal.Overlay>
         <Modal.Card aria-describedby={bodyTextId}>
           <Modal.Heading>Delete file?</Modal.Heading>
