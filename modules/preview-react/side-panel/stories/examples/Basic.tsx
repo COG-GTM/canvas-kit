@@ -3,32 +3,36 @@ import {SidePanel, useSidePanel} from '@workday/canvas-kit-preview-react/side-pa
 import {SecondaryButton} from '@workday/canvas-kit-react/button';
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
 import {AccentIcon} from '@workday/canvas-kit-react/icon';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Heading, Text} from '@workday/canvas-kit-react/text';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
-import {base, system} from '@workday/canvas-tokens-web';
+import {system} from '@workday/canvas-tokens-web';
 
 import {useDirection} from './useDirection';
 
-const stylesOverride = {
-  viewPortContainer: createStyles({
-    height: px2rem(320),
-  }),
-  panel: createStyles({
-    alignItems: 'center',
-    padding: system.padding.md,
-  }),
-  accentIcon: createStyles({
-    marginInlineEnd: system.gap.md,
-  }),
-  mainContent: createStyles({
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    flex: 1,
-    flexBasis: 'auto',
-  }),
-};
+const viewPortContainerStyles = createStyles({
+  display: 'flex',
+  height: px2rem(320),
+});
+
+const panelStyles = createStyles({
+  display: 'flex',
+  alignItems: 'center',
+  padding: system.padding.md,
+});
+
+const accentIconStyles = createStyles({
+  display: 'flex',
+  marginInlineEnd: system.gap.md,
+});
+
+const mainContentStyles = createStyles({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  flex: 1,
+  flexBasis: 'auto',
+});
 
 export const Basic = () => {
   const {direction, toggleDirection} = useDirection();
@@ -36,29 +40,29 @@ export const Basic = () => {
 
   return (
     <CanvasProvider dir={direction}>
-      <Flex cs={stylesOverride.viewPortContainer}>
+      <div className={viewPortContainerStyles}>
         <SidePanel {...panelProps}>
           <SidePanel.ToggleButton {...controlProps} />
-          <Flex cs={stylesOverride.panel}>
+          <div className={panelStyles}>
             {expanded && (
-              <Flex cs={stylesOverride.accentIcon}>
+              <div className={accentIconStyles}>
                 <AccentIcon icon={rocketIcon} />
-              </Flex>
+              </div>
             )}
             <Heading size="small" {...labelProps} hidden={!expanded ? true : undefined}>
               Tasks Panel
             </Heading>
-          </Flex>
+          </div>
         </SidePanel>
-        <Flex as="main" cs={stylesOverride.mainContent}>
+        <main className={mainContentStyles}>
           <Text as="p" typeLevel="body.large">
             Toggle the content direction
           </Text>
           <SecondaryButton onClick={toggleDirection}>
             Set to {direction === 'ltr' ? 'Right-to-Left' : 'Left-to-Right'}
           </SecondaryButton>
-        </Flex>
-      </Flex>
+        </main>
+      </div>
     </CanvasProvider>
   );
 };

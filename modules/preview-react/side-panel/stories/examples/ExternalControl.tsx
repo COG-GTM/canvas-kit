@@ -6,30 +6,33 @@ import {
   useSidePanel,
 } from '@workday/canvas-kit-preview-react/side-panel';
 import {SecondaryButton} from '@workday/canvas-kit-react/button';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Heading, Text} from '@workday/canvas-kit-react/text';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
-const stylesOverride = {
-  viewport: createStyles({
-    height: px2rem(320),
-  }),
-  panel: createStyles({
-    alignItems: 'center',
-    padding: system.padding.md,
-  }),
-  panelHeading: createStyles({
-    color: system.color.fg.muted.strong,
-  }),
-  main: createStyles({
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    flex: 1,
-    flexBasis: 'auto',
-  }),
-};
+const viewportStyles = createStyles({
+  display: 'flex',
+  height: px2rem(320),
+});
+
+const panelStyles = createStyles({
+  display: 'flex',
+  alignItems: 'center',
+  padding: system.padding.md,
+});
+
+const panelHeadingStyles = createStyles({
+  color: system.color.fg.muted.strong,
+});
+
+const mainStyles = createStyles({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  flex: 1,
+  flexBasis: 'auto',
+});
 
 /*
  * NOTE TO DEV:
@@ -51,7 +54,7 @@ export const ExternalControl = () => {
   );
 
   return (
-    <Flex cs={stylesOverride.viewport}>
+    <div className={viewportStyles}>
       <SidePanel
         {...panelProps}
         onExpandedChange={expanded => {
@@ -60,21 +63,21 @@ export const ExternalControl = () => {
         onStateTransition={setPanelState}
       >
         {panelState === 'expanded' && (
-          <Flex cs={stylesOverride.panel}>
-            <Heading size="small" cs={stylesOverride.panelHeading} {...labelProps}>
+          <div className={panelStyles}>
+            <Heading size="small" cs={panelHeadingStyles} {...labelProps}>
               Tasks Panel
             </Heading>
-          </Flex>
+          </div>
         )}
       </SidePanel>
-      <Flex as="main" cs={stylesOverride.main}>
+      <main className={mainStyles}>
         <Text as="p" typeLevel="body.large">
           Control the panel externally
         </Text>
         <SecondaryButton onClick={controlProps.onClick} aria-pressed={expanded}>
           Show Side Panel
         </SecondaryButton>
-      </Flex>
-    </Flex>
+      </main>
+    </div>
   );
 };
