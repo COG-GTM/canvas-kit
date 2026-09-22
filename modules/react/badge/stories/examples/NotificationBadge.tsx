@@ -3,7 +3,6 @@ import * as React from 'react';
 import {CountBadge} from '@workday/canvas-kit-react/badge';
 import {SecondaryButton, TertiaryButton} from '@workday/canvas-kit-react/button';
 import {AriaLiveRegion, useUniqueId} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Tooltip} from '@workday/canvas-kit-react/tooltip';
 import {createStyles, cssVar} from '@workday/canvas-kit-styling';
 import {notificationsIcon} from '@workday/canvas-system-icons-web';
@@ -15,14 +14,21 @@ function negate(value: string, fallback?: string) {
 
 const container = createStyles({
   boxSizing: 'border-box',
+  display: 'flex',
   flexDirection: 'column',
   gap: system.gap.md,
 });
 
 const controls = createStyles({
   boxSizing: 'border-box',
+  display: 'flex',
   gap: system.gap.sm,
   padding: system.padding.xxs,
+});
+
+const notificationRowStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'flex',
 });
 
 const notificationContainerStyles = createStyles({
@@ -50,16 +56,16 @@ export const NotificationBadge = () => {
   const badgeID = useUniqueId();
 
   return (
-    <Flex cs={container}>
-      <Flex cs={controls}>
+    <div className={container}>
+      <div className={controls}>
         <TertiaryButton size="small" onClick={() => setCount(count + 1)}>
           Add Notification
         </TertiaryButton>
         <TertiaryButton size="small" onClick={() => setCount(0)}>
           Clear
         </TertiaryButton>
-      </Flex>
-      <Flex>
+      </div>
+      <div className={notificationRowStyles}>
         <span className={notificationContainerStyles}>
           <Tooltip title="Notifications">
             <SecondaryButton
@@ -72,7 +78,7 @@ export const NotificationBadge = () => {
             {!!count && <CountBadge id={badgeID} count={count} limit={100} cs={countBadgeStyles} />}
           </AriaLiveRegion>
         </span>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
