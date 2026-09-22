@@ -1,15 +1,16 @@
 import * as React from 'react';
 
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {SidePanel, useSidePanelModel} from '@workday/canvas-kit-react/side-panel';
 import {Text} from '@workday/canvas-kit-react/text';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 
 const stylesOverride = {
   viewport: createStyles({
+    display: 'flex',
     height: px2rem(320),
   }),
   main: createStyles({
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
@@ -26,18 +27,18 @@ export const Heading = () => {
   });
 
   return (
-    <Flex cs={stylesOverride.viewport}>
+    <div className={stylesOverride.viewport}>
       <SidePanel model={model}>
         <SidePanel.ToggleButton aria-label="Collapse View" />
         <SidePanel.Heading hidden size="small">
           Tasks Panel
         </SidePanel.Heading>
       </SidePanel>
-      <Flex as="main" cs={stylesOverride.main}>
+      <main className={stylesOverride.main}>
         <Text as="p" typeLevel="body.large">
           Side Panel with a hidden title text.
         </Text>
-      </Flex>
-    </Flex>
+      </main>
+    </div>
   );
 };

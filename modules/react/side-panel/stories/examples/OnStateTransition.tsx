@@ -1,7 +1,5 @@
 import * as React from 'react';
 
-import {AccessibleHide} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   SidePanel,
   SidePanelTransitionStates,
@@ -12,9 +10,11 @@ import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 
 const stylesOverride = {
   viewport: createStyles({
+    display: 'flex',
     height: px2rem(320),
   }),
   main: createStyles({
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
@@ -35,18 +35,18 @@ export const OnStateTransition = () => {
   });
 
   return (
-    <Flex cs={stylesOverride.viewport}>
+    <div className={stylesOverride.viewport}>
       <SidePanel model={model}>
         <SidePanel.ToggleButton aria-label="Collapse View" />
         <SidePanel.Heading hidden size="small">
           Hidden Title
         </SidePanel.Heading>
       </SidePanel>
-      <Flex as="main" cs={stylesOverride.main}>
+      <main className={stylesOverride.main}>
         <Text as="p" typeLevel="body.large">
           Side panel is {transitionState}.
         </Text>
-      </Flex>
-    </Flex>
+      </main>
+    </div>
   );
 };

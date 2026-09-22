@@ -1,6 +1,5 @@
 import {SecondaryButton} from '@workday/canvas-kit-react/button';
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {SidePanel, useSidePanelModel} from '@workday/canvas-kit-react/side-panel';
 import {Text} from '@workday/canvas-kit-react/text';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
@@ -10,16 +9,19 @@ import {useDirection} from './useDirection';
 
 const stylesOverride = {
   viewport: createStyles({
+    display: 'flex',
     height: px2rem(320),
   }),
   panelContainer: createStyles({
     marginInlineStart: 'auto',
   }),
   panel: createStyles({
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
   }),
   main: createStyles({
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
@@ -36,9 +38,9 @@ const RightPanel = () => {
   return (
     <SidePanel model={model} className={stylesOverride.panelContainer}>
       <SidePanel.ToggleButton aria-label="Collapse View" />
-      <Flex cs={stylesOverride.panel}>
+      <div className={stylesOverride.panel}>
         <SidePanel.Heading size="small">Tasks Panel</SidePanel.Heading>
-      </Flex>
+      </div>
     </SidePanel>
   );
 };
@@ -48,18 +50,18 @@ export const RightOrigin = () => {
 
   return (
     <CanvasProvider dir={direction}>
-      <Flex cs={stylesOverride.viewport}>
-        <Flex as="main" cs={stylesOverride.main}>
+      <div className={stylesOverride.viewport}>
+        <main className={stylesOverride.main}>
           <Text as="p" typeLevel="body.large">
             Toggle the content direction
           </Text>
           <SecondaryButton onClick={toggleDirection}>
             Set to {direction === 'ltr' ? 'Right-to-Left' : 'Left-to-Right'}
           </SecondaryButton>
-        </Flex>
+        </main>
 
         <RightPanel />
-      </Flex>
+      </div>
     </CanvasProvider>
   );
 };
