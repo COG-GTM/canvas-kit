@@ -1,16 +1,16 @@
 import {StatusIndicator} from '@workday/canvas-kit-preview-react/status-indicator';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {cloudArrowUpIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
 const parentContainerStyles = createStyles({
+  display: 'flex',
   gap: system.gap.md,
 });
 
 export const Icon = () => {
   return (
-    <Flex cs={parentContainerStyles}>
+    <div className={parentContainerStyles}>
       <StatusIndicator>
         <StatusIndicator.Icon icon={cloudArrowUpIcon} />
         <StatusIndicator.Label>Unpublished</StatusIndicator.Label>
@@ -19,6 +19,6 @@ export const Icon = () => {
         <StatusIndicator.Label>published</StatusIndicator.Label>
         <StatusIndicator.Icon icon={cloudArrowUpIcon} />
       </StatusIndicator>
-    </Flex>
+    </div>
   );
 };
