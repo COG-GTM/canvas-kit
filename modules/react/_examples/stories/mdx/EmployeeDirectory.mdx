@@ -1,0 +1,17 @@
+import {Meta} from '@storybook/blocks';
+
+import {ExampleCodeBlock} from '@workday/canvas-kit-docs';
+
+import {EmployeeDirectory} from './examples/EmployeeDirectory';
+
+<Meta title="Examples/Employee Directory" />
+
+## Employee Directory example
+
+A composite example that combines `Table`, `Pagination`, `Select` and `Dialog` into a single
+directory view. The pagination model is hoisted with `usePaginationModel` so the filter can reset
+it: selecting a department filters the table and sends pagination back to the first page, paging
+through results updates both the table and the visible result range, and each row opens a dialog
+with the full employee record.
+
+<ExampleCodeBlock code={EmployeeDirectory} />
