@@ -3,8 +3,19 @@ import React from 'react';
 import {MultiSelect} from '@workday/canvas-kit-preview-react/multi-select';
 import {PrimaryButton, SecondaryButton} from '@workday/canvas-kit-react/button';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const containerStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+  flexDirection: 'column',
+});
+
+const buttonContainerStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+});
 
 const items = [
   {id: '1', text: 'Cheese'},
@@ -38,7 +49,7 @@ export const Controlled = () => {
       }}
       ref={formRef}
     >
-      <Flex cs={{gap: system.gap.md, flexDirection: 'column'}}>
+      <div className={containerStyles}>
         <MultiSelect items={items}>
           <FormField orientation="horizontalStart">
             <FormField.Label>Toppings</FormField.Label>
@@ -63,7 +74,7 @@ export const Controlled = () => {
             </MultiSelect.Popper>
           </FormField>
         </MultiSelect>
-        <Flex cs={{gap: system.gap.md}}>
+        <div className={buttonContainerStyles}>
           <SecondaryButton
             onClick={e => {
               setValue('1, 2, 3');
@@ -79,13 +90,13 @@ export const Controlled = () => {
           >
             Set to "Cheese, Olives" via DOM `value`
           </SecondaryButton>
-        </Flex>
+        </div>
         <div>
           <PrimaryButton type="submit">Submit</PrimaryButton>
         </div>
         <div>Selected ID: {value}</div>
         <div>Selected Label: {label}</div>
-      </Flex>
+      </div>
     </form>
   );
 };
