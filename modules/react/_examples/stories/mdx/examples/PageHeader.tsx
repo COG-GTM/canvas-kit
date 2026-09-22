@@ -1,12 +1,13 @@
+import * as React from 'react';
+
 import {TertiaryButton} from '@workday/canvas-kit-react/button';
 import {createComponent} from '@workday/canvas-kit-react/common';
-import {Flex, FlexProps} from '@workday/canvas-kit-react/layout';
 import {Heading} from '@workday/canvas-kit-react/text';
-import {createStyles, handleCsProp} from '@workday/canvas-kit-styling';
+import {CSProps, createStyles, handleCsProp} from '@workday/canvas-kit-styling';
 import {hamburgerIcon, notificationsIcon} from '@workday/canvas-system-icons-web';
 import {brand, system} from '@workday/canvas-tokens-web';
 
-interface HeaderItemProps extends FlexProps {}
+interface HeaderItemProps extends React.HTMLAttributes<HTMLDivElement>, CSProps {}
 
 export const Basic = () => (
   <PageHeader>
@@ -18,10 +19,15 @@ export const Basic = () => (
   </PageHeader>
 );
 
+const pageHeaderItemStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.xs,
+});
+
 const PageHeaderItem = createComponent('div')({
   displayName: 'PageHeader.Item',
   Component: (props: HeaderItemProps, ref, Element) => (
-    <Flex ref={ref} as={Element} {...handleCsProp(props, [{gap: system.gap.xs}])} />
+    <Element ref={ref} {...handleCsProp(props, pageHeaderItemStyles)} />
   ),
 });
 

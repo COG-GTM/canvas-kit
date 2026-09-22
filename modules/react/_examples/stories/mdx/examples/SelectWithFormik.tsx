@@ -2,11 +2,26 @@ import {useFormik} from 'formik';
 
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Select, useSelectModel} from '@workday/canvas-kit-react/select';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {cloudArrowUpIcon, cloudIcon, commentIcon, userIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
+
+const formStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.sm,
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+});
+
+const formFieldStyles = createStyles({
+  alignSelf: 'stretch',
+  alignItems: 'normal',
+});
+
+const selectListStyles = createStyles({
+  maxHeight: px2rem(200),
+});
 
 export const customOptionsMain = [
   {
@@ -50,8 +65,8 @@ export const SelectWithFormik = () => {
 
   return (
     <form onSubmit={formik.handleSubmit} action=".">
-      <Flex cs={{gap: system.gap.sm, flexDirection: 'column', alignItems: 'flex-start'}}>
-        <FormField orientation="vertical" cs={{alignSelf: 'stretch', alignItems: 'normal'}}>
+      <div className={formStyles}>
+        <FormField orientation="vertical" cs={formFieldStyles}>
           <Select model={selectModel}>
             <FormField.Label>Choose a book</FormField.Label>
             <FormField.Input
@@ -63,7 +78,7 @@ export const SelectWithFormik = () => {
             />
             <Select.Popper>
               <Select.Card>
-                <Select.List cs={{maxHeight: px2rem(200)}}>
+                <Select.List cs={selectListStyles}>
                   {item => {
                     return (
                       <Select.Item data-id={item.serverId} data-text={item.label}>
@@ -78,7 +93,7 @@ export const SelectWithFormik = () => {
           </Select>
         </FormField>
         <PrimaryButton type="submit">Submit</PrimaryButton>
-      </Flex>
+      </div>
     </form>
   );
 };
