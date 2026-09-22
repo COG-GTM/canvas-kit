@@ -1,6 +1,6 @@
-import {Box} from '@workday/canvas-kit-react/layout';
 import {SegmentedControl} from '@workday/canvas-kit-react/segmented-control';
 import {BodyText} from '@workday/canvas-kit-react/text';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {
   gridIcon,
   listDetailIcon,
@@ -9,10 +9,19 @@ import {
 } from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
+const firstLabelStyles = createStyles({
+  marginBlockStart: system.space.zero,
+  fontWeight: system.fontWeight.bold,
+});
+
+const labelStyles = createStyles({
+  fontWeight: system.fontWeight.bold,
+});
+
 export const Sizes = () => (
   <>
-    <Box>
-      <BodyText size="medium" cs={{marginBlockStart: 0, fontWeight: system.fontWeight.bold}}>
+    <div>
+      <BodyText size="medium" cs={firstLabelStyles}>
         Small
       </BodyText>
       <SegmentedControl size="small">
@@ -31,9 +40,9 @@ export const Sizes = () => (
           </SegmentedControl.Item>
         </SegmentedControl.List>
       </SegmentedControl>
-    </Box>
-    <Box>
-      <BodyText size="medium" fontWeight="bold">
+    </div>
+    <div>
+      <BodyText size="medium" cs={labelStyles}>
         Medium
       </BodyText>
       <SegmentedControl size="medium">
@@ -52,9 +61,9 @@ export const Sizes = () => (
           </SegmentedControl.Item>
         </SegmentedControl.List>
       </SegmentedControl>
-    </Box>
-    <Box>
-      <BodyText size="medium" fontWeight="bold">
+    </div>
+    <div>
+      <BodyText size="medium" cs={labelStyles}>
         Large
       </BodyText>
       <SegmentedControl size="large">
@@ -73,6 +82,6 @@ export const Sizes = () => (
           </SegmentedControl.Item>
         </SegmentedControl.List>
       </SegmentedControl>
-    </Box>
+    </div>
   </>
 );
