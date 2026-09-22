@@ -4,7 +4,6 @@ import {Hyperlink, TertiaryButton} from '@workday/canvas-kit-react/button';
 import {useUniqueId} from '@workday/canvas-kit-react/common';
 import {Dialog, useDialogModel} from '@workday/canvas-kit-react/dialog';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   useCloseOnEscape,
   useCloseOnOutsideClick,
@@ -18,7 +17,12 @@ import {createStyles} from '@workday/canvas-kit-styling';
 import {infoIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
+const formContainerStyles = createStyles({
+  display: 'flex',
+});
+
 const containerStyles = createStyles({
+  display: 'flex',
   flexDirection: 'row',
   gap: system.gap.sm,
 });
@@ -26,6 +30,17 @@ const containerStyles = createStyles({
 const labelStyles = createStyles({
   minWidth: 'unset',
   width: '100%',
+});
+
+const headingStyles = createStyles({
+  paddingBlockStart: system.padding.xxl,
+});
+
+const linkContainerStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+  padding: system.padding.xs,
+  marginBlockStart: system.gap.sm,
 });
 
 export function ContextualHelpDialogFocusRedirect() {
@@ -39,9 +54,9 @@ export function ContextualHelpDialogFocusRedirect() {
   const labelId = useUniqueId();
 
   return (
-    <Flex>
+    <div className={formContainerStyles}>
       <FormField>
-        <Flex className={containerStyles}>
+        <div className={containerStyles}>
           <FormField.Label className={labelStyles} id={labelId}>
             Country
           </FormField.Label>
@@ -57,29 +72,21 @@ export function ContextualHelpDialogFocusRedirect() {
             <Dialog.Popper placement="right">
               <Dialog.Card>
                 <Dialog.CloseIcon aria-label="Close" />
-                <Dialog.Heading cs={{paddingBlockStart: system.padding.xxl}}>
-                  Information
-                </Dialog.Heading>
+                <Dialog.Heading cs={headingStyles}>Information</Dialog.Heading>
                 <Dialog.Body>
                   This dialog does not trap focus, so tabbing out of it will cause it to close
                 </Dialog.Body>
-                <Flex
-                  cs={{
-                    gap: system.gap.md,
-                    padding: system.padding.xs,
-                    marginBlockStart: system.gap.sm,
-                  }}
-                >
+                <div className={linkContainerStyles}>
                   <Hyperlink href="/">Link</Hyperlink>
-                </Flex>
+                </div>
               </Dialog.Card>
             </Dialog.Popper>
           </Dialog>
-        </Flex>
+        </div>
         <FormField.Field>
           <FormField.Input as={TextInput} />
         </FormField.Field>
       </FormField>
-    </Flex>
+    </div>
   );
 }

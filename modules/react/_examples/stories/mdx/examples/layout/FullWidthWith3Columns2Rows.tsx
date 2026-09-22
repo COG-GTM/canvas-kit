@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import {Box, Grid} from '@workday/canvas-kit-react/layout';
 import {BodyText, Heading} from '@workday/canvas-kit-react/text';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 const gridStyles = createStyles({
+  display: 'grid',
   gridTemplateAreas: "'Heading Heading Heading'",
   gridTemplateColumns: 'repeat(3, 1fr)',
   gridAutoRows: 'min-content',
@@ -14,31 +14,38 @@ const gridStyles = createStyles({
 });
 
 const headingStyles = createStyles({
+  boxSizing: 'border-box',
   gridArea: 'Heading',
   paddingInline: system.padding.sm,
   border: `${px2rem(1)} solid ${system.color.brand.border.primary}`,
 });
 
 export const FullWidthWith3Columns2Rows = () => (
-  <Grid cs={gridStyles}>
-    <Box cs={headingStyles}>
+  <div className={gridStyles}>
+    <div className={headingStyles}>
       <Heading size="medium">Full Width With 3 Columns and 2 Rows</Heading>
-    </Box>
+    </div>
     <FormSkeleton />
     <FormSkeleton />
     <FormSkeleton />
     <FormSkeleton />
     <FormSkeleton />
     <FormSkeleton />
-  </Grid>
+  </div>
 );
 
-const boxStyles = createStyles({
+const formStyles = createStyles({
+  boxSizing: 'border-box',
   border: `${px2rem(1)} dashed ${system.color.brand.border.primary}`,
   paddingInline: system.padding.md,
 });
 
+const boldTextStyles = createStyles({
+  fontWeight: system.fontWeight.bold,
+});
+
 const itemStyles = createStyles({
+  display: 'grid',
   gridGap: system.gap.md,
   marginBlockEnd: system.gap.lg,
   '> *:first-child': {
@@ -47,6 +54,7 @@ const itemStyles = createStyles({
     backgroundColor: system.color.surface.alt.default,
   },
   '> *:last-child': {
+    boxSizing: 'border-box',
     border: `${px2rem(1)} solid ${system.color.border.default}`,
     width: '100%',
     height: system.size.xxs,
@@ -54,15 +62,15 @@ const itemStyles = createStyles({
 });
 
 const FormSkeleton = props => (
-  <Box cs={boxStyles} {...props}>
-    <BodyText size="small" cs={{fontWeight: system.fontWeight.bold}}>
+  <div className={formStyles} {...props}>
+    <BodyText size="small" cs={boldTextStyles}>
       Form Block
     </BodyText>
     {Array.from({length: 3}).map(() => (
-      <Grid cs={itemStyles}>
-        <Box />
-        <Box />
-      </Grid>
+      <div className={itemStyles}>
+        <div />
+        <div />
+      </div>
     ))}
-  </Box>
+  </div>
 );
