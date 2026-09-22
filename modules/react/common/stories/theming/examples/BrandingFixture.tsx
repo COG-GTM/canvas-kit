@@ -22,7 +22,6 @@ import {CanvasProvider, CanvasProviderTheme} from '@workday/canvas-kit-react/com
 import {Expandable} from '@workday/canvas-kit-react/expandable';
 import {FormField, FormFieldGroup} from '@workday/canvas-kit-react/form-field';
 import {InformationHighlight} from '@workday/canvas-kit-react/information-highlight';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {LoadingDots} from '@workday/canvas-kit-react/loading-dots';
 import {Menu, MenuCard} from '@workday/canvas-kit-react/menu';
 import {Pill} from '@workday/canvas-kit-react/pill';
@@ -32,7 +31,7 @@ import {SidePanel} from '@workday/canvas-kit-react/side-panel';
 import {TextArea} from '@workday/canvas-kit-react/text-area';
 import {TextInput} from '@workday/canvas-kit-react/text-input';
 import {Tooltip} from '@workday/canvas-kit-react/tooltip';
-import {createStyles} from '@workday/canvas-kit-styling';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {gridIcon, listDetailIcon, listViewIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
@@ -42,16 +41,37 @@ export type BrandingFixtureProps = {
 };
 
 const columnStyles = createStyles({
+  display: 'flex',
   backgroundColor: system.color.bg.alt.default,
-  flex: '1 1 280px',
-  minWidth: '280px',
+  flex: `1 1 ${px2rem(280)}`,
+  minWidth: px2rem(280),
   maxWidth: '100%',
+});
+
+const sidePanelStyles = createStyles({
+  height: '100vh',
+  backgroundColor: system.color.surface.raised,
+});
+
+const stackStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+  flexDirection: 'column',
+});
+
+const rowStyles = createStyles({
+  display: 'flex',
+});
+
+const gappedRowStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
 });
 
 export const BrandingFixture = ({label, scopedTheme}: BrandingFixtureProps) => {
   const content = (
-    <Flex cs={columnStyles}>
-      <SidePanel cs={{height: '100vh', backgroundColor: system.color.surface.raised}}>
+    <div className={columnStyles}>
+      <SidePanel cs={sidePanelStyles}>
         <SidePanel.Heading>{label}</SidePanel.Heading>
         <Menu>
           <Menu.Item aria-selected={true}>Item 1</Menu.Item>
@@ -59,14 +79,14 @@ export const BrandingFixture = ({label, scopedTheme}: BrandingFixtureProps) => {
           <Menu.Item>Item 3</Menu.Item>
         </Menu>
       </SidePanel>
-      <Flex cs={{gap: system.gap.md, flexDirection: 'column'}}>
-        <Flex>
+      <div className={stackStyles}>
+        <div className={rowStyles}>
           <PrimaryButton>Primary button</PrimaryButton>
           <SecondaryButton>Secondary button</SecondaryButton>
           <TertiaryButton>Tertiary button</TertiaryButton>
           <DeleteButton variant="outline">Delete button</DeleteButton>
-        </Flex>
-        <Flex>
+        </div>
+        <div className={rowStyles}>
           <SegmentedControl initialValue={'list-view'}>
             <SegmentedControl.List aria-label="View type">
               <SegmentedControl.Item
@@ -98,8 +118,8 @@ export const BrandingFixture = ({label, scopedTheme}: BrandingFixtureProps) => {
               <ActionBar.Item>Item 2</ActionBar.Item>
             </ActionBar.List>
           </ActionBar>
-        </Flex>
-        <Flex cs={{gap: system.gap.md}}>
+        </div>
+        <div className={gappedRowStyles}>
           <Card>
             <Card.Heading>Card heading</Card.Heading>
             <Card.Body>Card content</Card.Body>
@@ -117,8 +137,8 @@ export const BrandingFixture = ({label, scopedTheme}: BrandingFixtureProps) => {
 
             <Expandable.Content>Content</Expandable.Content>
           </Expandable>
-        </Flex>
-        <Flex cs={{gap: system.gap.md}}>
+        </div>
+        <div className={gappedRowStyles}>
           <Avatar variant="purple" preferredInitials="MC" name="Manuel Carrera" />
           <Pill>
             <Pill.Icon aria-label="Add" />
@@ -129,8 +149,8 @@ export const BrandingFixture = ({label, scopedTheme}: BrandingFixtureProps) => {
           <StatusIndicator variant="info">
             <StatusIndicator.Label>Status Indicator</StatusIndicator.Label>
           </StatusIndicator>
-        </Flex>
-        <Flex cs={{gap: system.gap.md, flexDirection: 'column'}}>
+        </div>
+        <div className={stackStyles}>
           <Banner hasError={false}>
             <Banner.Icon />
             <Banner.Label>3 Alerts</Banner.Label>
@@ -139,8 +159,8 @@ export const BrandingFixture = ({label, scopedTheme}: BrandingFixtureProps) => {
             <InformationHighlight.Icon />
             <InformationHighlight.Body>Information Highlight</InformationHighlight.Body>
           </InformationHighlight>
-        </Flex>
-        <Flex>
+        </div>
+        <div className={rowStyles}>
           <FormField>
             <FormField.Label>Form Field</FormField.Label>
             <FormField.Field>
@@ -203,9 +223,9 @@ export const BrandingFixture = ({label, scopedTheme}: BrandingFixtureProps) => {
               </FormFieldGroup.Field>
             </FormFieldGroup>
           </FormField>
-        </Flex>
-      </Flex>
-    </Flex>
+        </div>
+      </div>
+    </div>
   );
 
   if (scopedTheme) {

@@ -1,178 +1,168 @@
-import styled from '@emotion/styled';
-
 import {getTheme} from '@workday/canvas-kit-react/common';
-import {Box, Grid} from '@workday/canvas-kit-react/layout';
-import {borderRadius, colors, space, type} from '@workday/canvas-kit-react/tokens';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
+import {base, system} from '@workday/canvas-tokens-web';
 
 const theme = getTheme();
 const {up, down} = theme.canvas.breakpoints;
-const small = down('m'); // Returns '@media (max-width: 768px)'
+const small = down('m'); // Returns '@media (max-width: 767.5px)'
 const medium = up('m'); // Returns '@media (min-width: 768px)'
-const styles = {
-  parentWrapper: {
-    [small]: {
-      gridTemplateAreas: "'Header' 'SmallContainer' 'BodyContent' 'Footer'",
-      gridTemplateColumns: '1fr',
-      gridTemplateRows: 'auto',
-      border: '10px solid',
-      borderRadius: 30,
-      paddingInline: space.s,
-      paddingBlock: space.l,
-    },
-    [medium]: {
-      gridTemplateAreas: "'Header Header' 'SmallContainer BodyContent' 'Footer Footer'",
-      gridTemplateColumns: '1fr 3fr',
-      gridTemplateRows: 'auto 300px auto',
-      border: '40px solid',
-      borderRadius: '20px 20px 0 0',
-      padding: space.m,
-    },
-  },
-  parentContainer: {
-    [small]: {
-      maxWidth: '100%',
-    },
-    [medium]: {
-      maxWidth: 1000,
-    },
-  },
-  header: {
-    [small]: {
-      ...type.levels.body.small,
-      ...type.variants.inverse,
-      fontWeight: type.properties.fontWeights.bold,
-    },
-    [medium]: {
-      ...type.levels.body.large,
-      ...type.variants.inverse,
-      fontWeight: type.properties.fontWeights.bold,
-    },
-  },
-  greyBar: {
-    [small]: {
-      display: 'none',
-    },
-    [medium]: {
-      display: 'block',
-      borderRadius: '0 0 20px 20px',
-    },
-  },
-  circle: {
-    [small]: {
-      height: 5,
-      width: 75,
-      bottom: 10,
-      backgroundColor: 'grey',
-    },
-    [medium]: {
-      height: 40,
-      width: 40,
-      bottom: -95,
-      backgroundColor: 'black',
-    },
-  },
-  circleTop: {
-    [small]: {
-      height: 15,
-      width: 40,
-      top: 10,
-    },
-    [medium]: {
-      display: 'none',
-    },
-  },
-};
 
-const ParentCont = styled(Box.as('div'))({
-  ...styles.parentContainer,
+const parentContainerStyles = createStyles({
+  boxSizing: 'border-box',
   position: 'relative',
+  [small]: {
+    maxWidth: '100%',
+  },
+  [medium]: {
+    maxWidth: px2rem(1000),
+  },
 });
 
-const StyledParentWrapper = styled(Grid.as('section'))({
-  ...styles.parentWrapper,
-  gridGap: space.s,
+const parentWrapperStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'grid',
+  gap: system.space.x4,
   position: 'relative',
+  [small]: {
+    gridTemplateAreas: "'Header' 'SmallContainer' 'BodyContent' 'Footer'",
+    gridTemplateColumns: '1fr',
+    gridTemplateRows: 'auto',
+    border: `${px2rem(10)} solid`,
+    borderRadius: px2rem(30),
+    paddingInline: system.space.x4,
+    paddingBlock: system.space.x8,
+  },
+  [medium]: {
+    gridTemplateAreas: "'Header Header' 'SmallContainer BodyContent' 'Footer Footer'",
+    gridTemplateColumns: '1fr 3fr',
+    gridTemplateRows: `auto ${px2rem(300)} auto`,
+    border: `${px2rem(40)} solid`,
+    borderRadius: `${px2rem(20)} ${px2rem(20)} 0 0`,
+    padding: system.space.x6,
+  },
 });
 
-const CircleTop = styled(Box)({
-  ...styles.circleTop,
+const circleTopStyles = createStyles({
+  boxSizing: 'border-box',
   backgroundColor: 'black',
-  borderRadius: borderRadius.circle,
+  borderRadius: system.shape.round,
   position: 'absolute',
   left: '50%',
   transform: 'translate(-50%, 0)',
+  [small]: {
+    height: px2rem(15),
+    width: px2rem(40),
+    top: px2rem(10),
+  },
+  [medium]: {
+    display: 'none',
+  },
 });
 
-const StyledHeaderContainer = styled(Grid.as('div'))({
+const headerContainerStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'grid',
   gridArea: 'Header',
-  backgroundColor: colors.blueberry400,
-  borderRadius: borderRadius.m,
-  padding: space.s,
+  backgroundColor: base.blueberry400,
+  borderRadius: system.shape.x1,
+  padding: system.space.x4,
 });
 
-const StyledLeftContent = styled(Grid.as('div'))({
+const leftContentStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'grid',
   gridArea: 'SmallContainer',
-  backgroundColor: colors.blueberry300,
-  borderRadius: borderRadius.m,
-  padding: space.s,
+  backgroundColor: base.blueberry300,
+  borderRadius: system.shape.x1,
+  padding: system.space.x4,
 });
 
-const StyledRightContent = styled(Grid.as('div'))({
+const rightContentStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'grid',
   gridArea: 'BodyContent',
-  backgroundColor: colors.plum300,
-  borderRadius: borderRadius.m,
-  padding: space.s,
+  backgroundColor: base.plum300,
+  borderRadius: system.shape.x1,
+  padding: system.space.x4,
 });
 
-const StyledFooterContainer = styled(Grid.as('div'))({
+const footerContainerStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'grid',
   gridArea: 'Footer',
-  backgroundColor: colors.berrySmoothie300,
-  borderRadius: borderRadius.m,
-  padding: space.s,
+  backgroundColor: base.berrySmoothie300,
+  borderRadius: system.shape.x1,
+  padding: system.space.x4,
 });
 
-const StyledHeading = styled(Box.as('h3'))({
-  ...styles.header,
-  margin: 0,
+const headingStyles = createStyles({
+  boxSizing: 'border-box',
+  margin: system.space.zero,
+  [small]: {
+    ...system.type.body.small,
+    color: base.frenchVanilla100,
+    fontWeight: system.fontWeight.bold,
+  },
+  [medium]: {
+    ...system.type.body.large,
+    color: base.frenchVanilla100,
+    fontWeight: system.fontWeight.bold,
+  },
 });
 
-const GreyBar = styled(Box)({
-  ...styles.greyBar,
-  height: 70,
+const greyBarStyles = createStyles({
+  boxSizing: 'border-box',
+  height: px2rem(70),
   backgroundColor: 'grey',
+  [small]: {
+    display: 'none',
+  },
+  [medium]: {
+    display: 'block',
+    borderRadius: `0 0 ${px2rem(20)} ${px2rem(20)}`,
+  },
 });
 
-const Circle = styled(Box)({
-  ...styles.circle,
-  borderRadius: borderRadius.circle,
+const circleStyles = createStyles({
+  boxSizing: 'border-box',
+  borderRadius: system.shape.round,
   position: 'absolute',
   left: '50%',
   transform: 'translate(-50%, 0)',
+  [small]: {
+    height: px2rem(5),
+    width: px2rem(75),
+    bottom: px2rem(10),
+    backgroundColor: 'grey',
+  },
+  [medium]: {
+    height: px2rem(40),
+    width: px2rem(40),
+    bottom: px2rem(-95),
+    backgroundColor: 'black',
+  },
 });
 
-/* Example is outdated in v15 as we are moving away from styled-components.
- * TODO: Update this example to use the new styling approach.
- */
 export const ResponsiveViewport = () => {
   return (
-    <ParentCont>
-      <StyledParentWrapper>
-        <CircleTop></CircleTop>
-        <StyledHeaderContainer>
-          <StyledHeading>Header</StyledHeading>
-        </StyledHeaderContainer>
-        <StyledLeftContent>
-          <StyledHeading>Small Content</StyledHeading>
-        </StyledLeftContent>
-        <StyledRightContent>
-          <StyledHeading>Body Content</StyledHeading>
-        </StyledRightContent>
-        <StyledFooterContainer>
-          <StyledHeading>Footer</StyledHeading>
-        </StyledFooterContainer>
-        <Circle></Circle>
-      </StyledParentWrapper>
-      <GreyBar></GreyBar>
-    </ParentCont>
+    <div className={parentContainerStyles}>
+      <section className={parentWrapperStyles}>
+        <div className={circleTopStyles}></div>
+        <div className={headerContainerStyles}>
+          <h3 className={headingStyles}>Header</h3>
+        </div>
+        <div className={leftContentStyles}>
+          <h3 className={headingStyles}>Small Content</h3>
+        </div>
+        <div className={rightContentStyles}>
+          <h3 className={headingStyles}>Body Content</h3>
+        </div>
+        <div className={footerContainerStyles}>
+          <h3 className={headingStyles}>Footer</h3>
+        </div>
+        <div className={circleStyles}></div>
+      </section>
+      <div className={greyBarStyles}></div>
+    </div>
   );
 };

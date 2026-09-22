@@ -2,41 +2,50 @@ import * as React from 'react';
 
 import {useResizeObserver, useResponsiveContainerStyles} from '@workday/canvas-kit-react/common';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Box, Flex, Grid} from '@workday/canvas-kit-react/layout';
 import {Select} from '@workday/canvas-kit-react/select';
 import {Text} from '@workday/canvas-kit-react/text';
+import {createStyles, cssVar, px2rem} from '@workday/canvas-kit-styling';
+import {base, system} from '@workday/canvas-tokens-web';
 
-const HeadingText = ({children, ...props}) => (
-  <Text as="p" fontSize={20} fontWeight="bold" color="frenchVanilla100" margin={0} {...props}>
-    {children}
-  </Text>
-);
+const headingTextStyles = createStyles({
+  fontSize: px2rem(20),
+  fontWeight: system.fontWeight.bold,
+  color: base.frenchVanilla100,
+  margin: system.space.zero,
+});
 
-const Header = ({children, ...props}) => (
-  <Grid gridArea="Header" backgroundColor="blueberry400" {...props}>
-    {children}
-  </Grid>
-);
+const sectionStyles = createStyles({
+  display: 'grid',
+});
 
-const ContentRight = ({children, ...props}) => (
-  <Grid gridArea="ContentRight" backgroundColor="blueberry300" {...props}>
-    {children}
-  </Grid>
-);
+const headerStyles = createStyles({
+  display: 'grid',
+  boxSizing: 'border-box',
+  gridArea: 'Header',
+  backgroundColor: base.blueberry400,
+});
 
-const ContentLeft = ({children, ...props}) => (
-  <Grid gridArea="ContentLeft" backgroundColor="plum300" {...props}>
-    {children}
-  </Grid>
-);
+const contentLeftStyles = createStyles({
+  display: 'grid',
+  boxSizing: 'border-box',
+  gridArea: 'ContentLeft',
+  backgroundColor: base.plum300,
+});
 
-const Footer = ({children, ...props}) => (
-  <Grid gridArea="Footer" backgroundColor="berrySmoothie300" {...props}>
-    {children}
-  </Grid>
-);
+const contentRightStyles = createStyles({
+  display: 'grid',
+  boxSizing: 'border-box',
+  gridArea: 'ContentRight',
+  backgroundColor: base.blueberry300,
+});
 
-// Showcase of old Emotion approach, it is not recommended in v15
+const footerStyles = createStyles({
+  display: 'grid',
+  boxSizing: 'border-box',
+  gridArea: 'Footer',
+  backgroundColor: base.berrySmoothie300,
+});
+
 export const ResponsiveContainer = () => {
   const ref = React.useRef(null);
   const [width, setWidth] = React.useState(0);
@@ -48,32 +57,40 @@ export const ResponsiveContainer = () => {
     },
   });
 
+  // `useResponsiveContainerStyles` returns style objects for the current container width, so these
+  // styles are applied inline. Everything that doesn't depend on the container width is defined
+  // with `createStyles` at module scope.
   const responsiveStyles = useResponsiveContainerStyles(
     {
       parentContainer: {
-        gridGap: 's',
+        gap: cssVar(system.space.x4),
         display: 'inline-grid',
         gridTemplateAreas: "'Header' 'ContentLeft' 'ContentRight ' 'Footer'",
         gridTemplateColumns: '1fr',
         gridTemplateRows: 'auto auto auto',
         m: {
           gridTemplateAreas: "'Header Header' 'ContentLeft ContentRight ' 'Footer Footer'",
-          gridGap: 's',
+          gap: cssVar(system.space.x4),
           gridTemplateColumns: '1fr 3fr',
-          gridTemplateRows: 'auto 200px auto',
+          gridTemplateRows: `auto ${px2rem(200)} auto`,
         },
       },
       childrenContainers: {
-        depth: 1,
-        borderRadius: 'm',
-        padding: 's',
+        boxShadow: cssVar(system.depth[1]),
+        borderRadius: cssVar(system.shape.x1),
+        padding: cssVar(system.space.x4),
       },
       box: {
-        padding: 's',
+        padding: cssVar(system.space.x4),
       },
     },
     width
   );
+
+  // `useResponsiveContainerStyles` is typed against the deprecated style props, so the returned
+  // CSS objects are cast to `React.CSSProperties` before being applied inline.
+  const parentContainerStyle = responsiveStyles.parentContainer as React.CSSProperties;
+  const childContainerStyle = responsiveStyles.childrenContainers as React.CSSProperties;
 
   const desktop = 1024;
 
@@ -85,7 +102,7 @@ export const ResponsiveContainer = () => {
   };
 
   return (
-    <Box ref={ref} width={contWidth}>
+    <div ref={ref} style={{width: contWidth}}>
       <FormField>
         <FormField.Label>Container Size</FormField.Label>
         <Select items={['1024px', '768px', '320px']} initialSelectedIds={['1024px']}>
@@ -97,22 +114,30 @@ export const ResponsiveContainer = () => {
           </Select.Popper>
         </Select>
       </FormField>
-      <Grid as="section">
-        <Grid {...responsiveStyles.parentContainer}>
-          <Header {...responsiveStyles.childrenContainers}>
-            <HeadingText>Header</HeadingText>
-          </Header>
-          <ContentLeft {...responsiveStyles.childrenContainers}>
-            <HeadingText>Content Left</HeadingText>
-          </ContentLeft>
-          <ContentRight {...responsiveStyles.childrenContainers}>
-            <HeadingText>Content Right</HeadingText>
-          </ContentRight>
-          <Footer {...responsiveStyles.childrenContainers}>
-            <HeadingText>Footer</HeadingText>
-          </Footer>
-        </Grid>
-      </Grid>
-    </Box>
+      <section className={sectionStyles}>
+        <div style={parentContainerStyle}>
+          <div className={headerStyles} style={childContainerStyle}>
+            <Text as="p" cs={headingTextStyles}>
+              Header
+            </Text>
+          </div>
+          <div className={contentLeftStyles} style={childContainerStyle}>
+            <Text as="p" cs={headingTextStyles}>
+              Content Left
+            </Text>
+          </div>
+          <div className={contentRightStyles} style={childContainerStyle}>
+            <Text as="p" cs={headingTextStyles}>
+              Content Right
+            </Text>
+          </div>
+          <div className={footerStyles} style={childContainerStyle}>
+            <Text as="p" cs={headingTextStyles}>
+              Footer
+            </Text>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
