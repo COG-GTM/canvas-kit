@@ -2,7 +2,6 @@ import React from 'react';
 
 import * as CanvasIcons from '@workday/canvas-expressive-icons-web';
 import {ExpressiveIcon} from '@workday/canvas-kit-react/icon';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Subtext} from '@workday/canvas-kit-react/text';
 import {TextInput} from '@workday/canvas-kit-react/text-input';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
@@ -13,16 +12,22 @@ const allIcons = ImportedIcons.filter(icon => !icon.startsWith('Canvas') && icon
 
 const styleOverrides = {
   parentContainer: createStyles({
+    boxSizing: 'border-box',
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: system.gap.lg,
   }),
   firstChildContainer: createStyles({
+    boxSizing: 'border-box',
+    display: 'flex',
     flexWrap: 'wrap',
   }),
   secondChildContainer: createStyles({
+    boxSizing: 'border-box',
+    display: 'flex',
     alignItems: 'center',
-    width: `max(320px,20%)`,
+    width: `max(${px2rem(320)},20%)`,
     flexDirection: 'row',
     gap: px2rem(12),
     padding: system.padding.sm,
@@ -43,9 +48,9 @@ export const ExpressiveIconList = () => {
   };
 
   return (
-    <Flex cs={styleOverrides.parentContainer}>
+    <div className={styleOverrides.parentContainer}>
       <TextInput onKeyDown={e => handleSearch(e)} placeholder="Search for an icon" />
-      <Flex cs={styleOverrides.firstChildContainer}>
+      <div className={styleOverrides.firstChildContainer}>
         {allIcons
           .filter(icon => {
             if (value === '') {
@@ -56,15 +61,15 @@ export const ExpressiveIconList = () => {
           })
           .map((singleIcon, index) => {
             return (
-              <Flex cs={styleOverrides.secondChildContainer} key={index}>
+              <div className={styleOverrides.secondChildContainer} key={index}>
                 <ExpressiveIcon icon={CanvasIcons[singleIcon]} />
                 <Subtext as="code" size="large" cs={styleOverrides.text}>
                   {singleIcon}
                 </Subtext>
-              </Flex>
+              </div>
             );
           })}
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
