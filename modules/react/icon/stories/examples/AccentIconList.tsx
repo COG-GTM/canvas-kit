@@ -2,7 +2,6 @@ import React from 'react';
 
 import * as CanvasAccentIcons from '@workday/canvas-accent-icons-web';
 import {AccentIcon} from '@workday/canvas-kit-react/icon';
-import {Box, Flex} from '@workday/canvas-kit-react/layout';
 import {TextInput} from '@workday/canvas-kit-react/text-input';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
@@ -13,14 +12,17 @@ const allIcons = ImportedIcons.filter(icon => icon !== 'CanvasAccentIcons');
 
 const styleOverrides = {
   parentContainer: createStyles({
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: system.gap.lg,
   }),
   iconGroupContainer: createStyles({
+    display: 'flex',
     flexWrap: 'wrap',
   }),
   individualIconContainer: createStyles({
+    display: 'flex',
     alignItems: 'center',
     width: `max(${px2rem(320)},20%)`,
     flexDirection: 'row',
@@ -37,9 +39,9 @@ export const AccentIconList = () => {
   };
 
   return (
-    <Flex cs={styleOverrides.parentContainer}>
+    <div className={styleOverrides.parentContainer}>
       <TextInput onKeyDown={e => handleSearch(e)} placeholder="Search for an icon" />
-      <Flex cs={styleOverrides.iconGroupContainer}>
+      <div className={styleOverrides.iconGroupContainer}>
         {allIcons
           .filter(icon => {
             if (value === '') {
@@ -50,15 +52,15 @@ export const AccentIconList = () => {
           })
           .map((singleIcon, index) => {
             return (
-              <Flex cs={styleOverrides.individualIconContainer} key={index}>
-                <Box>
+              <div className={styleOverrides.individualIconContainer} key={index}>
+                <div>
                   <AccentIcon icon={CanvasAccentIcons[singleIcon]} />
-                </Box>
-                <Box>{singleIcon}</Box>
-              </Flex>
+                </div>
+                <div>{singleIcon}</div>
+              </div>
             );
           })}
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
