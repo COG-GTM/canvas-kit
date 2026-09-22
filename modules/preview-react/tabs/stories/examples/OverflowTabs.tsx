@@ -1,9 +1,8 @@
 import React from 'react';
 
 import {Tabs, useTabsModel} from '@workday/canvas-kit-preview-react/tabs';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {SegmentedControl} from '@workday/canvas-kit-react/segmented-control';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStencil, createStyles, cssVar, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 type MyTabItem = {
@@ -11,6 +10,25 @@ type MyTabItem = {
   text: React.ReactNode;
   contents: string;
 };
+
+const containerStencil = createStencil({
+  vars: {
+    width: '',
+  },
+  base: ({width}) => ({
+    width: cssVar(width, '100%'),
+    marginBlockEnd: system.gap.xl,
+  }),
+});
+
+const menuCardStyles = createStyles({
+  maxWidth: px2rem(300),
+  maxHeight: px2rem(200),
+});
+
+const panelStyles = createStyles({
+  marginBlockStart: system.gap.lg,
+});
 
 export const OverflowTabs = () => {
   const [items] = React.useState<MyTabItem[]>([
@@ -28,25 +46,23 @@ export const OverflowTabs = () => {
   const [containerWidth, setContainerWidth] = React.useState('100%');
   return (
     <div>
-      <Box cs={{width: containerWidth, marginBlockEnd: system.gap.xl}}>
+      <div {...containerStencil({width: containerWidth})}>
         <Tabs model={model}>
           <Tabs.List overflowButton={<Tabs.OverflowButton>More</Tabs.OverflowButton>}>
             {(item: MyTabItem) => <Tabs.Item>{item.text}</Tabs.Item>}
           </Tabs.List>
           <Tabs.Menu.Popper>
-            <Tabs.Menu.Card cs={{maxWidth: px2rem(300), maxHeight: px2rem(200)}}>
+            <Tabs.Menu.Card cs={menuCardStyles}>
               <Tabs.Menu.List>
                 {(item: MyTabItem) => <Tabs.Menu.Item>{item.text}</Tabs.Menu.Item>}
               </Tabs.Menu.List>
             </Tabs.Menu.Card>
           </Tabs.Menu.Popper>
           <Tabs.Panels>
-            {(item: MyTabItem) => (
-              <Tabs.Panel cs={{marginBlockStart: system.gap.lg}}>{item.contents}</Tabs.Panel>
-            )}
+            {(item: MyTabItem) => <Tabs.Panel cs={panelStyles}>{item.contents}</Tabs.Panel>}
           </Tabs.Panels>
         </Tabs>
-      </Box>
+      </div>
       <hr />
       <h4>Change Tabs container size</h4>
       <SegmentedControl onSelect={data => setContainerWidth(data.id)}>
