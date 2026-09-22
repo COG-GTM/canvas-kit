@@ -12,16 +12,19 @@ const allIcons = ImportedIcons.filter(icon => icon !== 'CanvasAccentIcons');
 
 const styleOverrides = {
   parentContainer: createStyles({
+    boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: system.gap.lg,
   }),
   iconGroupContainer: createStyles({
+    boxSizing: 'border-box',
     display: 'flex',
     flexWrap: 'wrap',
   }),
   individualIconContainer: createStyles({
+    boxSizing: 'border-box',
     display: 'flex',
     alignItems: 'center',
     width: `max(${px2rem(320)},20%)`,

@@ -12,16 +12,19 @@ const allIcons = ImportedIcons.filter(icon => !icon.startsWith('Canvas') && icon
 
 const styleOverrides = {
   parentContainer: createStyles({
+    boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: system.gap.lg,
   }),
   firstChildContainer: createStyles({
+    boxSizing: 'border-box',
     display: 'flex',
     flexWrap: 'wrap',
   }),
   secondChildContainer: createStyles({
+    boxSizing: 'border-box',
     display: 'flex',
     alignItems: 'center',
     width: `max(${px2rem(320)},20%)`,
