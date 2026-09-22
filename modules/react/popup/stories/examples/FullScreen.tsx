@@ -3,7 +3,6 @@ import screenfull from 'screenfull';
 
 import {SecondaryButton} from '@workday/canvas-kit-react/button';
 import {useIsFullscreen} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   Popup,
   useCloseOnEscape,
@@ -16,8 +15,25 @@ import {
   useTransferOnFullscreenEnter,
   useTransferOnFullscreenExit,
 } from '@workday/canvas-kit-react/popup';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const cardStyles = createStyles({
+  width: px2rem(400),
+  padding: system.padding.md,
+});
+
+const fullscreenContainerStyles = createStyles({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: system.color.bg.default,
+});
+
+const buttonContainerStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+});
 
 const SelfClosePopup = () => {
   const model = usePopupModel();
@@ -33,7 +49,7 @@ const SelfClosePopup = () => {
     <Popup model={model}>
       <Popup.Target>Open Self-close Popup</Popup.Target>
       <Popup.Popper>
-        <Popup.Card cs={{width: px2rem(400), padding: system.padding.md}}>
+        <Popup.Card cs={cardStyles}>
           <Popup.CloseIcon aria-label="Close" />
           <Popup.Heading>Self-close Popup</Popup.Heading>
           <Popup.Body>
@@ -64,7 +80,7 @@ const TransferClosePopup = () => {
     <Popup model={model}>
       <Popup.Target>Open Transfer Popup</Popup.Target>
       <Popup.Popper>
-        <Popup.Card cs={{width: px2rem(400), padding: system.padding.md}}>
+        <Popup.Card cs={cardStyles}>
           <Popup.CloseIcon aria-label="Close" />
           <Popup.Heading>Transfer Popup</Popup.Heading>
           <Popup.Body>
@@ -98,18 +114,15 @@ export const FullScreen = () => {
   return (
     <>
       <SecondaryButton onClick={enterFullScreen}>Open Fullscreen</SecondaryButton>
-      <Flex
-        ref={fullscreenElementRef}
-        cs={{alignItems: 'center', justifyContent: 'center', background: system.color.bg.default}}
-      >
-        <Flex cs={{gap: system.gap.md}}>
+      <div ref={fullscreenElementRef} className={fullscreenContainerStyles}>
+        <div className={buttonContainerStyles}>
           <SelfClosePopup />
           <TransferClosePopup />
           {isFullscreen ? (
             <SecondaryButton onClick={exitFullscreen}>Exit fullscreen</SecondaryButton>
           ) : null}
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </>
   );
 };

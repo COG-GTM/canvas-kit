@@ -1,11 +1,16 @@
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   Popup,
   useCloseOnEscape,
   useCloseOnOutsideClick,
   usePopupModel,
 } from '@workday/canvas-kit-react/popup';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const containerStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+});
 
 export const PopupWithNonHidablePopup = () => {
   const popup1 = usePopupModel();
@@ -15,7 +20,7 @@ export const PopupWithNonHidablePopup = () => {
   useCloseOnEscape(popup1);
 
   return (
-    <Flex cs={{gap: system.gap.md}}>
+    <div className={containerStyles}>
       <Popup model={popup1}>
         <Popup.Target>Open Popup 1</Popup.Target>
         <Popup.Popper>
@@ -37,6 +42,6 @@ export const PopupWithNonHidablePopup = () => {
           </Popup.Card>
         </Popup.Popper>
       </Popup>
-    </Flex>
+    </div>
   );
 };

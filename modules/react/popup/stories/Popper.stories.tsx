@@ -2,9 +2,30 @@ import * as React from 'react';
 
 import {PrimaryButton, SecondaryButton} from '@workday/canvas-kit-react/button';
 import {Card} from '@workday/canvas-kit-react/card';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Popper} from '@workday/canvas-kit-react/popup';
+import {createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const containerStyles = createStyles({
+  display: 'flex',
+  justifyContent: 'center',
+});
+
+const buttonContainerStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+});
+
+const spacerStencil = createStencil({
+  base: {},
+  modifiers: {
+    big: {
+      true: {
+        width: px2rem(500),
+      },
+    },
+  },
+});
 
 export default {
   title: 'Components/Popups/Popper',
@@ -27,7 +48,7 @@ export const PopperStory = {
     const [big, setBig] = React.useState(false);
 
     return (
-      <div style={{display: 'flex', justifyContent: 'center'}}>
+      <div className={containerStyles}>
         <PrimaryButton ref={buttonRef} onClick={onClickButton}>
           Toggle Popup
         </PrimaryButton>
@@ -42,8 +63,8 @@ export const PopperStory = {
             <Card.Heading>Popper Example</Card.Heading>
             <Card.Body>
               <p>A card positioned by Popper!</p>
-              <div style={big ? {width: 500} : {}}></div>
-              <Flex cs={{gap: system.gap.md}}>
+              <div {...spacerStencil({big})}></div>
+              <div className={buttonContainerStyles}>
                 <SecondaryButton
                   onClick={() => {
                     setBig(!big);
@@ -55,7 +76,7 @@ export const PopperStory = {
                   Toggle size
                 </SecondaryButton>
                 <SecondaryButton onClick={onClose}>Close</SecondaryButton>
-              </Flex>
+              </div>
             </Card.Body>
           </Card>
         </Popper>

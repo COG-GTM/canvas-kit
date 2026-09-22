@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import {DeleteButton, SecondaryButton} from '@workday/canvas-kit-react/button';
 import {useUniqueId} from '@workday/canvas-kit-react/common';
-import {Box, Flex} from '@workday/canvas-kit-react/layout';
 import {
   Popup,
   useCloseOnEscape,
@@ -23,7 +22,12 @@ const bodyStyles = createStyles({
   marginBlock: '0',
 });
 
-const flexStyles = createStyles({
+const hiddenOwnerStyles = createStyles({
+  position: 'absolute',
+});
+
+const containerStyles = createStyles({
+  display: 'flex',
   gap: system.gap.md,
   padding: system.padding.xs,
 });
@@ -51,17 +55,17 @@ export const FocusRedirect = () => {
 
   return (
     <Popup model={model}>
-      <Flex cs={flexStyles}>
+      <div className={containerStyles}>
         <Popup.Target as={DeleteButton}>Delete Item</Popup.Target>
-        <div aria-owns={popupId} style={{position: 'absolute'}}></div>
+        <div aria-owns={popupId} className={hiddenOwnerStyles}></div>
         <Popup.Popper>
           <Popup.Card cs={cardStyles}>
             <Popup.CloseIcon aria-label="Close" />
             <Popup.Heading>Delete Item</Popup.Heading>
             <Popup.Body>
-              <Box as="p" cs={bodyStyles}>
+              <p className={bodyStyles}>
                 Are you sure you'd like to delete the item titled 'My Item'?
-              </Box>
+              </p>
             </Popup.Body>
             <Popup.ButtonGroup>
               <Popup.CloseButton>Cancel</Popup.CloseButton>
@@ -73,7 +77,7 @@ export const FocusRedirect = () => {
         </Popup.Popper>
         <SecondaryButton>Next Focusable Button</SecondaryButton>
         <SecondaryButton>Focusable Button After Popup</SecondaryButton>
-      </Flex>
+      </div>
     </Popup>
   );
 };

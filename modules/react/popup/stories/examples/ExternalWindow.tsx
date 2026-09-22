@@ -10,7 +10,6 @@ import {
   useMount,
   useTheme,
 } from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Popup, usePopupModel} from '@workday/canvas-kit-react/popup';
 import {Tooltip} from '@workday/canvas-kit-react/tooltip';
 import {createStyles} from '@workday/canvas-kit-styling';
@@ -19,6 +18,11 @@ import {system} from '@workday/canvas-tokens-web';
 
 const mainContentStyles = createStyles({
   padding: system.padding.md,
+});
+
+const buttonContainerStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.sm,
 });
 
 export interface ExternalWindowPortalProps {
@@ -158,12 +162,12 @@ export const ExternalWindow = () => {
           </Tooltip>
           <PopupExternalWindow>
             <p>External Window Contents! Mouse over the info icon to get a tooltip</p>
-            <Flex cs={{gap: system.gap.sm}}>
+            <div className={buttonContainerStyles}>
               <Tooltip title="More information">
                 <SecondaryButton icon={infoIcon} />
               </Tooltip>
               <Popup.CloseButton>Close Window</Popup.CloseButton>
-            </Flex>
+            </div>
           </PopupExternalWindow>
         </Popup>
         <p>Popup visibility: {model.state.visibility}</p>
