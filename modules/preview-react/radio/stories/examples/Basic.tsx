@@ -2,8 +2,12 @@ import React from 'react';
 
 import {RadioGroup} from '@workday/canvas-kit-preview-react/radio';
 import {FormFieldGroup} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
+
+const containerStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+});
 
 const formfieldInputStyles = createStyles({
   width: px2rem(200),
@@ -20,7 +24,7 @@ export const Basic = () => {
   };
 
   return (
-    <Flex cs={{flexDirection: 'column'}}>
+    <div className={containerStyles}>
       <FormFieldGroup>
         <FormFieldGroup.Label>Choose Your Pizza Crust</FormFieldGroup.Label>
         <FormFieldGroup.Field>
@@ -50,6 +54,6 @@ export const Basic = () => {
         </FormFieldGroup.Field>
       </FormFieldGroup>
       Value selected: {value}
-    </Flex>
+    </div>
   );
 };

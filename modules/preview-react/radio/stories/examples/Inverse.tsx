@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {RadioGroup} from '@workday/canvas-kit-preview-react/radio';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
@@ -28,7 +27,7 @@ export const Inverse = () => {
   };
 
   return (
-    <Box cs={styleOverrides.containerStyles}>
+    <div className={styleOverrides.containerStyles}>
       <RadioGroup name="crust-inverse" onChange={handleChange} value={value}>
         <RadioGroup.RadioButton variant="inverse" value="deep-dish">
           Deep dish
@@ -43,6 +42,6 @@ export const Inverse = () => {
           Cauliflower
         </RadioGroup.RadioButton>
       </RadioGroup>
-    </Box>
+    </div>
   );
 };
