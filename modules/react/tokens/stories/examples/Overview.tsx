@@ -1,6 +1,9 @@
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const containerStyles = createStyles({
+  display: 'flex',
+});
 
 const cardStyles = createStyles({
   ...system.type.body.md,
@@ -11,7 +14,7 @@ const cardStyles = createStyles({
 });
 
 export const Overview = () => (
-  <Flex>
+  <div className={containerStyles}>
     <div className={cardStyles}>Using Tokens To Style</div>
-  </Flex>
+  </div>
 );
