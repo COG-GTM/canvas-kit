@@ -6,11 +6,10 @@ import {Card} from '@workday/canvas-kit-react/card';
 import {Checkbox} from '@workday/canvas-kit-react/checkbox';
 import {FormField} from '@workday/canvas-kit-react/form-field';
 import {SystemIconCircle} from '@workday/canvas-kit-react/icon';
-import {Box, Flex} from '@workday/canvas-kit-react/layout';
 import {Skeleton} from '@workday/canvas-kit-react/skeleton';
 import {Heading} from '@workday/canvas-kit-react/text';
 import {TextInput} from '@workday/canvas-kit-react/text-input';
-import {calc, createStencil, px2rem} from '@workday/canvas-kit-styling';
+import {calc, createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {patternIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
@@ -24,7 +23,7 @@ const fadeOut = keyframes`
   }
 `;
 
-const boxStencil = createStencil({
+const overlayStencil = createStencil({
   base: {
     pointerEvents: 'none',
     position: 'absolute',
@@ -39,6 +38,42 @@ const boxStencil = createStencil({
       },
     },
   },
+});
+
+const controlsStyles = createStyles({
+  marginBlockEnd: system.gap.xl,
+});
+
+const contentStyles = createStyles({
+  minHeight: px2rem(180),
+  position: 'relative',
+});
+
+const skeletonRowStyles = createStyles({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const skeletonShapeStyles = createStyles({
+  width: system.size.md,
+  height: system.size.md,
+  borderRadius: system.shape.full,
+});
+
+const skeletonHeaderContainerStyles = createStyles({
+  flex: 1,
+  marginInlineStart: calc.add(system.gap.sm, system.gap.xs),
+});
+
+const headingRowStyles = createStyles({
+  marginBlockEnd: calc.add(system.gap.sm, system.gap.xs),
+  display: 'inline-flex',
+  alignItems: 'center',
+});
+
+const headingStyles = createStyles({
+  margin: 0,
+  marginInlineStart: system.gap.sm,
 });
 
 export const Simulation = () => {
@@ -75,8 +110,8 @@ export const Simulation = () => {
   React.useEffect(resetTimeout, []);
 
   return (
-    <Box>
-      <Box cs={{marginBlockEnd: system.gap.xl}}>
+    <div>
+      <div className={controlsStyles}>
         <FormField orientation="horizontalStart">
           <FormField.Label>Load Time</FormField.Label>
           <FormField.Input as={TextInput} onChange={onChangeLoadTime} value={loadTime} />
@@ -86,53 +121,41 @@ export const Simulation = () => {
           <FormField.Input as={Checkbox} checked={loading} onChange={onChangeLoading} />
         </FormField>
         <SecondaryButton onClick={resetTimeout}>Simulate Loading</SecondaryButton>
-      </Box>
+      </div>
       <Card>
         <Card.Body>
-          <Box cs={{minHeight: px2rem(180), position: 'relative'}}>
+          <div className={contentStyles}>
             {loading ? (
-              <Box cs={boxStencil({loading})}>
+              <div {...overlayStencil({loading})}>
                 <Skeleton>
-                  <Flex cs={{alignItems: 'center'}}>
-                    <Skeleton.Shape
-                      cs={{
-                        width: system.size.md,
-                        height: system.size.md,
-                        borderRadius: system.shape.full,
-                      }}
-                    />
-                    <Box cs={{flex: 1, marginInlineStart: calc.add(system.gap.sm, system.gap.xs)}}>
+                  <div className={skeletonRowStyles}>
+                    <Skeleton.Shape cs={skeletonShapeStyles} />
+                    <div className={skeletonHeaderContainerStyles}>
                       <Skeleton.Header />
-                    </Box>
-                  </Flex>
+                    </div>
+                  </div>
                   <Skeleton.Text lineCount={3} />
                 </Skeleton>
-              </Box>
+              </div>
             ) : (
-              <Box>
-                <Flex
-                  cs={{
-                    marginBlockEnd: calc.add(system.gap.sm, system.gap.xs),
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                  }}
-                >
+              <div>
+                <div className={headingRowStyles}>
                   <SystemIconCircle icon={patternIcon} />
-                  <Heading as="h3" size="small" cs={{margin: `0 0 0 ${system.gap.sm}`}}>
+                  <Heading as="h3" size="small" cs={headingStyles}>
                     Patterns
                   </Heading>
-                </Flex>
+                </div>
                 <p>
                   Canvas Patterns classify and document reusable solutions built to respond to
                   common user scenarios. Following these guidelines allows us to design experiences
                   that feel consistent and natural for users as they move between applications and
                   ensures that our approach aligns with industry standards.
                 </p>
-              </Box>
+              </div>
             )}
-          </Box>
+          </div>
         </Card.Body>
       </Card>
-    </Box>
+    </div>
   );
 };
