@@ -19,13 +19,13 @@ const depthCardStencil = createStencil({
   },
   modifiers: {
     depth: {
-      none: {boxShadow: 'none'},
-      1: {boxShadow: system.depth[1]},
-      2: {boxShadow: system.depth[2]},
-      3: {boxShadow: system.depth[3]},
-      4: {boxShadow: system.depth[4]},
-      5: {boxShadow: system.depth[5]},
-      6: {boxShadow: system.depth[6]},
+      none: {...depth.none},
+      1: {...depth[1]},
+      2: {...depth[2]},
+      3: {...depth[3]},
+      4: {...depth[4]},
+      5: {...depth[5]},
+      6: {...depth[6]},
     },
   },
 });
@@ -47,7 +47,7 @@ const depthRowOnColorStyles = createStyles({
   flexWrap: 'wrap',
   gap: system.gap.lg,
   padding: system.padding.xl,
-  backgroundColor: system.color.bg.alt.strong,
+  backgroundColor: colors.soap400,
 });
 
 interface DepthCardProps {
