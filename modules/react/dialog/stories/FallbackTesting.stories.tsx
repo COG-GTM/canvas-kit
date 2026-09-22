@@ -1,10 +1,10 @@
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
 import {Dialog} from '@workday/canvas-kit-react/dialog';
-import {Grid} from '@workday/canvas-kit-react/layout';
 import {calc, createStyles} from '@workday/canvas-kit-styling';
 import {base, system} from '@workday/canvas-tokens-web';
 
 const grid = createStyles({
+  display: 'grid',
   gridTemplateAreas: "'topButton topButton''leftButton rightButton''bottomButton bottomButton'",
   height: calc.subtract('100vh', system.size.xxl),
   width: calc.subtract('100vw', base.size1000),
@@ -30,6 +30,10 @@ const leftButton = createStyles({
   alignSelf: 'center',
 });
 
+const dialogHeading = createStyles({
+  paddingBlockStart: system.padding.md,
+});
+
 export default {
   title: 'Testing/Popups/Dialog',
   component: Dialog,
@@ -38,7 +42,7 @@ export default {
 export const DialogWithFallbackPlacements = () => {
   return (
     <div data-testid="scroll-area-fallback-placement">
-      <Grid cs={grid}>
+      <div className={grid}>
         <Dialog>
           <Dialog.Target cs={topButton} as={PrimaryButton}>
             Placement Top
@@ -46,9 +50,7 @@ export const DialogWithFallbackPlacements = () => {
           <Dialog.Popper placement="top">
             <Dialog.Card>
               <Dialog.CloseIcon aria-label="Close" />
-              <Dialog.Heading cs={{paddingBlockStart: system.padding.md}}>
-                This is dialog heading
-              </Dialog.Heading>
+              <Dialog.Heading cs={dialogHeading}>This is dialog heading</Dialog.Heading>
               <Dialog.Body>This is dialog body.</Dialog.Body>
               <Dialog.ButtonGroup>
                 <Dialog.CloseButton>Cancel</Dialog.CloseButton>
@@ -64,9 +66,7 @@ export const DialogWithFallbackPlacements = () => {
           <Dialog.Popper placement="left">
             <Dialog.Card>
               <Dialog.CloseIcon aria-label="Close" />
-              <Dialog.Heading cs={{paddingBlockStart: system.padding.md}}>
-                This is dialog heading
-              </Dialog.Heading>
+              <Dialog.Heading cs={dialogHeading}>This is dialog heading</Dialog.Heading>
               <Dialog.Body>This is dialog body.</Dialog.Body>
               <Dialog.ButtonGroup>
                 <Dialog.CloseButton>Cancel</Dialog.CloseButton>
@@ -82,9 +82,7 @@ export const DialogWithFallbackPlacements = () => {
           <Dialog.Popper placement="right">
             <Dialog.Card>
               <Dialog.CloseIcon aria-label="Close" />
-              <Dialog.Heading cs={{paddingBlockStart: system.padding.md}}>
-                This is dialog heading
-              </Dialog.Heading>
+              <Dialog.Heading cs={dialogHeading}>This is dialog heading</Dialog.Heading>
               <Dialog.Body>This is dialog body.</Dialog.Body>
               <Dialog.ButtonGroup>
                 <Dialog.CloseButton>Cancel</Dialog.CloseButton>
@@ -100,9 +98,7 @@ export const DialogWithFallbackPlacements = () => {
           <Dialog.Popper placement="bottom">
             <Dialog.Card>
               <Dialog.CloseIcon aria-label="Close" />
-              <Dialog.Heading cs={{paddingBlockStart: system.padding.md}}>
-                This is dialog heading
-              </Dialog.Heading>
+              <Dialog.Heading cs={dialogHeading}>This is dialog heading</Dialog.Heading>
               <Dialog.Body>This is dialog body.</Dialog.Body>
               <Dialog.ButtonGroup>
                 <Dialog.CloseButton>Cancel</Dialog.CloseButton>
@@ -111,7 +107,7 @@ export const DialogWithFallbackPlacements = () => {
             </Dialog.Card>
           </Dialog.Popper>
         </Dialog>
-      </Grid>
+      </div>
     </div>
   );
 };
