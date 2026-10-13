@@ -127,6 +127,40 @@ describe('CommandPalette', () => {
   });
 });
 
+const activeLabel = () => {
+  const id = screen.getByRole('combobox').getAttribute('aria-activedescendant');
+  return id ? document.getElementById(id)?.textContent : undefined;
+};
+
+describe('CommandPalette active option', () => {
+  it('should reset the active option to the first item when reopened', () => {
+    const input = renderPalette();
+    fireEvent.keyDown(input, {key: 'ArrowDown'});
+    expect(activeLabel()).toContain('Go to Inbox');
+    fireEvent.keyDown(input, {key: 'Escape'});
+    fireEvent.click(screen.getByRole('button', {name: 'Open'}));
+    expect(activeLabel()).toContain('Go to Home');
+  });
+
+  it('should reset the active option to the first result when the query changes', () => {
+    const input = renderPalette();
+    fireEvent.change(input, {target: {value: 'go'}});
+    fireEvent.keyDown(input, {key: 'ArrowDown'});
+    expect(activeLabel()).toContain('Go to Inbox');
+    fireEvent.change(input, {target: {value: 'go '}});
+    expect(activeLabel()).toContain('Go to Home');
+  });
+
+  it('should ignore Enter while an IME composition is in progress', () => {
+    const onSelect = vi.fn();
+    const input = renderPalette({onSelect});
+    fireEvent.keyDown(input, {key: 'Enter', isComposing: true});
+    fireEvent.keyDown(input, {key: 'Enter', keyCode: 229});
+    expect(onSelect).not.toHaveBeenCalled();
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+});
+
 describe('useCommandPaletteHotkey', () => {
   const HotkeyPalette = ({hotkey}: {hotkey?: string}) => {
     const model = useModalModel();
@@ -153,5 +187,18 @@ describe('useCommandPaletteHotkey', () => {
     render(<HotkeyPalette hotkey="p" />);
     fireEvent.keyDown(document, {key: 'p', ctrlKey: true});
     expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+
+  it('should only open one palette when several register the same hotkey', () => {
+    render(
+      <>
+        <HotkeyPalette />
+        <HotkeyPalette />
+      </>
+    );
+    fireEvent.keyDown(document, {key: 'k', ctrlKey: true});
+    expect(screen.getAllByRole('dialog')).toHaveLength(1);
+    fireEvent.keyDown(document, {key: 'k', ctrlKey: true});
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });

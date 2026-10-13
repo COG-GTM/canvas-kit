@@ -38,4 +38,12 @@ describe('fuzzyMatch', () => {
     const late = fuzzyMatch('time', 'Request Time Off')!;
     expect(early.score).toBeGreaterThan(late.score);
   });
+
+  it('should not let a preferred word-start occurrence drop a valid match', () => {
+    expect(fuzzyMatch('ah', 'Search Admin')?.indices).toEqual([2, 5]);
+  });
+
+  it('should still prefer word starts when the rest of the query fits', () => {
+    expect(fuzzyMatch('sa', 'Search Admin')?.indices).toEqual([0, 7]);
+  });
 });

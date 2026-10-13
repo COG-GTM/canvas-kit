@@ -1,6 +1,11 @@
 import React from 'react';
 
-import {accessibleHideStyles, createContainer, useUniqueId} from '@workday/canvas-kit-react/common';
+import {
+  accessibleHideStyles,
+  createContainer,
+  focusRing,
+  useUniqueId,
+} from '@workday/canvas-kit-react/common';
 import {SystemIcon} from '@workday/canvas-kit-react/icon';
 import {Modal, useModalModel} from '@workday/canvas-kit-react/modal';
 import {CSProps, createStencil, handleCsProp, px2rem} from '@workday/canvas-kit-styling';
@@ -205,6 +210,16 @@ export const commandPaletteStencil = createStencil({
       gap: system.legacy.gap.sm,
       paddingInline: system.legacy.padding.md,
       borderBlockEnd: `${px2rem(1)} solid ${system.legacy.color.border.default}`,
+      '&:focus-within': focusRing({
+        inset: 'outer',
+        innerColor: system.color.border.transparent,
+        outerColor: system.legacy.color.brand.focus.primary,
+      }),
+      [`[data-whatinput='mouse'] &:focus-within,
+        [data-whatinput='touch'] &:focus-within,
+        [data-whatinput='pointer'] &:focus-within`]: {
+        boxShadow: 'none',
+      },
     },
     [inputPart]: {
       ...system.legacy.type.body.md,
@@ -393,6 +408,7 @@ export const CommandPalette = createContainer('div')({
     React.useEffect(() => {
       if (visible) {
         setQuery('');
+        setActiveId(undefined);
       }
     }, [visible]);
 
@@ -444,6 +460,10 @@ export const CommandPalette = createContainer('div')({
           setActiveId(flatItems[0]?.id);
           break;
         case 'Enter': {
+          // Enter confirms an IME composition rather than selecting a command
+          if (event.nativeEvent.isComposing || event.keyCode === 229) {
+            break;
+          }
           const activeItem = flatItems.find(item => item.id === activeId);
           if (activeItem) {
             event.preventDefault();
@@ -481,7 +501,10 @@ export const CommandPalette = createContainer('div')({
                   spellCheck={false}
                   placeholder={placeholder}
                   value={query}
-                  onChange={event => setQuery(event.target.value)}
+                  onChange={event => {
+                    setQuery(event.target.value);
+                    setActiveId(undefined);
+                  }}
                   onKeyDown={onKeyDown}
                 />
               </div>

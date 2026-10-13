@@ -9,6 +9,18 @@ export interface FuzzyMatchResult {
   indices: number[];
 }
 
+const canMatchFrom = (chars: string[], haystack: string, from: number) => {
+  let position = from;
+  for (const char of chars) {
+    position = haystack.indexOf(char, position);
+    if (position === -1) {
+      return false;
+    }
+    position++;
+  }
+  return true;
+};
+
 const isWordStart = (text: string, index: number) =>
   index === 0 ||
   /[\s\-_/.]/.test(text[index - 1]) ||
@@ -41,29 +53,33 @@ export function fuzzyMatch(query: string, text: string): FuzzyMatchResult | null
     return {score, indices};
   }
 
+  const chars = needle.replace(/\s+/g, '').split('');
+  if (!canMatchFrom(chars, haystack, 0)) {
+    return null;
+  }
+
   const indices: number[] = [];
   let score = 0;
   let searchFrom = 0;
 
-  for (const char of needle) {
-    if (char === ' ') {
-      continue;
-    }
-    // Prefer the next word-start occurrence of the character, otherwise take the next occurrence.
-    let index = -1;
-    for (let i = searchFrom; i < haystack.length; i++) {
-      if (haystack[i] === char && isWordStart(text, i)) {
-        index = i;
-        break;
-      }
-    }
+  for (let c = 0; c < chars.length; c++) {
+    const char = chars[c];
+    const rest = chars.slice(c + 1);
+    // The earliest occurrence always leaves room for the rest of the query (checked above).
     const nextIndex = haystack.indexOf(char, searchFrom);
-    if (nextIndex === -1) {
-      return null;
-    }
     const previous = indices[indices.length - 1];
-    if (index === -1 || (previous !== undefined && nextIndex === previous + 1)) {
-      index = nextIndex;
+    let index = nextIndex;
+    // Prefer a later word-start occurrence, unless the earliest continues a run or the rest of the
+    // query would no longer fit after it.
+    if (previous === undefined || nextIndex !== previous + 1) {
+      for (let i = nextIndex; i < haystack.length; i++) {
+        if (haystack[i] === char && isWordStart(text, i)) {
+          if (canMatchFrom(rest, haystack, i + 1)) {
+            index = i;
+          }
+          break;
+        }
+      }
     }
 
     score += 1;
