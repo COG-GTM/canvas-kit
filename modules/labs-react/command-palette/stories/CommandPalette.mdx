@@ -1,0 +1,72 @@
+import {Meta} from '@storybook/blocks';
+
+import {ExampleCodeBlock, Specifications, SymbolDoc} from '@workday/canvas-kit-docs';
+
+import CommandPaletteStoriesMeta from './CommandPalette.stories';
+import {Basic} from './examples/Basic';
+import {EmptyState} from './examples/EmptyState';
+
+<Meta of={CommandPaletteStoriesMeta} />
+
+# Canvas Kit Command Palette
+
+`CommandPalette` is a keyboard-first modal for searching and running commands — the familiar
+
+<kbd>⌘</kbd> + <kbd>K</kbd> pattern. Typing filters commands with fuzzy matching ("nwexp" finds "New
+Expense Report") and highlights the matched characters. Commands can be grouped and can show an
+icon, a description, and a shortcut hint rendered with [KBD](/labs-kbd--docs).
+
+## Installation
+
+```sh
+yarn add @workday/canvas-kit-labs-react
+```
+
+## Usage
+
+### Basic Example
+
+Create a model with `useModalModel` and pass it to `CommandPalette`. Use `CommandPalette.Target` to
+open the palette from a button, and `useCommandPaletteHotkey` to also open it with <kbd>⌘</kbd> +
+
+<kbd>K</kbd> (macOS) or <kbd>Ctrl</kbd> + <kbd>K</kbd> (Windows/Linux). Each command's `onSelect`
+runs when it's chosen; the palette's `onSelect` runs for every command.
+
+`keywords` let a command match synonyms without displaying them. Try typing "pto" or "theme".
+
+<ExampleCodeBlock code={Basic} />
+
+### Empty State
+
+Use `emptyText` to customize the message shown when nothing matches, and `hideFooter` to hide the
+keyboard hints.
+
+<ExampleCodeBlock code={EmptyState} />
+
+## Accessibility
+
+The palette follows the
+[combobox pattern with a listbox popup](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/) inside a
+modal dialog:
+
+- Focus moves to the search input when the palette opens, and returns to the element that opened it
+  when it closes.
+- The active option is communicated with `aria-activedescendant`, so focus stays in the input while
+  <kbd>↑</kbd> / <kbd>↓</kbd> move through results. <kbd>Page Up</kbd> / <kbd>Page Down</kbd> jump
+  to the first / last result.
+- <kbd>Enter</kbd> runs the active command and <kbd>Escape</kbd> closes the palette.
+- The number of results is announced through a polite live region as the user types.
+- Shortcut hints are visual only. Give glyph keys such as <kbd>⌘</kbd> an `aria-label`, implement
+  the shortcut in your application, and set `aria-keyshortcuts` on the control it triggers.
+
+## Component API
+
+<SymbolDoc name="CommandPalette" fileName="/labs-react/" />
+
+<SymbolDoc name="useCommandPaletteHotkey" fileName="/labs-react/" />
+
+<SymbolDoc name="fuzzyMatch" fileName="/labs-react/" />
+
+## Specifications
+
+<Specifications file="./cypress/component/CommandPalette.spec.tsx" name="CommandPalette" />
