@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-  accessibleHideStyles,
-  createContainer,
-  focusRing,
-  useUniqueId,
-} from '@workday/canvas-kit-react/common';
+import {accessibleHideStyles, createContainer, useUniqueId} from '@workday/canvas-kit-react/common';
 import {SystemIcon} from '@workday/canvas-kit-react/icon';
 import {Modal, useModalModel} from '@workday/canvas-kit-react/modal';
 import {CSProps, createStencil, handleCsProp, px2rem} from '@workday/canvas-kit-styling';
@@ -210,11 +205,9 @@ export const commandPaletteStencil = createStencil({
       gap: system.legacy.gap.sm,
       paddingInline: system.legacy.padding.md,
       borderBlockEnd: `${px2rem(1)} solid ${system.legacy.color.border.default}`,
-      '&:focus-within': focusRing({
-        inset: 'outer',
-        innerColor: system.color.border.transparent,
-        outerColor: system.legacy.color.brand.focus.primary,
-      }),
+      '&:focus-within': {
+        boxShadow: `inset 0 0 0 ${px2rem(2)} ${system.legacy.color.brand.focus.primary}`,
+      },
       [`[data-whatinput='mouse'] &:focus-within,
         [data-whatinput='touch'] &:focus-within,
         [data-whatinput='pointer'] &:focus-within`]: {
