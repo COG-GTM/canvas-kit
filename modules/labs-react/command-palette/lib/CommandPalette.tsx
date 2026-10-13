@@ -208,11 +208,6 @@ export const commandPaletteStencil = createStencil({
       '&:focus-within': {
         boxShadow: `inset 0 0 0 ${px2rem(2)} ${system.legacy.color.brand.focus.primary}`,
       },
-      [`[data-whatinput='mouse'] &:focus-within,
-        [data-whatinput='touch'] &:focus-within,
-        [data-whatinput='pointer'] &:focus-within`]: {
-        boxShadow: 'none',
-      },
     },
     [inputPart]: {
       ...system.legacy.type.body.md,
