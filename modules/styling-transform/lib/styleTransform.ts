@@ -15,8 +15,6 @@ import {handleParentModifier} from './utils/handleParentModifier';
 import {handlePx2Rem} from './utils/handlePx2Rem';
 import {NodeTransformer, ObjectTransform, TransformerContext} from './utils/types';
 
-export type NestedStyleObject = {[key: string]: string | NestedStyleObject};
-
 export interface StyleTransformerOptions extends TransformerContext {
   fallbackFiles?: string[];
   transformers?: NodeTransformer[];
@@ -169,9 +167,3 @@ const handleTransformers =
       undefined as ts.Node | void
     );
   };
-
-export function getConfig(basePath = '.') {
-  const tsconfigPath = ts.findConfigFile(basePath, ts.sys.fileExists, 'styling.config.ts');
-
-  return tsconfigPath;
-}
