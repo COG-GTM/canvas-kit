@@ -593,7 +593,7 @@
       "deprecatedExports": [
         {
           "name": "useFormFieldOrientation",
-          "message": "Adds the necessary layout props to a `FormField` component. @deprecated"
+          "message": "Adds the necessary layout props to a `FormField` component. @deprecated ⚠️ `useFormFieldOrientation` has been deprecated in v11 and will be removed in a future major version. `FormField` applies orientation styles itself through `formFieldStencil`. Please use the `orientation` prop on `FormField` (`vertical`, `horizontalStart` or `horizontalEnd`) instead."
         }
       ],
       "deprecatedProps": [],
