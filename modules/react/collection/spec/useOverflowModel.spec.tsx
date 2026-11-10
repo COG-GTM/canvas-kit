@@ -1,4 +1,6 @@
-import {getHiddenIds} from '../lib/useOverflowListModel';
+import {act, renderHook} from '@testing-library/react-hooks';
+
+import {getHiddenIds, useOverflowListModel} from '../lib/useOverflowListModel';
 
 describe('useOverflowModel', () => {
   describe('getHiddenIds', () => {
@@ -134,6 +136,52 @@ describe('useOverflowModel', () => {
         'third',
         'fourth',
       ]);
+    });
+  });
+
+  describe('useOverflowListModel', () => {
+    const items = [{id: 'first'}, {id: 'second'}, {id: 'third'}];
+
+    it('should not expose the width-only state aliases removed in v17', () => {
+      const {result} = renderHook(() => useOverflowListModel({items}));
+
+      expect(result.current.state).not.toHaveProperty('itemWidthCache');
+      expect(result.current.state).not.toHaveProperty('containerWidth');
+    });
+
+    ['setContainerWidth', 'setOverflowTargetWidth', 'addItemWidth', 'removeItemWidth'].forEach(
+      event => {
+        it(`should not expose the width-only '${event}' event removed in v17`, () => {
+          const {result} = renderHook(() => useOverflowListModel({items}));
+
+          expect(result.current.events).not.toHaveProperty(event);
+        });
+      }
+    );
+
+    it('should hide items using the size-based events', () => {
+      const {result} = renderHook(() =>
+        useOverflowListModel({items, initialSelectedIds: ['first'], orientation: 'horizontal'})
+      );
+
+      act(() => {
+        result.current.events.setOverflowTargetSize({width: 50, height: 0});
+        items.forEach(item =>
+          result.current.events.addItemSize({id: item.id, width: 100, height: 0})
+        );
+        result.current.events.setContainerSize({width: 250, height: 0});
+      });
+
+      expect(result.current.state.itemSizeCache).toEqual({first: 100, second: 100, third: 100});
+      expect(result.current.state.containerSize).toEqual(250);
+      expect(result.current.state.hiddenIds).toEqual(['third']);
+
+      act(() => {
+        result.current.events.removeItemSize({id: 'third'});
+      });
+
+      expect(result.current.state.itemSizeCache).toEqual({first: 100, second: 100});
+      expect(result.current.state.hiddenIds).toEqual([]);
     });
   });
 });

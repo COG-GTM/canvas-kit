@@ -112,15 +112,7 @@ export const useOverflowListModel = createModelHook({
     ...model.state,
     hiddenIds: internalHiddenIds,
     itemSizeCache,
-    /**
-     * @deprecated Use `itemSizeCache` instead
-     */
-    itemWidthCache: itemSizeCache,
     containerSize,
-    /**
-     * @deprecated Use `containerSize` instead
-     */
-    containerWidth: containerSize,
     containerGap,
     overflowTargetWidth,
   };
@@ -155,12 +147,6 @@ export const useOverflowListModel = createModelHook({
       );
       setHiddenIds(ids);
     },
-    /**
-     * @deprecated Use `setContainerSize` instead and pass both `width` and `height`
-     */
-    setContainerWidth(data: {width?: number}) {
-      events.setContainerSize({width: data.width, height: 0});
-    },
     setContainerGap(data: {size: number}) {
       setContainerGap(data.size);
 
@@ -179,23 +165,6 @@ export const useOverflowListModel = createModelHook({
       overflowTargetSizeRef.current =
         model.state.orientation === 'horizontal' ? data.width || 0 : data.height || 0;
       setOverflowTargetWidth(overflowTargetSizeRef.current);
-    },
-
-    /**
-     *
-     * @deprecated `setOverflowTargetWidth` is deprecated. Please use `setOverflowTargetSize` and pass in the `width` and set `height` to `0`.
-     */
-    setOverflowTargetWidth(data: {width: number}) {
-      overflowTargetSizeRef.current = data.width;
-      events.setOverflowTargetSize({width: overflowTargetSizeRef.current, height: 0});
-    },
-
-    /**
-     *
-     * @deprecated `addItemWidth` is deprecated. Please use `addItemSize` and set the `width`
-     */
-    addItemWidth(data: {id: string; width: number}) {
-      events.addItemSize({id: data.id, width: data.width, height: 0});
     },
     addItemSize(data: {id: string; width: number; height: number}) {
       itemSizeCacheRef.current = {
@@ -234,13 +203,6 @@ export const useOverflowListModel = createModelHook({
       );
 
       setHiddenIds(ids);
-    },
-    /**
-     *
-     * @deprecated `removeItemWidth` is deprecated. Please use `removeItemSize`.
-     */
-    removeItemWidth(data: {id: string}) {
-      events.removeItemSize({id: data.id});
     },
     addHiddenKey(data: {id: string}) {
       setHiddenIds(ids => ids.concat(data.id));
