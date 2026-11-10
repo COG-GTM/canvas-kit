@@ -1,0 +1,76 @@
+import {Meta} from '@storybook/addon-docs';
+
+<Meta title="Guides/Upgrade Guides/v17.0/Overview" />
+
+# Canvas Kit 17.0 Upgrade Guide
+
+This guide contains an overview of the changes in Canvas Kit v17. Please
+[reach out](https://github.com/Workday/canvas-kit/issues/new?labels=bug&template=bug.md) if you have
+any questions.
+
+## Table of Contents
+
+- [Removals](#removals)
+  - [Overflow List Model Width Aliases](#overflow-list-model-width-aliases)
+- [Glossary](#glossary)
+  - [Main](#main)
+  - [Preview](#preview)
+  - [Labs](#labs)
+
+## Removals
+
+Removals have been deleted from our codebase and may no longer be consumed. We've either promoted or
+replaced the removed component or utility.
+
+### Overflow List Model Width Aliases
+
+When vertical overflow support was added to `useOverflowListModel` in
+[#3035](https://github.com/Workday/canvas-kit/pull/3035), its width-based state and events were
+renamed to size-based equivalents and the old names were kept as `@deprecated` aliases. These
+aliases have now been removed from `useOverflowListModel` (exported from
+`@workday/canvas-kit-react/collection`). This affects any model built on it, such as the models used
+by `Tabs`, `ActionBar`, `Breadcrumbs` and `Menu` overflow.
+
+| Removed                                        | Replacement                                           |
+| ---------------------------------------------- | ----------------------------------------------------- |
+| `model.state.itemWidthCache`                   | `model.state.itemSizeCache`                           |
+| `model.state.containerWidth`                   | `model.state.containerSize`                           |
+| `model.events.setContainerWidth({width})`      | `model.events.setContainerSize({width, height})`      |
+| `model.events.setOverflowTargetWidth({width})` | `model.events.setOverflowTargetSize({width, height})` |
+| `model.events.addItemWidth({id, width})`       | `model.events.addItemSize({id, width, height})`       |
+| `model.events.removeItemWidth({id})`           | `model.events.removeItemSize({id})`                   |
+
+The size-based events read `width` when the model's `orientation` is `horizontal` and `height` when
+it is `vertical`. The removed width aliases always passed `height: 0`, so they only worked for
+horizontal models (such as `Tabs`, `ActionBar` and `Breadcrumbs`). Pass `height: 0` to keep the same
+behavior. The matching `should*` guards and `on*` callbacks in the model config were removed as well
+(for example, `onAddItemWidth` becomes `onAddItemSize`).
+
+```tsx
+// v16
+model.events.addItemWidth({id: item.id, width: 120});
+const cachedWidth = model.state.itemWidthCache[item.id];
+
+// v17
+model.events.addItemSize({id: item.id, width: 120, height: 0});
+const cachedWidth = model.state.itemSizeCache[item.id];
+```
+
+## Glossary
+
+For an overview of the different packages we provide, please view our docs
+[here](https://workday.github.io/canvas-kit/?path=/docs/guides-packages--docs).
+
+### Main
+
+Components in the Main package are stable and ready for production use.
+
+### Preview
+
+Components in the Preview package are mostly stable but may still receive breaking changes before
+being promoted to Main.
+
+### Labs
+
+Components in the Labs package are experimental and may receive significant changes or be removed
+entirely.
