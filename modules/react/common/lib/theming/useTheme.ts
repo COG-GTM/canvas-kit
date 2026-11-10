@@ -91,7 +91,7 @@ const getFilledTheme = (theme: PartialEmotionCanvasTheme): EmotionCanvasTheme =>
  * @returns An object containing updated or default Canvas Kit theme under `canvas` key.
  *
  * The passed partial theme object will be merged with the default Canvas theme
- * (using memoized createCanvasTheme()) to establish any missing fields that have
+ * (generating any missing palette shades from `main`) to establish any missing fields that have
  * not been defined by the consumer's theme object.
  *
  * If theme is not passed, the function will try to retrieve it from the window object.
@@ -142,7 +142,7 @@ export function getTheme(theme?: PartialEmotionCanvasTheme): EmotionCanvasTheme 
  * As a last resort, it will return the default Canvas theme.
  *
  * The resulting theme will be merged with the default Canvas theme
- * (using memoized createCanvasTheme()) to establish any missing fields that have
+ * (generating any missing palette shades from `main`) to establish any missing fields that have
  * not been defined by the consumer's theme object.
  *
  * Providing the default theme here is currently a work around for when no
