@@ -4,7 +4,9 @@ import {system} from '@workday/canvas-tokens-web';
 /**
  * Adds the necessary layout props to a `FormField` component.
  *
- * @deprecated
+ * @deprecated ⚠️ `useFormFieldOrientation` has been deprecated in v12 and will be removed in a future
+ * major version. `FormField` applies orientation styles itself through `formFieldStencil`. Please use
+ * the `orientation` prop on `FormField` (`vertical`, `horizontalStart` or `horizontalEnd`) instead.
  */
 export const useFormFieldOrientation = (orientation: 'horizontal' | 'vertical') => {
   let layoutProps: {
