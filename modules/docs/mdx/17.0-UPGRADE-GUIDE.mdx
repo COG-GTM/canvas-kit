@@ -1,0 +1,36 @@
+import {Meta} from '@storybook/addon-docs';
+
+<Meta title="Guides/Upgrade Guides/v17.0/Overview" />
+
+# Canvas Kit 17.0 Upgrade Guide
+
+This guide contains an overview of the changes in Canvas Kit v17. Please
+[reach out](https://github.com/Workday/canvas-kit/issues/new?labels=bug&template=bug.md) if you have
+any questions.
+
+## Table of Contents
+
+- [Removals](#removals)
+  - [MultiSelect Stencil Alias (Preview)](#multiselect-stencil-alias-preview)
+
+## Removals
+
+### MultiSelect Stencil Alias (Preview)
+
+The deprecated `multiSelectStencil` export has been removed from
+`@workday/canvas-kit-preview-react/multi-select`. It was an alias of `multiSelectInputStencil`, kept
+after the stencil was renamed.
+
+Please use `multiSelectInputStencil` instead. The styles are identical, so this is a rename only.
+
+**Before in v16**
+
+```tsx
+import {multiSelectStencil} from '@workday/canvas-kit-preview-react/multi-select';
+```
+
+**After in v17**
+
+```tsx
+import {multiSelectInputStencil} from '@workday/canvas-kit-preview-react/multi-select';
+```

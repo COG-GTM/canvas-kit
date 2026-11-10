@@ -2268,18 +2268,12 @@
         "MultiSelectProps",
         "MultiSelectSearchInput",
         "multiSelectInputStencil",
-        "multiSelectStencil",
         "useMultiSelectInput",
         "useMultiSelectModel"
       ],
       "deprecated": false,
       "recommended": true,
-      "deprecatedExports": [
-        {
-          "name": "multiSelectStencil",
-          "message": "use `multiSelectInputStencil` instead. This will be removed in a future version."
-        }
-      ],
+      "deprecatedExports": [],
       "deprecatedProps": [],
       "aliases": [
         "multi-select",
