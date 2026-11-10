@@ -708,10 +708,6 @@
         {
           "name": "SystemIconCircleProps",
           "message": "Mapping utility for the SystemIconCircleSize enum to the systemLegacy size tokens. @deprecated Use tokens instead. Deprecated in v15.0.0. */ const sizes = { xs: system.legacy.size.xxxs, s: system.legacy.size.xs, m: system.legacy.size.sm, l: system.legacy.size.md, xl: system.legacy.size.xxl, xxl: px2rem(120), }; type SystemIconCircleCommonProps = { /** The icon to display from `@workday/canvas-system-icons-web`. / icon: CanvasSystemIcon | LegacyCanvasSystemIcon; /** The size token of the SystemIconCircle. @default SystemIconCircleSize.l / size?: SystemIconCircleSize | string | number; /** If set to `true`, transform the SVG's x-axis to mirror the graphic. Use this if you want to always mirror the icon regardless of the content direction. If the SVG should mirror only when in an right-to-left language, use `shouldMirrorInRTL` instead. @default false / shouldMirror?: boolean; /** If set to `true`, transform the SVG's x-axis to mirror the graphic when the content direction is `rtl`. Icons don't have enough context to know if they should be mirrored in all cases. Setting this to `true` indicates the icon should be mirrored in right-to-left languages. @default false / shouldMirrorInRTL?: boolean; /** If set to `true`, the icon will be displayed in inverse mode. @default false / inverse?: boolean; } & CSProps; /** Circle fill and icon color. When `background` is set, `color` is required so foreground/background stay paired for contrast."
-        },
-        {
-          "name": "validateIconType",
-          "message": "Deprecated in v15.0.0."
         }
       ],
       "deprecatedProps": [
