@@ -7,11 +7,14 @@ import {
 import {Flex} from '@workday/canvas-kit-react/layout';
 import {px2rem} from '@workday/canvas-kit-styling';
 
-import {withSnapshotsEnabled} from '../../../../../utils/storybook';
-
-export default withSnapshotsEnabled({
+export default {
   title: 'Testing/Buttons/Button/Grow',
-});
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+};
 
 export const ButtonGrow = () => (
   <Flex cs={{flexDirection: 'column', gap: px2rem(12)}}>

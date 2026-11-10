@@ -89,7 +89,7 @@ const createReactComponent = (modulePath, name, description, prerelease, categor
       contents: openStories(moduleName, pascalCaseName),
     },
     testingStories: {
-      path: `stories/visual-testing/stories_${pascalCaseName}.tsx`,
+      path: `stories/visual-testing/${pascalCaseName}.stories.tsx`,
       contents: testingStories(moduleName, testingStoryPath, pascalCaseName, rootPath),
     },
     ssr: {
