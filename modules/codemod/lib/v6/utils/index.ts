@@ -48,57 +48,6 @@ export type RenameMap = {
 };
 
 /**
- * Returns a filtered array of ImportDefaultSpecifiers
- * You can filter all ImportDefaultSpecifiers or additionally filter by providing an array of import names.
- * @example
- * root.find(j.ImportDeclaration, (nodePath: ImportDeclaration) => {
- *   const importSpecifiers = nodePath.specifiers || [];
- *   // specific default imports we're looking for
- *   const importNames = ['PageHeader']
- *   const pageHeaderImports = filterImportDefaultSpecifiers(importSpecifiers, importNames);
- *   ...
- * }
- */
-export function filterImportDefaultSpecifiers(
-  importSpecifiers: ImportSpecifierArray,
-  importNames?: string[]
-) {
-  const filteredSpecifiers = [] as ImportDefaultSpecifier[];
-
-  importSpecifiers.forEach(specifier => {
-    if (specifier.type === 'ImportDefaultSpecifier') {
-      const localName = specifier.local?.name || '';
-      if (importNames && importNames.includes(localName)) {
-        filteredSpecifiers.push(specifier);
-      } else {
-        filteredSpecifiers.push(specifier);
-      }
-    }
-  });
-  return filteredSpecifiers;
-}
-
-/**
- * Renames import default specifiers for a given rename map
- * @example
- * const renameMap = { 'PageHeader': 'DeprecatedPageHeader' };
- * const pageHeaderImports = filterImportDefaultSpecifiers(importSpecifiers, importNames);
- * renameImportSpecifiers(pageHeaderSpecifiers, renameMap);
- */
-export function renameImportDefaultSpecifiers(
-  importSpecifiers: ImportDefaultSpecifier[],
-  renameMap: RenameMap
-) {
-  importSpecifiers.forEach(specifier => {
-    const specifierName = specifier.local?.name;
-    if (specifier.local && specifierName && specifierName in renameMap) {
-      specifier.local.name = renameMap[specifierName];
-    }
-  });
-  return importSpecifiers;
-}
-
-/**
  * Search for import statements for a package and specific import specifiers. This
  * is useful for codemods to skip files that don't contain import specifiers that
  * require codemoding.
