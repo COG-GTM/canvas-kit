@@ -248,6 +248,7 @@ remove the theme prop.
   - [Sana Canvas Theme — Switch to Sana Sans](#sana-canvas-theme--switch-to-sana-sans)
   - [Classic Canvas — Keep Roboto](#classic-canvas--keep-roboto)
 - [Deprecations](#deprecations)
+  - [makeMq](#makemq)
 - [Glossary](#glossary)
   - [Main](#main)
   - [Preview](#preview)
@@ -1295,6 +1296,27 @@ For full installation details, variable-font notes, and monospace coverage, see 
 We add the [@deprecated](https://jsdoc.app/tags-deprecated.html) JSDoc tag to code we plan to remove
 in a future major release. This signals consumers to migrate to a more stable alternative before the
 deprecated code is removed.
+
+### makeMq
+
+`makeMq` from `@workday/canvas-kit-react/common` has been deprecated and will be removed in a future
+major version. Canvas Kit no longer uses it internally. Use the breakpoint helpers instead:
+
+```tsx
+// Before
+import {makeMq} from '@workday/canvas-kit-react/common';
+
+const mq = makeMq({s: 320, m: 768});
+const styles = createStyles({[mq.m]: {padding: system.space.x2}});
+
+// After
+import {up} from '@workday/canvas-kit-react/common';
+
+const styles = createStyles({[up('m')]: {padding: system.space.x2}});
+```
+
+`up`, `down`, `between`, and `only` are also available on `theme.canvas.breakpoints` from
+`useTheme()`. For container-based responsive styles, use `useResponsiveContainerStyles`.
 
 ## Glossary
 
