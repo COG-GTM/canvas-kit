@@ -248,6 +248,8 @@ remove the theme prop.
   - [Sana Canvas Theme — Switch to Sana Sans](#sana-canvas-theme--switch-to-sana-sans)
   - [Classic Canvas — Keep Roboto](#classic-canvas--keep-roboto)
 - [Deprecations](#deprecations)
+- [Removals](#removals)
+  - [Icon Utilities](#icon-utilities)
 - [Glossary](#glossary)
   - [Main](#main)
   - [Preview](#preview)
@@ -1295,6 +1297,15 @@ For full installation details, variable-font notes, and monospace coverage, see 
 We add the [@deprecated](https://jsdoc.app/tags-deprecated.html) JSDoc tag to code we plan to remove
 in a future major release. This signals consumers to migrate to a more stable alternative before the
 deprecated code is removed.
+
+## Removals
+
+### Icon Utilities
+
+`validateIconType`, deprecated in v15, has been removed from `modules/react/icon/lib/utils.ts`. It
+was never exported from `@workday/canvas-kit-react/icon`, so imports from public entry points are
+not affected. If you deep-imported it from the package's `lib` or `dist` path, inline the check
+instead (compare `icon.type` against the expected `CanvasIconTypes` value).
 
 ## Glossary
 
