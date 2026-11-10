@@ -145,6 +145,13 @@ const {
       describe: chalk.gray('The path to execute the transform in (recursively).'),
     });
   })
+  .command('v17 [path]', chalk.gray('Canvas Kit v16 > v17 upgrade transform'), yargs => {
+    yargs.positional('path', {
+      type: 'string',
+      default: '.',
+      describe: chalk.gray('The path to execute the transform in (recursively).'),
+    });
+  })
   .command(
     'icon-migration [path]',
     chalk.gray('Deprecated system icons migration transform'),

@@ -1,0 +1,112 @@
+import {Meta} from '@storybook/addon-docs';
+
+<Meta title="Guides/Upgrade Guides/v17.0/Overview" />
+
+# Canvas Kit 17.0 Upgrade Guide
+
+This guide contains an overview of the changes in Canvas Kit v17. Please
+[reach out](https://github.com/Workday/canvas-kit/issues/new?labels=bug&template=bug.md) if you have
+any questions.
+
+## Table of Contents
+
+- [Codemod](#codemod)
+  - [Instructions](#instructions)
+- [Removals](#removals)
+  - [Tabs MenuPopper (Deprecated)](#tabs-menupopper-deprecated)
+- [Glossary](#glossary)
+  - [Main](#main)
+  - [Preview](#preview)
+  - [Labs](#labs)
+
+## Codemod
+
+We've provided a [codemod](https://github.com/Workday/canvas-kit/tree/master/modules/codemod) to
+automatically update your code to work with most of the breaking changes in v17. **Breaking changes
+handled by the codemod are marked with 🤖 in the Upgrade Guide.**
+
+Our codemods are meant to be run sequentially. If you're using v15 of Canvas Kit, run the v16
+codemod before you run v17. Codemods are not bulletproof: review all changes and commit the codemod
+output as a single isolated commit so you can roll back more easily if necessary.
+
+### Instructions
+
+The easiest way to run our codemod is to use `npx` in your terminal.
+
+```sh
+npx @workday/canvas-kit-codemod v17 [path]
+```
+
+Alternatively, install the codemod package as a dev dependency, run it with `yarn`, and then remove
+the package after you're finished.
+
+```sh
+yarn add @workday/canvas-kit-codemod --dev
+yarn canvas-kit-codemod v17 [path]
+yarn remove @workday/canvas-kit-codemod
+```
+
+> **Note:** The codemod only works on `.js`, `.jsx`, `.ts`, and `.tsx` files. You'll need to
+> manually edit other file types (`.json`, `.mdx`, `.md`, etc.).
+
+## Removals
+
+### Tabs MenuPopper (Deprecated)
+
+The deprecated `Tabs.MenuPopper` subcomponent has been removed from
+`@workday/canvas-kit-react/tabs`. Please use `Tabs.Menu.Popper` instead.
+
+The following exports are no longer available from `@workday/canvas-kit-react/tabs`:
+
+- `TabsMenuPopper`: use `Tabs.Menu.Popper`
+- `TabsMenuPopperProps`: use `MenuPopperProps` from `@workday/canvas-kit-react/menu`
+- `useTabsMenuPopper`: use `useMenuPopper` from `@workday/canvas-kit-react/menu`
+
+`Tabs.Menu.Popper` defaults to `placement="bottom-start"` and the Menu `popperOptions`. If you need
+the previous `Popper` defaults, pass `placement` and `popperOptions` explicitly.
+
+**Before in v16**
+
+```tsx
+import {Tabs} from '@workday/canvas-kit-react/tabs';
+
+<Tabs.MenuPopper>
+  <Tabs.Menu.Card>
+    <Tabs.Menu.List>{item => <Tabs.Menu.Item>{item.text}</Tabs.Menu.Item>}</Tabs.Menu.List>
+  </Tabs.Menu.Card>
+</Tabs.MenuPopper>;
+```
+
+**After in v17**
+
+```tsx
+import {Tabs} from '@workday/canvas-kit-react/tabs';
+
+<Tabs.Menu.Popper>
+  <Tabs.Menu.Card>
+    <Tabs.Menu.List>{item => <Tabs.Menu.Item>{item.text}</Tabs.Menu.Item>}</Tabs.Menu.List>
+  </Tabs.Menu.Card>
+</Tabs.Menu.Popper>;
+```
+
+> 🤖 The codemod will automatically replace `Tabs.MenuPopper` with `Tabs.Menu.Popper`. Imports of
+> `TabsMenuPopper`, `TabsMenuPopperProps` and `useTabsMenuPopper` must be updated manually.
+
+## Glossary
+
+For an overview of the different packages we provide, please view our docs
+[here](https://workday.github.io/canvas-kit/?path=/docs/guides-packages--docs).
+
+### Main
+
+Components in the Main package are stable and ready for production use.
+
+### Preview
+
+Components in the Preview package are mostly stable but may still receive breaking changes before
+being promoted to Main.
+
+### Labs
+
+Components in the Labs package are experimental and may receive significant changes or be removed
+entirely.
