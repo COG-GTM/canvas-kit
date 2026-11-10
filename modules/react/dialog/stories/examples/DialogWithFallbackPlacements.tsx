@@ -4,11 +4,6 @@ import {Grid} from '@workday/canvas-kit-react/layout';
 import {calc, createStyles} from '@workday/canvas-kit-styling';
 import {base, system} from '@workday/canvas-tokens-web';
 
-export default {
-  title: 'Testing/Popups/Dialog',
-  component: Dialog,
-};
-
 const grid = createStyles({
   gridTemplateAreas: "'topButton topButton''leftButton rightButton''bottomButton bottomButton'",
   height: calc.subtract('100vh', system.size.xxl),
