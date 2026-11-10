@@ -1,0 +1,71 @@
+import {Meta} from '@storybook/addon-docs';
+
+<Meta title="Guides/Upgrade Guides/v17.0/Overview" />
+
+# Canvas Kit 17.0 Upgrade Guide
+
+This guide contains an overview of the changes in Canvas Kit v17. Please
+[reach out](https://github.com/Workday/canvas-kit/issues/new?labels=bug&template=bug.md) if you have
+any questions.
+
+## Table of Contents
+
+- [Removals](#removals)
+  - [isFocusable](#isfocusable)
+- [Glossary](#glossary)
+  - [Main](#main)
+  - [Preview](#preview)
+  - [Labs](#labs)
+
+## Removals
+
+Removals have been deleted from our codebase and may no longer be consumed. We've either promoted or
+replaced the removed component or utility.
+
+### isFocusable
+
+The deprecated `isFocusable` utility has been removed from `@workday/canvas-kit-react/common`. It
+was an alias of `isKeyboardFocusable`.
+
+Please use `isKeyboardFocusable` for keyboard interactions, or `isMouseFocusable` for mouse/pointer
+interactions. `isKeyboardFocusable` behaves exactly like `isFocusable` did: elements with
+`tabindex="-1"` are not considered focusable. `isMouseFocusable` treats them as focusable.
+
+**Before in v16**
+
+```tsx
+import {isFocusable} from '@workday/canvas-kit-react/common';
+
+if (isFocusable(element)) {
+  element.focus();
+}
+```
+
+**After in v17**
+
+```tsx
+import {isKeyboardFocusable} from '@workday/canvas-kit-react/common';
+
+if (isKeyboardFocusable(element)) {
+  element.focus();
+}
+```
+
+## Glossary
+
+For an overview of the different packages we provide, please view our docs
+[here](https://workday.github.io/canvas-kit/?path=/docs/guides-packages--docs).
+
+### Main
+
+Components in the Main package are stable and ready for production use.
+
+### Preview
+
+Components in the Preview package are mostly stable but may still receive breaking changes before
+being promoted to Main.
+
+### Labs
+
+Components in the Labs package are experimental and may receive significant changes or be removed
+entirely.

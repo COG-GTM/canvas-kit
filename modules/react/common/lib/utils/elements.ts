@@ -44,12 +44,6 @@ export const isKeyboardFocusable = (element: Element): boolean => {
 };
 
 /**
- * @deprecated Use `isMouseFocusable` for mouse events and `isKeyboardFocusable` for keyboard
- * events. `isFocusable` is an alias to `isKeyboardFocusable`
- */
-export const isFocusable = isKeyboardFocusable;
-
-/**
  * Get the first focusable element in a container.
  *
  * Returns an array of elements if the first focusable element is a radio group
