@@ -26,8 +26,7 @@ describe('ColorInput', () => {
       });
 
       it('should not have any axe errors', () => {
-        // This component needs to be looked at for accessibility before doing a checka11y consistently
-        // cy.checkA11y();
+        cy.checkA11y();
       });
 
       context('when clicked', () => {
@@ -88,8 +87,7 @@ describe('ColorInput', () => {
     });
 
     it('should not have any axe errors', () => {
-      // This component needs to be looked at for accessibility before doing a checka11y consistently
-      // cy.checkA11y();
+      cy.checkA11y();
     });
 
     it('should be disabled', () => {
@@ -105,8 +103,7 @@ describe('ColorPreview', () => {
     });
 
     it('should not have any axe errors', () => {
-      // This component needs to be looked at for accessibility before doing a checka11y consistently
-      // cy.checkA11y();
+      cy.checkA11y();
     });
   });
 });
@@ -124,8 +121,14 @@ describe('ColorPicker', () => {
       });
 
       it('should not have any axe errors', () => {
-        // This component needs to be looked at for accessibility before doing a checka11y consistently
-        // cy.checkA11y();
+        // Known SwatchBook/example violations: swatch tiles use `aria-selected` on `role="button"`
+        // and the popup dialog has no accessible name. All other axe rules are still enforced.
+        cy.checkA11y(null, {
+          rules: {
+            'aria-allowed-attr': {enabled: false},
+            'aria-dialog-name': {enabled: false},
+          },
+        });
       });
 
       it('should be open', () => {
@@ -183,8 +186,14 @@ describe('ColorPicker', () => {
       });
 
       it('should not have any axe errors', () => {
-        // This component needs to be looked at for accessibility before doing a checka11y consistently
-        // cy.checkA11y();
+        // Known SwatchBook/example violations: swatch tiles use `aria-selected` on `role="button"`
+        // and the popup dialog has no accessible name. All other axe rules are still enforced.
+        cy.checkA11y(null, {
+          rules: {
+            'aria-allowed-attr': {enabled: false},
+            'aria-dialog-name': {enabled: false},
+          },
+        });
       });
 
       it('should be open', () => {
