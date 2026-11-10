@@ -3,7 +3,6 @@ import {Element, compile} from 'stylis';
 export function getVariablesFromFiles(files: string[]): Record<string, string> {
   return files.reduce(
     (result, file) => {
-      extractVariables(compile(file));
       return {...result, ...extractVariables(compile(file))};
     },
     {} as Record<string, string>
