@@ -2,48 +2,19 @@ import React from 'react';
 
 type Modality = 'mouse' | 'touch' | 'pen';
 
-function safeLocalStorageGet(key: string): string | null {
-  try {
-    return localStorage.get(key);
-  } catch (_) {
-    return null;
-  }
-}
-
-function safeLocalStorageSet(key: string, value: string): void {
-  try {
-    localStorage.set(key, value);
-  } catch (_) {
-    // Do nothing
-  }
-}
-
-// Use this shared global value to reduce calls to localStorage which is a synchronous API to a
-// drive which could be slow (spinning disks could be hundreds of ms). We read only once this way.
+// Shared across all hook instances so a newly mounted component starts with the last used
+// modality. It is in-memory only and resets on page load.
 // The following initialization is very difficult to test via automation. Don't mess with it unless
 // you plan to manually test.
 //
-// 1. Initialize modality to localStorage
-//   a. if localStorage isn't primed, use clientWidth of the browsers
-//   b. if < 768, default to 'touch'
-//   c. else default to 'mouse'
-let localStorageValue = (safeLocalStorageGet('modality') ||
-  (typeof document !== 'undefined'
-    ? document.documentElement.clientWidth < 768
-      ? 'touch'
-      : ''
-    : '') ||
-  'mouse') as Modality;
-
-// Update the `localStorageValue`, but conditionally update localStorage only if the value has
-// changed. This prevents too many calls to `localStorage` which can be costly on spinning disk
-// drives
-const updateLocalStorage = (value: Modality) => {
-  if (localStorageValue !== value) {
-    safeLocalStorageSet('modality', value);
-  }
-  localStorageValue = value;
-};
+// 1. Initialize modality using the clientWidth of the browser
+//   a. if < 768, default to 'touch'
+//   b. else default to 'mouse'
+let lastModality = ((typeof document !== 'undefined'
+  ? document.documentElement.clientWidth < 768
+    ? 'touch'
+    : ''
+  : '') || 'mouse') as Modality;
 
 /**
  * Uses heuristics to determine if the user is on a touch device, uses a pen, or a mouse. This hook
@@ -59,13 +30,13 @@ const updateLocalStorage = (value: Modality) => {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/pointerType
  */
 export const useModalityType = (): Modality => {
-  const [modality, setModality] = React.useState(localStorageValue);
+  const [modality, setModality] = React.useState(lastModality);
 
   React.useEffect(() => {
     const handlePointerDown = (event: PointerEvent) => {
       const value = event.pointerType as Modality;
       setModality(value);
-      updateLocalStorage(value);
+      lastModality = value;
     };
 
     document.addEventListener('pointerdown', handlePointerDown);
