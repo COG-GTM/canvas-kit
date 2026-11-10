@@ -1,0 +1,63 @@
+import {Meta} from '@storybook/addon-docs';
+
+<Meta title="Guides/Upgrade Guides/v17.0/Overview" />
+
+# Canvas Kit 17.0 Upgrade Guide
+
+This guide contains an overview of the changes in Canvas Kit v17. Please
+[reach out](https://github.com/Workday/canvas-kit/issues/new?labels=bug&template=bug.md) if you have
+any questions.
+
+## Table of Contents
+
+- [Removals](#removals)
+  - [useThemedRing and getPaletteColorsForFocusRing](#usethemedring-and-getpalettecolorsforfocusring)
+
+## Removals
+
+Removals are deletions from our codebase and you can no longer consume this component. We've either
+promoted or replaced a component or utility.
+
+### useThemedRing and getPaletteColorsForFocusRing
+
+The deprecated `useThemedRing` hook and `getPaletteColorsForFocusRing` function have been removed
+from `@workday/canvas-kit-react/common`. Both were deprecated in favor of the
+`brand.common.focusOutline` CSS variable (and the `brand.common.error*` / `brand.common.alert*`
+variables for error and alert rings).
+
+Please replace them with styles built from
+[CSS tokens](https://workday.github.io/canvas-tokens/?path=/docs/docs-brand-tokens--docs) using
+`createStyles` or `createStencil`.
+
+**Before in v16**
+
+```tsx
+import {useThemedRing} from '@workday/canvas-kit-react/common';
+
+const alertStyles = useThemedRing('alert');
+
+<FormField.Field css={alertStyles}>...</FormField.Field>;
+```
+
+**After in v17**
+
+```tsx
+import {createStyles, cssVar} from '@workday/canvas-kit-styling';
+import {brand, system} from '@workday/canvas-tokens-web';
+
+const alertStyles = createStyles({
+  borderColor: brand.common.alertOuter,
+  boxShadow: `inset 0 0 0 2px ${cssVar(brand.common.alertInner)}`,
+  '&:focus-visible:not([disabled])': {
+    borderColor: brand.common.alertOuter,
+    boxShadow: `inset 0 0 0 2px ${cssVar(brand.common.alertInner)},
+      0 0 0 2px ${cssVar(system.color.border.input.inverse)},
+      0 0 0 4px ${cssVar(brand.common.focusOutline)}`,
+  },
+});
+
+<FormField.Field cs={alertStyles}>...</FormField.Field>;
+```
+
+> **Note:** Most Canvas Kit inputs already style their error and alert states. Prefer the
+> component's `error` prop (for example `<FormField error="caution">`) over hand-rolled ring styles.
