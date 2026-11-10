@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "type": "module",
   "main": "index.js",
-  "devDependencies": {
-    "eslint": "~2.6.0"
-  },
   "engines": {
     "node": ">=0.10.0"
   }
