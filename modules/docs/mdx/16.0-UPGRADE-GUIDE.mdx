@@ -248,6 +248,8 @@ remove the theme prop.
   - [Sana Canvas Theme — Switch to Sana Sans](#sana-canvas-theme--switch-to-sana-sans)
   - [Classic Canvas — Keep Roboto](#classic-canvas--keep-roboto)
 - [Deprecations](#deprecations)
+- [Removals](#removals)
+  - [appletIconStyles](#appleticonstyles)
 - [Glossary](#glossary)
   - [Main](#main)
   - [Preview](#preview)
@@ -1295,6 +1297,35 @@ For full installation details, variable-font notes, and monospace coverage, see 
 We add the [@deprecated](https://jsdoc.app/tags-deprecated.html) JSDoc tag to code we plan to remove
 in a future major release. This signals consumers to migrate to a more stable alternative before the
 deprecated code is removed.
+
+## Removals
+
+Removals are deletions from our codebase and you can no longer consume this code. We've either
+promoted or replaced a component or utility.
+
+### appletIconStyles
+
+The deprecated `appletIconStyles` function has been removed from `@workday/canvas-kit-react/icon`.
+It was deprecated in v11 and was no longer used by `AppletIcon`.
+
+Set the `color` and `size` props on `AppletIcon` (or use `appletIconStencil`) instead. Note that
+`AppletIcon` and `appletIconStencil` have themselves been deprecated since v15.
+
+**Before**
+
+```tsx
+import {appletIconStyles} from '@workday/canvas-kit-react/icon';
+
+const styles = appletIconStyles({color: 'blueberry'});
+```
+
+**After**
+
+```tsx
+import {AppletIcon} from '@workday/canvas-kit-react/icon';
+
+<AppletIcon icon={benefitsIcon} color="blueberry" />;
+```
 
 ## Glossary
 

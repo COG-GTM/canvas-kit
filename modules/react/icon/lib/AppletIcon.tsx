@@ -1,7 +1,5 @@
-import {CSSObject} from '@emotion/styled';
-
 import {createComponent} from '@workday/canvas-kit-react/common';
-import {BrandingColor, CanvasColor, colors} from '@workday/canvas-kit-react/tokens';
+import {BrandingColor} from '@workday/canvas-kit-react/tokens';
 import {createStencil, cssVar, handleCsProp, px2rem} from '@workday/canvas-kit-styling';
 import {base as baseTokens, system} from '@workday/canvas-tokens-web';
 import {CanvasAppletIcon, CanvasIconTypes} from '@workday/design-assets-types';
@@ -18,51 +16,6 @@ export interface AppletIconStyles {
    */
   color?: BrandingColor;
 }
-
-/**
- * @deprecated `appletIconStyles` will be removed in in a future version as a part of implementation of stencils and new tokens. Consider to use `appletIconStencil` instead.
- */
-export const appletIconStyles = ({
-  color = BrandingColor.Blueberry,
-}: AppletIconStyles): CSSObject => {
-  // Check if valid color
-  if (
-    !(Object.keys(BrandingColor) as (keyof typeof BrandingColor)[])
-      .map(color => BrandingColor[color])
-      .includes(color)
-  ) {
-    throw Error(`Color "${color}" not found`);
-  }
-
-  const colorNames: {[key: number]: CanvasColor} = {
-    100: `${color}100` as CanvasColor,
-    200: `${color}200` as CanvasColor,
-    300: `${color}300` as CanvasColor,
-    400: `${color}400` as CanvasColor,
-    500: `${color}500` as CanvasColor,
-  };
-
-  return {
-    '& .color-100': {
-      fill: system.color.fg.inverse,
-    },
-    '& .color-200': {
-      fill: colors[colorNames[200]],
-    },
-    '& .color-300': {
-      fill: colors[colorNames[300]],
-    },
-    '& .color-400': {
-      fill: colors[colorNames[400]],
-    },
-    '& .color-400-alpha-20': {
-      fill: colors[colorNames[400]],
-    },
-    '& .color-500': {
-      fill: colors[colorNames[500]],
-    },
-  };
-};
 
 /**
  *  @deprecated ⚠️ `AppletIconProps` is deprecated and will be removed in a future major version. Deprecated in v15.0.0.
