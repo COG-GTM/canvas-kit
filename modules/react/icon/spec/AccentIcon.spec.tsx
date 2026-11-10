@@ -2,30 +2,23 @@ import {render} from '@testing-library/react';
 import * as React from 'react';
 
 import {shieldIcon} from '@workday/canvas-accent-icons-web';
-import {colors} from '@workday/canvas-kit-react/tokens';
+import {base} from '@workday/canvas-tokens-web';
 
-import {AccentIcon, accentIconStyles} from '../lib/AccentIcon';
+import {AccentIcon, accentIconStencil} from '../lib/AccentIcon';
 
 describe('Accent Icon', () => {
-  test('Defaults styles are set correctly', () => {
-    const componentStyle = accentIconStyles({});
-    expect(componentStyle['& .color-500']).toHaveProperty('fill', colors.blueberry500);
-    expect(componentStyle['& .french-vanilla-100']).toHaveProperty('fill', colors.frenchVanilla100);
+  it('should map a base token name passed to color to its CSS variable', () => {
+    const {container} = render(<AccentIcon icon={shieldIcon} color="cinnamon500" />);
+
+    expect((container.firstChild as HTMLElement).getAttribute('style')).toContain(
+      `var(${base.cinnamon500})`
+    );
   });
 
-  test('Can set icon as transparent', () => {
-    const componentStyle = accentIconStyles({transparent: true});
-    expect(componentStyle['& .french-vanilla-100']).toHaveProperty('fill', 'transparent');
-  });
+  it('should apply the transparent modifier when transparent is true', () => {
+    const {container} = render(<AccentIcon icon={shieldIcon} transparent />);
 
-  test('Can set icon color correctly', () => {
-    const componentStyle = accentIconStyles({color: colors.cinnamon500});
-    expect(componentStyle['& .color-500']).toHaveProperty('fill', colors.cinnamon500);
-  });
-
-  test('Can set icon color correctly with token color as string', () => {
-    const componentStyle = accentIconStyles({color: 'cinnamon500'});
-    expect(componentStyle['& .color-500']).toHaveProperty('fill', colors.cinnamon500);
+    expect(container.firstChild).toHaveClass(accentIconStencil.modifiers.transparent.true);
   });
 
   it('should spread extra props to the icon element', () => {
