@@ -203,23 +203,6 @@ export const useEventMap = <
   }, []);
 };
 
-type EventCreator = {[key: string]: {bivarianceHack(...args: any[]): object}['bivarianceHack']};
-type ToEvent<TEvents extends EventCreator> = {
-  [K in keyof TEvents]: (data: ReturnType<TEvents[K]>) => void;
-};
-
-// use this?
-export const createEvents =
-  <TEvents extends EventCreator>(events: TEvents) =>
-  <
-    TGuardMap extends Record<string, keyof TEvents>,
-    TCallbackMap extends Record<string, keyof TEvents>,
-  >(
-    config?: Partial<EventMap<ToEvent<TEvents>, TGuardMap, TCallbackMap>>
-  ) => {
-    return {events, eventMap: config as EventMap<ToEvent<TEvents>, TGuardMap, TCallbackMap>};
-  };
-
 /**
  * Special type that will be a placeholder during development. At build time, this generic will be
  * used to create a real generic type for models. If you use `Generic`, you'll have to create an
