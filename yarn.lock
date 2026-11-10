@@ -4211,11 +4211,6 @@
   resolved "https://registry.yarnpkg.com/@types/doctrine/-/doctrine-0.0.9.tgz#d86a5f452a15e3e3113b99e39616a9baa0f9863f"
   integrity sha512-eOIHzCUSH7SMfonMG1LsC2f8vxBFtho6NGBznK41R84YzPuvSBzrhEps33IsQiOW9+VL6NQ9DbjQJznk/S4uRA==
 
-"@types/emoji-js@^3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@types/emoji-js/-/emoji-js-3.4.0.tgz#fea0138600cb08bc7138f36bb93e50ec34aacac1"
-  integrity sha512-GIXBVzjyuh52Sb225S8EPDQ5pS2+5aJCtRS6ZbFG8K3dYgX8mPnPtnQ15xifCSQix1E/Vn4ze0VqSjfFGpWgLg==
-
 "@types/estree-jsx@^1.0.0":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@types/estree-jsx/-/estree-jsx-1.0.5.tgz#858a88ea20f34fe65111f005a689fa1ebf70dc18"
@@ -4308,13 +4303,6 @@
   version "4.14.188"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.188.tgz#e4990c4c81f7c9b00c5ff8eae389c10f27980da5"
   integrity sha512-zmEmF5OIM3rb7SbLCFYoQhO4dGt2FRM9AMkxvA3LaADOF1n8in/zGJlWji9fmafLoNyz+FoL6FE0SLtGIArD7w==
-
-"@types/markdown-to-jsx@^6.9.0":
-  version "6.11.3"
-  resolved "https://registry.yarnpkg.com/@types/markdown-to-jsx/-/markdown-to-jsx-6.11.3.tgz#cdd1619308fecbc8be7e6a26f3751260249b020e"
-  integrity sha512-30nFYpceM/ZEvhGiqWjm5quLUxNeld0HCzJEXMZZDpq53FPkS85mTwkWtCXzCqq8s5JYLgM5W392a02xn8Bdaw==
-  dependencies:
-    "@types/react" "*"
 
 "@types/mdast@^4.0.0":
   version "4.0.4"
@@ -6654,18 +6642,6 @@ electron-to-chromium@^1.5.73:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.113.tgz#1175b8ba4170541e44e9afa8b992e5bbfff0d150"
   integrity sha512-wjT2O4hX+wdWPJ76gWSkMhcHAV2PTMX+QetUCPYEdCIe+cxmgzzSSiGRCKW8nuh4mwKZlpv0xvoW7OF2X+wmHg==
 
-emoji-datasource@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/emoji-datasource/-/emoji-datasource-4.0.0.tgz#3fc9c0c2f4fb321d9291138819f6d100603d3e2f"
-  integrity sha1-P8nAwvT7Mh2SkROIGfbRAGA9Pi8=
-
-emoji-js@^3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/emoji-js/-/emoji-js-3.4.1.tgz#422cdf184fd818a910289861ead4782db3e8dc8d"
-  integrity sha1-QizfGE/YGKkQKJhh6tR4LbPo3I0=
-  dependencies:
-    emoji-datasource "4.0.0"
-
 emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
@@ -8108,11 +8084,6 @@ gitconfiglocal@^1.0.0:
   integrity sha1-QdBF84UaXqiPA/JMocYXgRRGS5s=
   dependencies:
     ini "^1.3.2"
-
-github-markdown-css@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/github-markdown-css/-/github-markdown-css-3.0.1.tgz#d08db1060d2e182025e0d07d547cfe2afed30205"
-  integrity sha512-9G5CIPsHoyk5ObDsb/H4KTi23J8KE1oDd4KYU51qwqeM+lKWAiO7abpSgCkyWswgmSKBiuE7/4f8xUz7f2qAiQ==
 
 glob-parent@6.0.2, glob-parent@^6.0.2:
   version "6.0.2"
@@ -10132,11 +10103,6 @@ markdown-to-jsx@^7.2.0:
   version "7.4.0"
   resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.4.0.tgz#4606c5c549a6f6cb87604c35f5ee4f42959ffb6b"
   integrity sha512-zilc+MIkVVXPyTb4iIUTIz9yyqfcWjszGXnwF9K/aiBWcHXFcmdEMTkG01/oQhwSCH7SY1BnG6+ev5BzWmbPrg==
-
-markdown-to-jsx@^7.7.4:
-  version "7.7.4"
-  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.7.4.tgz#507d17c15af72ddf970fca84a95f0243244fcfa9"
-  integrity sha512-1bSfXyBKi+EYS3YY+e0Csuxf8oZ3decdfhOav/Z7Wrk89tjudyL5FOmwZQUoy0/qVXGUl+6Q3s2SWtpDEWITfQ==
 
 math-intrinsics@^1.1.0:
   version "1.1.0"
