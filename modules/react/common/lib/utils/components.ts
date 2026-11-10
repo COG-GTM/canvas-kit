@@ -664,6 +664,8 @@ export const createElemPropsHook =
  * };
  *
  * @param fn Function that takes a model and optional ref and returns props
+ *
+ * @deprecated ⚠️ `createHook` has been deprecated in v16 and will be removed in a future major version. Please use `createElemPropsHook` instead.
  */
 export const createHook = <M extends Model<any, any>, PO extends {}, PI extends {}>(
   fn: (model: M, ref?: React.Ref<unknown>, elemProps?: PI) => PO
@@ -889,7 +891,7 @@ export function useModelContext<T>(
 
 /**
  * Compose many hooks together. Each hook should make a call to `mergeProps` which is automatically
- * done by `createElemPropsHook` and `createHook. Returns a function that will receive a model and
+ * done by `createElemPropsHook`. Returns a function that will receive a model and
  * return props to be applied to a component. Hooks run from last to first, but props override from
  * first to last. This means the last hook will run first, passing `elemProps` to the next last
  * hook. There is a special exception, which is `null`. `null` means "remove this prop" and the null
