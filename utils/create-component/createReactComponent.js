@@ -17,7 +17,7 @@ import basicStories from './templates/react/stories.basic.js';
 import mdxStories from './templates/react/stories.mdx.js';
 import openStories from './templates/react/stories.open.js';
 import testingStories from './templates/react/stories.visualTesting.js';
-import tsconfig from './templates/react/tsconfig.js';
+import {spec as tsconfigSpec, stories as tsconfigStories} from './templates/react/tsconfig.js';
 import writeModuleFiles from './writeModuleFiles.js';
 
 const cwd = process.cwd();
@@ -102,11 +102,11 @@ const createReactComponent = (modulePath, name, description, prerelease, categor
     },
     tsconfigSpec: {
       path: 'spec/tsconfig.json',
-      contents: tsconfig.spec(`../${rootPath}`),
+      contents: tsconfigSpec(`../${rootPath}`),
     },
     tsconfigStories: {
       path: 'stories/tsconfig.json',
-      contents: tsconfig.stories(`../${rootPath}`),
+      contents: tsconfigStories(`../${rootPath}`),
     },
   };
 
