@@ -1,4 +1,3 @@
-type ValueOf<T> = T[keyof T];
 /** ### Font Size Tokens
  * ---
  * There are twelve font size tokens. Each token key corresponds to a pixel value.
@@ -64,6 +63,3 @@ export type CanvasFontSizes = {
   /** 56px converted to base-16 rem */
   56: '3.5rem';
 };
-
-/** @deprecated ⚠️ `CanvasFontSizeValues` has been deprecated in a future major version. Please use our css var based [`fontFamily`](https://workday.github.io/canvas-tokens/?path=/docs/docs-system-tokens-type--docs) tokens. */
-export type CanvasFontSizeValues = ValueOf<CanvasFontSizes>;

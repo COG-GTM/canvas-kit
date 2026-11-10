@@ -1,4 +1,3 @@
-type ValueOf<T> = T[keyof T];
 /** ### Font Weight Tokens
  * ---
  * There are three font-weight tokens.
@@ -35,6 +34,3 @@ export type CanvasFontWeights = {
   /** bold font-weight (700) */
   bold: 700;
 };
-
-/** @deprecated ⚠️ `CanvasFontWeightValues` has been deprecated in a future major version. Please use our css var based [`fontFamily`](https://workday.github.io/canvas-tokens/?path=/docs/docs-system-tokens-type--docs) tokens. */
-export type CanvasFontWeightValues = ValueOf<CanvasFontWeights>;
