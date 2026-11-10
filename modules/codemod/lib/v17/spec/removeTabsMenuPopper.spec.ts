@@ -101,4 +101,28 @@ describe('removeTabsMenuPopper', () => {
 
     expectTransform(input, input);
   });
+
+  it('should not transform references to a local binding that shadows Tabs', () => {
+    const input = stripIndent`
+      import {Tabs} from '@workday/canvas-kit-react/tabs';
+
+      const Imported = () => <Tabs.MenuPopper />;
+
+      const Local = ({Tabs}) => (
+        <Tabs.MenuPopper as={Tabs.MenuPopper} />
+      );
+    `;
+
+    const expected = stripIndent`
+      import {Tabs} from '@workday/canvas-kit-react/tabs';
+
+      const Imported = () => <Tabs.Menu.Popper />;
+
+      const Local = ({Tabs}) => (
+        <Tabs.MenuPopper as={Tabs.MenuPopper} />
+      );
+    `;
+
+    expectTransform(input, expected);
+  });
 });

@@ -1,4 +1,4 @@
-import {API, FileInfo, JSXMemberExpression, MemberExpression, Options} from 'jscodeshift';
+import {API, ASTPath, FileInfo, JSXMemberExpression, MemberExpression, Options} from 'jscodeshift';
 
 const tabsPackages = ['@workday/canvas-kit-react', '@workday/canvas-kit-react/tabs'];
 
@@ -24,6 +24,12 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
     return file.source;
   }
 
+  // Skip references where a local binding shadows the imported `Tabs`
+  const isImportedTabs = (nodePath: ASTPath, name: string) => {
+    const scope = nodePath.scope?.lookup(name);
+    return !scope || scope.isGlobal;
+  };
+
   let hasChanges = false;
 
   // <Tabs.MenuPopper> -> <Tabs.Menu.Popper>
@@ -35,6 +41,7 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
         tabsNames.has(node.object.name) &&
         node.property.name === 'MenuPopper'
     )
+    .filter(nodePath => isImportedTabs(nodePath, (nodePath.value.object as {name: string}).name))
     .forEach(nodePath => {
       hasChanges = true;
       const tabsName = (nodePath.value.object as {name: string}).name;
@@ -57,6 +64,7 @@ export default function transformer(file: FileInfo, api: API, options: Options) 
         node.property.type === 'Identifier' &&
         node.property.name === 'MenuPopper'
     )
+    .filter(nodePath => isImportedTabs(nodePath, (nodePath.value.object as {name: string}).name))
     .forEach(nodePath => {
       hasChanges = true;
       const tabsName = (nodePath.value.object as {name: string}).name;
