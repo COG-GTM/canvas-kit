@@ -301,6 +301,18 @@ Canvas Kit v16 is optimized for the latest v5 system icons (@workday/canvas-syst
           uri: 'docs://upgrade-guides/16.0-UPGRADE-GUIDE',
           contents: fs.readFileSync(path.resolve(__dirname, 'lib', fileName), 'utf8'),
         };
+      case 'upgrade-guides/17.0-UPGRADE-GUIDE.md':
+        return {
+          title: 'Canvas Kit 17.0 Upgrade Guide',
+          description: `# Canvas Kit 17.0 Upgrade Guide
+This guide contains an overview of the changes in Canvas Kit v17.
+
+In this release, we:
+- removed the deprecated getTranslateFromOrigin utility from @workday/canvas-kit-react/common (use getTransformOrigin instead)`,
+          mimeType: 'text/markdown',
+          uri: 'docs://upgrade-guides/17.0-UPGRADE-GUIDE',
+          contents: fs.readFileSync(path.resolve(__dirname, 'lib', fileName), 'utf8'),
+        };
       case 'theming.md':
         return {
           title: 'Canvas Kit Theming Guide',

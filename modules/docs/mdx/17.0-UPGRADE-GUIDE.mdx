@@ -1,0 +1,66 @@
+import {Meta} from '@storybook/addon-docs';
+
+<Meta title="Guides/Upgrade Guides/v17.0/Overview" />
+
+# Canvas Kit 17.0 Upgrade Guide
+
+This guide contains an overview of the changes in Canvas Kit v17. Please
+[reach out](https://github.com/Workday/canvas-kit/issues/new?labels=bug&template=bug.md) if you have
+any questions.
+
+## Table of Contents
+
+- [Removals](#removals)
+  - [getTranslateFromOrigin](#gettranslatefromorigin)
+- [Glossary](#glossary)
+  - [Main](#main)
+  - [Preview](#preview)
+  - [Labs](#labs)
+
+## Removals
+
+### getTranslateFromOrigin
+
+The deprecated `getTranslateFromOrigin` utility has been removed from
+`@workday/canvas-kit-react/common`. Use `getTransformOrigin` instead. It takes the same arguments
+but returns CSS `calc()` strings instead of pixel numbers, and it accepts any CSS length (including
+CSS variables) as the distance.
+
+**Before in v16**
+
+```tsx
+import {getTranslateFromOrigin} from '@workday/canvas-kit-react/common';
+
+const {x, y} = getTranslateFromOrigin({horizontal: 'left', vertical: 'top'}, '0.5rem');
+// x === -8, y === -8 (numbers, in px)
+const transform = `translate(${x}px, ${y}px)`;
+```
+
+**After in v17**
+
+```tsx
+import {getTransformOrigin} from '@workday/canvas-kit-react/common';
+
+const {x, y} = getTransformOrigin({horizontal: 'left', vertical: 'top'}, '0.5rem');
+// x === 'calc(0.5rem * -1)', y === 'calc(0.5rem * -1)' (CSS strings)
+const transform = `translate(${x}, ${y})`;
+```
+
+## Glossary
+
+For an overview of the different packages we provide, please view our docs
+[here](https://workday.github.io/canvas-kit/?path=/docs/guides-packages--docs).
+
+### Main
+
+Components in the Main package are stable and ready for production use.
+
+### Preview
+
+Components in the Preview package are mostly stable but may still receive breaking changes before
+being promoted to Main.
+
+### Labs
+
+Components in the Labs package are experimental and may receive significant changes or be removed
+entirely.
