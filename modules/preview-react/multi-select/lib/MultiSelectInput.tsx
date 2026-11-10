@@ -154,9 +154,6 @@ export const multiSelectInputStencil = createStencil({
   },
 });
 
-/** @deprecated use `multiSelectInputStencil` instead. This will be removed in a future version. */
-export const multiSelectStencil = multiSelectInputStencil;
-
 export const useMultiSelectInput = composeHooks(
   createElemPropsHook(useMultiSelectModel)((model, ref) => {
     return {
