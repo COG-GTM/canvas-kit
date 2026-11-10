@@ -192,11 +192,7 @@ Or (minimal main using css var):
     <App />
   </CanvasProvider>
 
-Note: `chroma.js` vs `oklch` produce different results; color discrepancies may occur. To continue v13 palette generation using `chroma.js`, use `createCanvasTheme`:
-
-  <CanvasProvider theme={{canvas: createCanvasTheme({palette: {primary: {main: cssVar(base.blue600)}}})}}>
-    <App />
-  </CanvasProvider>
+Note: `chroma.js` vs `oklch` produce different results; color discrepancies may occur. If you need exact colors, define every palette key explicitly (as in the first example above) instead of relying on generated shades.
 
 The reason for this change is to ensure that the CSS variables properly cascade to all components. Before in v13, the `CanvasProvider` would add the brand tokens under a class name, creating a higher specificity.
 
