@@ -10,10 +10,9 @@ import {FormFieldGroupList} from './FormFieldGroupList';
 import {formFieldStencil} from './formFieldStencil';
 import {useFormFieldModel} from './hooks';
 
-//TODO: Remove `horizontal` option in v13 and the console warn message.
 export interface FormFieldGroupProps extends FlexProps, GrowthBehavior {
   /**
-   * The direction the child elements should stack. In v13, `horizontal` will be removed. Please use `horizontalStart` or `horizontalEnd` for horizontal alignment.
+   * The direction the child elements should stack.
    * @default vertical
    */
   orientation?: 'vertical' | 'horizontalStart' | 'horizontalEnd';
