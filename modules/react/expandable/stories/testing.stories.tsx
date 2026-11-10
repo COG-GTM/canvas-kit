@@ -1,19 +1,8 @@
-import {Meta} from '@storybook/react';
-
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
 import {useDisclosureModel} from '@workday/canvas-kit-react/disclosure';
 import {Expandable} from '@workday/canvas-kit-react/expandable';
 import {ComponentStatesTable, StaticStates} from '@workday/canvas-kit-react/testing';
 import {system} from '@workday/canvas-tokens-web';
-
-import {withSnapshotsEnabled} from '../../../../utils/storybook';
-
-const meta: Meta = withSnapshotsEnabled({
-  title: 'Testing/Expandable',
-  component: Expandable,
-});
-
-// export default meta;
 
 export default {
   title: 'Testing/Containers/Expandable',
