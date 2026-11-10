@@ -83,12 +83,16 @@ Banner supports right-to-left languages when specified in the CanvasProvider the
 
 ### Themed Banners
 
-Banners use the `useThemedPalette` hook for themeing. By default, your alert theme is used. `main`
-will be used for the background, `dark` for the hover background, and `contrast` for the text.
+Banner is styled with a stencil and Canvas tokens. By default, its background uses the caution brand
+accent (`system.legacy.color.brand.accent.caution`), and the hover background is derived from that
+same color. When a theme is passed to `CanvasProvider`, the `main` color of the `alert` palette is
+used for the background.
 
 <ExampleCodeBlock code={ThemedAlert} />
 
-If you set the `hasError` prop, the banner will use your error theme.
+If you set the `hasError` prop, the banner uses the critical brand accent
+(`system.legacy.color.brand.accent.critical`), which comes from the `main` color of the `error`
+palette.
 
 <ExampleCodeBlock code={ThemedError} />
 
