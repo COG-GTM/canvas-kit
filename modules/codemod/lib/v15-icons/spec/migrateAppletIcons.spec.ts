@@ -5,7 +5,7 @@ import {expectTransformFactory} from './expectTransformFactory';
 
 const expectTransform = expectTransformFactory(transform);
 
-describe('migrateAppletIcons', () => {
+describe('migrateExpressiveIcons (applet)', () => {
   it('should not update other icons', () => {
     const input = stripIndent`
       import {laptopEducationIcon} from "other-package";
