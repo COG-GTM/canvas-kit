@@ -1,0 +1,62 @@
+import {Meta} from '@storybook/addon-docs';
+
+<Meta title="Guides/Upgrade Guides/v17.0/Overview" />
+
+# Canvas Kit 17.0 Upgrade Guide
+
+This guide contains an overview of the changes in Canvas Kit v17. Please
+[reach out](https://github.com/Workday/canvas-kit/issues/new?labels=bug&template=bug.md) if you have
+any questions.
+
+## Table of Contents
+
+- [Removals](#removals)
+  - [Button Colors `focus.focusRing`](#button-colors-focusfocusring)
+- [Glossary](#glossary)
+  - [Main](#main)
+  - [Preview](#preview)
+  - [Labs](#labs)
+
+## Removals
+
+Removals are deletions from our codebase and you can no longer consume this code. We've either
+promoted or replaced a component or utility.
+
+### Button Colors `focus.focusRing`
+
+The deprecated `focusRing` property has been removed from `ButtonColors['focus']` in
+`@workday/canvas-kit-react/button`. It has not been read at run time since v11, so removing it only
+affects types: passing `colors={{focus: {focusRing: ...}}}` to a button is now a TypeScript error.
+
+To customize the focus ring colors, use `boxShadowInner` and `boxShadowOuter` instead.
+
+```tsx
+// Before (v16)
+<PrimaryButton colors={{focus: {focusRing: focusRing({innerColor: 'red', outerColor: 'blue'})}}}>
+  Button
+</PrimaryButton>
+
+// After (v17)
+<PrimaryButton colors={{focus: {boxShadowInner: 'red', boxShadowOuter: 'blue'}}}>
+  Button
+</PrimaryButton>
+```
+
+## Glossary
+
+For an overview of the different packages we provide, please view our docs
+[here](https://workday.github.io/canvas-kit/?path=/docs/guides-packages--docs).
+
+### Main
+
+Components in the Main package are stable and ready for production use.
+
+### Preview
+
+Components in the Preview package are mostly stable but may still receive breaking changes before
+being promoted to Main.
+
+### Labs
+
+Components in the Labs package are experimental and may receive significant changes or be removed
+entirely.
