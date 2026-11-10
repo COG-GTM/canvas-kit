@@ -30,8 +30,3 @@ export * from './useThemedRing';
  * For more information, see [MDN :dir()](https://developer.mozilla.org/en-US/docs/Web/CSS/:dir).
  */
 export * from './useIsRTL';
-/**
- * @deprecated ⚠️ `getObjectProxy` is deprecated. This utility was used for theme object fallbacks and is no longer needed.
- * For more information, view our [Theming Docs](https://workday.github.io/canvas-kit/?path=/docs/features-theming-overview--docs#-preferred-approach-v14).
- */
-export * from './getObjectProxy';
