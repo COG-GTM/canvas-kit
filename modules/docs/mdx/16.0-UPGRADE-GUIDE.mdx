@@ -247,6 +247,8 @@ remove the theme prop.
 - [Fonts](#fonts)
   - [Sana Canvas Theme — Switch to Sana Sans](#sana-canvas-theme--switch-to-sana-sans)
   - [Classic Canvas — Keep Roboto](#classic-canvas--keep-roboto)
+- [Removals](#removals)
+  - [Accent Icon Styles](#accent-icon-styles)
 - [Deprecations](#deprecations)
 - [Glossary](#glossary)
   - [Main](#main)
@@ -1289,6 +1291,28 @@ injectGlobal({
 
 For full installation details, variable-font notes, and monospace coverage, see the
 [Fonts guide](https://workday.github.io/canvas-kit/?path=/docs/guides-fonts--docs).
+
+## Removals
+
+Removals have been deleted from our codebase and may no longer be consumed. We've either promoted or
+replaced the removed component or utility.
+
+### Accent Icon Styles
+
+The `accentIconStyles` Emotion style builder and its `AccentIconStyles` interface have been removed
+from `@workday/canvas-kit-react/icon`. Both were deprecated in v11 (`AccentIconStyles` again in v15)
+and were no longer used by `AccentIcon`, which renders through `accentIconStencil`.
+
+If you were using `accentIconStyles`, render `AccentIcon` with its `color` and `transparent` props
+instead:
+
+```tsx
+// Before
+<span css={accentIconStyles({color: 'cinnamon500', transparent: true})}>...</span>
+
+// After
+<AccentIcon icon={shieldIcon} color={base.cinnamon500} transparent />
+```
 
 ## Deprecations
 
