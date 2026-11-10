@@ -17,7 +17,3 @@ export {type AllStyleProps, type CommonStyleProps} from './lib/utils/styleProps'
 export * from './lib/utils/text';
 export * from './lib/Flex';
 export * from './lib/Grid';
-export type {FlexStyleProps} from './lib/utils/flex';
-export type {GridStyleProps} from './lib/utils/grid';
-export {type GridItemStyleProps, gridItemStyleFnConfigs} from './lib/utils/gridItem';
-export * from './lib/utils/systemProps';
