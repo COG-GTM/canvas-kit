@@ -1,5 +1,4 @@
 import {createStyles} from '@workday/canvas-kit-styling';
-import * as systemIcons from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
 const buttonLayout = createStyles({
@@ -31,11 +30,3 @@ export const stateTableColumnProps = [
   {label: 'Active ', props: {className: 'active', disabled: false}},
   {label: 'Active Hover ', props: {className: 'active hover', disabled: false}},
 ];
-
-// Convert systemIcons into an array
-const systemIconArray = [];
-for (const icon in systemIcons) {
-  if (systemIcons[icon].filename) {
-    systemIconArray.push(systemIcons[icon]);
-  }
-}
