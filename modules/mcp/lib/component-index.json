@@ -621,7 +621,6 @@
         "ExpressiveIconProps",
         "Graphic",
         "GraphicProps",
-        "GraphicStyles",
         "Svg",
         "SystemIcon",
         "SystemIconCircle",
@@ -636,7 +635,6 @@
         "expressiveIconStencil",
         "graphicImageStencil",
         "graphicStencil",
-        "graphicStyles",
         "svgStencil",
         "systemIconCircleStencil",
         "systemIconStencil",
@@ -690,14 +688,6 @@
           "message": "`graphicStencil` will be removed in a future version. Use `graphicImageStencil` instead."
         },
         {
-          "name": "graphicStyles",
-          "message": "The width of the Graphic in `px`. The Graphic's `width` takes precedence over its `height` in order to preserve its proportions. @default width of graphic / width?: number | string; /** The height of the Graphic in `px`. If the Graphic's `height` is set, its `width` will be set to `100%`. @default height of graphic / height?: number | string; /** If true, expand the Graphic to fit its container. `grow` takes precedence over both `width` and `height`. @default false / grow?: boolean; } export interface GraphicProps extends CSProps { /** The height of the graphic / height?: number | string; /** The width of the graphic / width?: number | string; /** If true, expand the Graphic to fit its container. `grow` takes precedence over both `width` and `height`. / grow?: boolean; /** The source of the graphic. If `svg` is provided, it will create a Base64-encoded ASCII string from a binary string (i.e., a string in which each character in the string is treated as a byte of binary data) and pass it to an image `src`. If `url` is provided, it will be rendered as an image via the `src` property. / src: { svg?: string; url?: string; }; /** The `srcset` attribute for the image. See [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#srcset) for more information. **Note:** If the `srcset` attribute uses `width` descriptors, the `sizes` attribute must also be present, or the `srcset` itself will be ignored. / srcset?: React.ImgHTMLAttributes<HTMLImageElement>['srcSet']; /** The `alt` attribute for the image. See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/alt#usage_notes) for more information. / alt?: React.ImgHTMLAttributes<HTMLImageElement>['alt']; /** The `sizes` attribute for the image. See [MDN](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/sizes) for more information. / sizes?: React.ImgHTMLAttributes<HTMLImageElement>['sizes']; } /** @deprecated `graphicStyles` will be removed in in a future version as a part of implementation of stencils and new tokens. Consider to use `graphicStencil` instead."
-        },
-        {
-          "name": "GraphicStyles",
-          "message": "Interface `GraphicStyles` will be removed in a future version. `grow` prop will be moved inside `GraphicProps`."
-        },
-        {
           "name": "resolveSize",
           "message": "If set to `true`, transform the SVG's x-axis to mirror the graphic. Use this if you want to always mirror the icon regardless of the content direction. If the SVG should mirror only when in an right-to-left language, use `shouldMirrorInRTL` instead. @default false / shouldMirror?: boolean; /** If set to `true`, transform the SVG's x-axis to mirror the graphic when the content direction is `rtl`. Icons don't have enough context to know if they should be mirrored in all cases. Setting this to `true` indicates the icon should be mirrored in right-to-left languages. @default false / shouldMirrorInRTL?: boolean; } export const svgStencil = createStencil({ vars: { /** sets width of svg element @deprecated use size instead or svg selector / width: '', /** sets height of svg element @deprecated use size instead or svg selector / height: '', /** sets width and height of svg element */ size: '', }, base: ({height, size, width}) => ({ display: 'inline-block', '> svg': { display: 'block', width: cssVar(width, size), height: cssVar(height, size), }, }), modifiers: { shouldMirror: { true: { transform: 'scaleX(-1)', }, }, shouldMirrorInRTL: { true: { '&:dir(rtl)': { transform: 'scaleX(-1)', }, }, }, }, }); /** Resolves the size of the SVG based on the size token or string / numeric (px) value. @param size - The size variant or string / numeric (px) value. @param tokens - The tokens to use to resolve the size. @returns The resolved size."
         },
@@ -739,11 +729,6 @@
           "name": "icon",
           "message": "Mapping utility for the SystemIconCircleSize enum to the systemLegacy size tokens. @deprecated Use tokens instead. Deprecated in v15.0.0. */ const sizes = { xs: system.legacy.size.xxxs, s: system.legacy.size.xs, m: system.legacy.size.sm, l: system.legacy.size.md, xl: system.legacy.size.xxl, xxl: px2rem(120), }; type SystemIconCircleCommonProps = { /** The icon to display from `@workday/canvas-system-icons-web`.",
           "source": "modules/react/icon/lib/SystemIconCircle.tsx"
-        },
-        {
-          "name": "width",
-          "message": "Interface `GraphicStyles` will be removed in a future version. `grow` prop will be moved inside `GraphicProps`. / export interface GraphicStyles { /** The width of the Graphic in `px`. The Graphic's `width` takes precedence over its `height` in order to preserve its proportions. @default width of graphic",
-          "source": "modules/react/icon/lib/Graphic.tsx"
         },
         {
           "name": "width",
