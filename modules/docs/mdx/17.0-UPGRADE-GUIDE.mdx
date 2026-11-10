@@ -1,0 +1,55 @@
+import {Meta} from '@storybook/addon-docs';
+
+<Meta title="Guides/Upgrade Guides/v17.0/Overview" />
+
+# Canvas Kit 17.0 Upgrade Guide
+
+This guide contains an overview of the changes in Canvas Kit v17. Please
+[reach out](https://github.com/Workday/canvas-kit/issues/new?labels=bug&template=bug.md) if you have
+any questions.
+
+## Table of Contents
+
+- [Removals](#removals)
+  - [hideMouseFocus](#hidemousefocus)
+
+## Removals
+
+Removals are deletions from our codebase and you can no longer consume this component. We've either
+promoted or replaced a component or utility.
+
+### hideMouseFocus
+
+The `hideMouseFocus` style object has been removed from `@workday/canvas-kit-react/common`. It was
+deprecated in v12.4 and is no longer used by any Canvas Kit component.
+
+`hideMouseFocus` relied on the `data-whatinput` attribute set by `InputProvider` to remove the focus
+ring for mouse, touch and pointer input. Browsers now handle this natively through
+[`:focus-visible`](https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible), which only
+matches when the browser decides a focus indicator should be shown (e.g. keyboard navigation). Apply
+your focus styles under `:focus-visible` instead of removing them under `:focus`.
+
+```tsx
+// v16
+import {focusRing, hideMouseFocus} from '@workday/canvas-kit-react/common';
+
+const styles = {
+  '&:focus': {
+    ...focusRing(),
+    ...hideMouseFocus,
+  },
+};
+
+// v17
+import {focusRing} from '@workday/canvas-kit-react/common';
+import {createStyles} from '@workday/canvas-kit-styling';
+
+const styles = createStyles({
+  '&:focus-visible': {
+    ...focusRing(),
+  },
+});
+```
+
+`mouseFocusBehavior` is still exported from `@workday/canvas-kit-react/common` and remains
+deprecated.
