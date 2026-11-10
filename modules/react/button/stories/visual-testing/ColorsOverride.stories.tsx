@@ -16,12 +16,17 @@ import {
 import {playCircleIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
-import {customColorTheme, withSnapshotsEnabled} from '../../../../../utils/storybook';
+import {customColorTheme} from '../../../../../utils/storybook';
 import {stateTableColumnProps} from './utils';
 
-export default withSnapshotsEnabled({
+export default {
   title: 'Testing/Buttons/Button/Color Overrides',
-});
+  parameters: {
+    chromatic: {
+      disable: false,
+    },
+  },
+};
 
 const ColorOverrideContainer = props => {
   return (
