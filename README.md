@@ -29,7 +29,7 @@ The following are supported versions of dependencies.
 
 - React: >=17.0
 - Typescript: >=5.0 (optional)
-- Emotion: ^11.7.0
+- Emotion: ^11.7.1 (installed as a dependency of the React packages)
 
 **Installation**
 
@@ -78,7 +78,7 @@ injectGlobal({
     margin: 0,
     minHeight: '100vh',
   },
-  '#root, #root < div': {
+  '#root, #root > div': {
     minHeight: '100vh',
     ...system.type.body.sm,
   },
@@ -127,6 +127,39 @@ import {CanvasProvider, sanaCanvasProviderTheme} from '@workday/canvas-kit-react
 > [Token docs](https://workday.github.io/canvas-tokens/?path=/docs/docs-getting-started--docs).
 > Theming should be global.
 
+## Repository Layout
+
+This is a Yarn workspaces monorepo; each directory in `modules/` is a published package. See
+[ARCHITECTURE.md](./ARCHITECTURE.md) for how the packages fit together.
+
+| Directory                                                | Package                                                                   |
+| -------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `modules/react`                                          | `@workday/canvas-kit-react` (stable components)                           |
+| `modules/preview-react`                                  | `@workday/canvas-kit-preview-react` (Preview components)                  |
+| `modules/labs-react`                                     | `@workday/canvas-kit-labs-react` (Labs components)                        |
+| `modules/styling`                                        | `@workday/canvas-kit-styling` (`createStyles`, `createStencil`, `cssVar`) |
+| `modules/styling-transform`                              | `@workday/canvas-kit-styling-transform` (build-time CSS extraction)       |
+| `modules/css`, `modules/preview-css`, `modules/labs-css` | Generated static CSS packages                                             |
+| `modules/popup-stack`                                    | `@workday/canvas-kit-popup-stack`                                         |
+| `modules/react-fonts`                                    | `@workday/canvas-kit-react-fonts`                                         |
+| `modules/codemod`                                        | `@workday/canvas-kit-codemod` (upgrade codemods)                          |
+| `modules/mcp`                                            | `@workday/canvas-kit-mcp` (MCP server for AI assistants)                  |
+| `modules/docs`                                           | `@workday/canvas-kit-docs` (Storybook docs and doc blocks)                |
+
+## Local Development
+
+Use Node 24 (see `.nvmrc`) and Yarn classic.
+
+```sh
+yarn              # install dependencies
+yarn start        # Storybook on http://localhost:9001
+yarn build        # build every package with Lerna
+yarn lint         # lockfile/dependency checks and ESLint
+yarn typecheck    # all TypeScript projects
+yarn test         # Vitest unit tests
+yarn cypress:run  # Cypress component tests
+```
+
 ## Reporting a Bug
 
 If you spot a bug, inconsistency, or typo, please
@@ -163,7 +196,8 @@ Canvas Kit follows [semantic versioning](https://semver.org/) and is enforced au
 [conventional commits](https://www.conventionalcommits.org/) (see
 ["Commit Message Format"](https://workday.github.io/canvas-kit/?path=/docs/guides-contributing--docs#commit-message-format)).
 
-Each module is independently versioned using [Lerna](https://github.com/lerna/lerna).
+All packages are released together at one fixed version (see `lerna.json`), managed with
+[Lerna](https://github.com/lerna/lerna).
 
 ## Version Support
 
@@ -175,8 +209,8 @@ there will be no new features added. Patch releases are automatically deployed u
 Actions.
 
 The current major version is also stable and receives new features and patch updates. Patch releases
-are automatically deployed upon merge by GitHub Actions, and minor releases are manually deployed at
-the end of each sprint.
+are automatically deployed upon merge by GitHub Actions, and minor releases are deployed by manually
+running the release workflow.
 
 The next major version is typically an unstable environment and has major breaking changes. You are
 welcome to pull this version down for local development and experimentation, but we generally
@@ -184,6 +218,7 @@ recommend against using it in production until the first stable version has been
 
 ## Developer Documentation
 
+- [Architecture](./ARCHITECTURE.md)
 - [Contributing](https://workday.github.io/canvas-kit/?path=/docs/guides-contributing--docs)
 - [Code of Conduct](https://workday.github.io/canvas-kit/?path=/docs/guides-contributing--docs#code-of-conduct)
 - Upgrade Guides:

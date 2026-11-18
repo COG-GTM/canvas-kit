@@ -1,0 +1,84 @@
+// Canvas Kit architecture (what `master` builds and ships today).
+// Edit this file, then run ./architecture/render.sh to regenerate the PNG and SVG.
+digraph canvas_kit {
+  graph [rankdir=TB, fontname="DejaVu Sans", fontsize=20, nodesep=0.4, ranksep=0.7,
+         pad=0.3, compound=true, newrank=true, label="Canvas Kit monorepo (Lerna, Yarn workspaces, fixed version per lerna.json)", labelloc=t];
+  node  [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=16, fillcolor=white, color="#5c6b7a", margin="0.2,0.1"];
+  edge  [fontname="DejaVu Sans", fontsize=13, color="#5c6b7a"];
+
+  subgraph cluster_consumers {
+    label="Consumers"; style="rounded,filled"; fillcolor="#f4f6f8"; color="#b0bac4";
+    app     [label="Consumer React app\n(CanvasProvider, components)"];
+    ai      [label="AI assistant / IDE\n(MCP client)"];
+    upgrade [label="Upgrade script run\n(npx canvas-kit-codemod v16 .)"];
+  }
+
+  subgraph cluster_components {
+    label="React component tiers"; style="rounded,filled"; fillcolor="#e8f1fb"; color="#7aa7d6";
+    labs    [label="labs-react\n(Labs: experimental)"];
+    preview [label="preview-react\n(Preview: beta)"];
+    react   [label="canvas-kit-react\n(Main: stable components,\ncommon factories, models)", fillcolor="#d4e6fa"];
+  }
+
+  subgraph cluster_foundation {
+    label="Foundations"; style="rounded,filled"; fillcolor="#eaf6ee"; color="#7cbf92";
+    styling [label="canvas-kit-styling\n(createStyles, createStencil,\ncssVar, runtime via @emotion/css)"];
+    popup   [label="canvas-kit-popup-stack\n(window.workday.__popupStack:\nEscape, outside click, z-order)"];
+    fonts   [label="react-fonts\n(@font-face from Workday CDN)"];
+  }
+
+  subgraph cluster_build {
+    label="Build-time styling"; style="rounded,filled"; fillcolor="#fdf3e3"; color="#e0b467";
+    transform [label="styling-transform\n(TypeScript transformer +\nVite / webpack plugins)"];
+    config    [label="styling.config.ts\n(prefix cnvs, extractCSS)"];
+    css       [label="css / preview-css / labs-css\n(generated static CSS packages)"];
+  }
+
+  subgraph cluster_tooling {
+    label="Tooling packages"; style="rounded,filled"; fillcolor="#f3ecfa"; color="#b294d6";
+    codemod [label="codemod\n(jscodeshift transforms v5 to v16)"];
+    mcp     [label="mcp\n(stdio MCP server; component,\ntoken, icon catalogs)"];
+    docs    [label="docs\n(Storybook doc blocks, docgen,\nMDX guides, llm/ text)"];
+  }
+
+  subgraph cluster_external {
+    label="External packages"; style="rounded,filled"; fillcolor="#f7f7f7"; color="#c4c4c4";
+    tokens  [label="@workday/canvas-tokens-web\n(CSS variables + JS tokens)"];
+    icons   [label="@workday/canvas-system-icons-web"];
+    emotion [label="Emotion"];
+  }
+
+  subgraph cluster_repo {
+    label="Repo tooling (not published)"; style="rounded,filled"; fillcolor="#f4f6f8"; color="#b0bac4";
+    storybook [label="Storybook (.storybook, :9001)"];
+    tests     [label="Vitest specs + Cypress\ncomponent tests"];
+    ci        [label="GitHub Actions\n(pull-request, publish,\nforward-merge)"];
+  }
+
+  app -> react; app -> preview; app -> labs; app -> tokens [style=dashed, label="imports CSS vars", constraint=false];
+  ai -> mcp [label="stdio"];
+  upgrade -> codemod;
+
+  labs -> react; preview -> react;
+  react -> styling; react -> popup; react -> tokens; react -> icons;
+  styling -> emotion;
+
+  config -> transform;
+  react -> transform [style=dashed, label="built with tspc +\ntransformer"];
+  transform -> css     [label="extracts CSS"];
+  transform -> styling [style=dotted, label="static parse", constraint=false];
+
+  docs -> react; docs -> preview; docs -> labs;
+  mcp -> docs [style=dashed, label="build copies llm/ + stories"];
+  codemod -> icons [style=dotted, label="peer"];
+
+
+  storybook -> docs [style=dashed, label="doc blocks"];
+  ci -> tests [style=dashed]; ci -> storybook [style=dashed, label="build-storybook"];
+  {rank=same; app; ai; upgrade; ci}
+  {rank=same; labs; preview; mcp; storybook; tests}
+  {rank=same; react; codemod; docs}
+  {rank=same; styling; popup; fonts; transform; config}
+  {rank=same; tokens; icons; emotion; css}
+  config -> transform [style=invis];
+}
