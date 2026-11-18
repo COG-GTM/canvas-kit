@@ -89,10 +89,12 @@ referencing CSS variables from `@workday/canvas-tokens-web`. The same source wor
 
 1. **Runtime.** Without a build step, `createStyles` serializes style objects and inserts them
    through `@emotion/css` into the shared cache.
-2. **Build-time.** Package builds (`tspc` with `.storybook/typescript-transform.ts`) and Storybook
-   run `styling-transform`. It evaluates the style objects statically, replaces each call with
+2. **Build-time.** Package builds (`tspc` with `.storybook/typescript-transform.ts`) run
+   `styling-transform`. It evaluates the style objects statically, replaces each call with
    precomputed class names and CSS strings, and, because `extractCSS` is on in `styling.config.ts`,
    writes the CSS for `modules/<tier>-react/<component>` to `modules/<tier>-css/<component>.css`.
+   Storybook (`.storybook/main.ts`) runs the same transformer through Vite with `extractCSS: false`,
+   so it does not write the CSS packages.
 
 Each React package is compiled twice, to CommonJS (`dist/commonjs`) and ES modules (`dist/es6`).
 
