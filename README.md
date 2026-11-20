@@ -36,14 +36,18 @@ The following are supported versions of dependencies.
 To get started using Canvas kit React first add or install the module to your existing React project
 
 ```sh
-yarn add @workday/canvas-kit-react @workday/canvas-tokens-web
+yarn add @workday/canvas-kit-react @workday/canvas-tokens-web@^4.4.0
 ```
 
 or
 
 ```sh
-npm install @workday/canvas-kit-react @workday/canvas-tokens-web
+npm install @workday/canvas-kit-react @workday/canvas-tokens-web@^4.4.0
 ```
+
+> **Note:** Canvas Kit v16 depends on `@workday/canvas-tokens-web` `^4.4.0`. Installing the token
+> package without a version pulls the latest major (v5), which drops tokens Canvas Kit v16 uses (for
+> example `system.legacy` and the `--cnvs-brand-primary-*` CSS variables).
 
 **Fonts**
 
@@ -54,7 +58,7 @@ Canvas theme enabled.
 
 **Usage**
 
-Update your root `index.js` file to import Canvas Kit's design tokens.
+Update your root `index.tsx` file to import Canvas Kit's design tokens.
 
 ```jsx
 import {createRoot} from 'react-dom/client';
@@ -89,13 +93,16 @@ const root = createRoot(container);
 root.render(<App />);
 ```
 
+If your project uses JavaScript (`index.jsx`), drop the TypeScript non-null assertion (`!`) after
+`document.getElementById('root')`.
+
 Set `data-theme="sana-canvas"` on `<html>` in your `index.html`:
 
 ```html
 <html lang="en" data-theme="sana-canvas"></html>
 ```
 
-Then in your `App.js` you can wrap your application with `CanvasProvider`.
+Then in your `App.tsx` you can wrap your application with `CanvasProvider`.
 
 ```jsx
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
